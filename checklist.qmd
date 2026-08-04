@@ -1,0 +1,102 @@
+---
+title: "Federated Study Readiness Checklist"
+pagetitle: "Readiness Checklist"
+---
+
+<div class="page-header">
+<p>A practical pre-meeting checklist for medical AI projects where data movement is constrained.</p>
+</div>
+
+<div class="print-actions">
+<a class="button-link" href="downloads/federated-study-readiness-checklist.pdf">Download PDF</a>
+<button type="button" class="secondary" onclick="window.print()">Print Page</button>
+<button type="button" class="secondary" id="copy-open-items">Copy Open Items</button>
+</div>
+
+<div class="panel">
+<h2>Progress</h2>
+<progress id="check-progress" max="24" value="0"></progress>
+<p id="check-progress-label" aria-live="polite">0 of 24 readiness checks completed.</p>
+</div>
+
+<form id="readiness-checklist" class="checklist-grid">
+<section class="check-section">
+<h3>1. Clinical Question</h3>
+<label class="option"><input type="checkbox"> Target population, intended use, and decision context are explicit.</label>
+<label class="option"><input type="checkbox"> The outcome is clinically meaningful and measured similarly across sites.</label>
+<label class="option"><input type="checkbox"> The project needs multicentre evidence rather than local-only modelling.</label>
+<label class="option"><input type="checkbox"> A non-FL baseline is defined.</label>
+</section>
+
+<section class="check-section">
+<h3>2. Data Movement</h3>
+<label class="option"><input type="checkbox"> Patient-level centralization was evaluated and documented.</label>
+<label class="option"><input type="checkbox"> The reason data cannot move is concrete: legal, contractual, technical, or trust-based.</label>
+<label class="option"><input type="checkbox"> Permitted outputs are specified: model updates, metrics, aggregates, logs.</label>
+<label class="option"><input type="checkbox"> Minimum cell-size and disclosure rules are written for analytics and reporting.</label>
+</section>
+
+<section class="check-section">
+<h3>3. Harmonization</h3>
+<label class="option"><input type="checkbox"> Cohort definitions and exclusions are site-tested.</label>
+<label class="option"><input type="checkbox"> Data dictionary, label protocol, and preprocessing are versioned.</label>
+<label class="option"><input type="checkbox"> Missingness and timing are profiled by site.</label>
+<label class="option"><input type="checkbox"> Annotation quality control is planned where labels are human-produced.</label>
+</section>
+
+<section class="check-section">
+<h3>4. Evaluation</h3>
+<label class="option"><input type="checkbox"> Per-site, worst-site, subgroup, and global metrics are specified.</label>
+<label class="option"><input type="checkbox"> Calibration and clinical utility are included, not only discrimination.</label>
+<label class="option"><input type="checkbox"> External validation outside the federation is considered.</label>
+<label class="option"><input type="checkbox"> Failure criteria and stop rules are defined.</label>
+</section>
+
+<section class="check-section">
+<h3>5. Privacy And Security</h3>
+<label class="option"><input type="checkbox"> A threat model covers honest-but-curious, compromised, and malicious participants.</label>
+<label class="option"><input type="checkbox"> Secure transport, authentication, authorization, and audit logging are assigned.</label>
+<label class="option"><input type="checkbox"> Secure aggregation or differential privacy is justified when used.</label>
+<label class="option"><input type="checkbox"> Update review, poisoning detection, and incident response are included.</label>
+</section>
+
+<section class="check-section">
+<h3>6. Operations And Governance</h3>
+<label class="option"><input type="checkbox"> Each site has a named clinical, technical, and governance owner.</label>
+<label class="option"><input type="checkbox"> Ethics, data-protection, contracts, authorship, and model ownership are documented.</label>
+<label class="option"><input type="checkbox"> Compute, container runtime, network policy, and support path are tested.</label>
+<label class="option"><input type="checkbox"> Maintenance, withdrawal, deletion, and publication plans are agreed.</label>
+</section>
+</form>
+
+<section class="panel">
+<h2>Red Flags</h2>
+<p>Pause the FL plan if the clinical question is unclear, definitions differ across sites, the governance problem is being handed to the algorithm, or the only privacy statement is "the data stay local."</p>
+</section>
+
+<script>
+const checklist = document.getElementById("readiness-checklist");
+const boxes = Array.from(checklist.querySelectorAll("input[type='checkbox']"));
+const progress = document.getElementById("check-progress");
+const label = document.getElementById("check-progress-label");
+const copyOpen = document.getElementById("copy-open-items");
+
+function updateProgress() {
+  const done = boxes.filter((box) => box.checked).length;
+  progress.value = done;
+  label.textContent = `${done} of ${boxes.length} readiness checks completed.`;
+}
+
+boxes.forEach((box) => box.addEventListener("change", updateProgress));
+updateProgress();
+
+copyOpen.addEventListener("click", async () => {
+  const open = boxes
+    .filter((box) => !box.checked)
+    .map((box) => `- ${box.parentElement.textContent.trim()}`)
+    .join("\n");
+  await navigator.clipboard.writeText(open || "All readiness checks are complete.");
+  copyOpen.textContent = "Copied";
+  setTimeout(() => (copyOpen.textContent = "Copy Open Items"), 1200);
+});
+</script>

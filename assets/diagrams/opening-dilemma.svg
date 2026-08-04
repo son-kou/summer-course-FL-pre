@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Four hospitals facing a multicentre modelling dilemma</title>
+  <desc id="desc">Four hospital nodes with different constraints surround a central clinical question.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f4ee}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.coral{fill:#c85446}.amber{fill:#d99a2b}.card{fill:#fff;stroke:#d8e0e4;stroke-width:3}.line{fill:none;stroke:#9fb6bd;stroke-width:5;stroke-linecap:round}.dash{stroke-dasharray:12 14}.t1{font:800 34px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.t2{font:700 25px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.t3{font:500 22px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.t4{font:800 42px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="760"/>
+  <circle cx="700" cy="380" r="145" fill="#d6ece9" stroke="#0c6b6f" stroke-width="5"/>
+  <text class="t4 ink" x="700" y="344" text-anchor="middle">One useful</text>
+  <text class="t4 ink" x="700" y="396" text-anchor="middle">clinical model?</text>
+  <text class="t3 muted" x="700" y="442" text-anchor="middle">Same question, different data realities</text>
+  <line class="line" x1="578" y1="300" x2="398" y2="193"/>
+  <line class="line" x1="822" y1="300" x2="1002" y2="193"/>
+  <line class="line dash" x1="578" y1="460" x2="398" y2="567"/>
+  <line class="line dash" x1="822" y1="460" x2="1002" y2="567"/>
+  <g transform="translate(110 95)">
+    <rect class="card" width="310" height="170" rx="8"/>
+    <path class="teal" d="M45 118V73h40v45h32V52h42v66h32V82h42v36h34v22H25v-22z"/>
+    <text class="t1 ink" x="25" y="43">Hospital A</text>
+    <text class="t2 muted" x="25" y="147">300 patients</text>
+  </g>
+  <g transform="translate(980 95)">
+    <rect class="card" width="310" height="170" rx="8"/>
+    <path class="amber" d="M45 118V73h40v45h32V52h42v66h32V82h42v36h34v22H25v-22z"/>
+    <text class="t1 ink" x="25" y="43">Hospital B</text>
+    <text class="t2 muted" x="25" y="147">100 patients</text>
+  </g>
+  <g transform="translate(110 495)">
+    <rect class="card" width="310" height="170" rx="8"/>
+    <path class="coral" d="M45 118V73h40v45h32V52h42v66h32V82h42v36h34v22H25v-22z"/>
+    <text class="t1 ink" x="25" y="43">Hospital C</text>
+    <text class="t2 muted" x="25" y="147">Different scanner</text>
+  </g>
+  <g transform="translate(980 495)">
+    <rect class="card" width="310" height="170" rx="8"/>
+    <path class="teal" opacity=".75" d="M45 118V73h40v45h32V52h42v66h32V82h42v36h34v22H25v-22z"/>
+    <text class="t1 ink" x="25" y="43">Hospital D</text>
+    <text class="t2 muted" x="25" y="147">Data cannot export</text>
+  </g>
+</svg>

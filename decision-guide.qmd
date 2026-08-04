@@ -1,0 +1,182 @@
+---
+title: "Federated Study Decision Guide"
+pagetitle: "Decision Guide"
+---
+
+<div class="page-header">
+<p>Use this before the first technical design meeting. It separates the scientific need from the temptation to choose federated learning because it sounds modern.</p>
+</div>
+
+<div class="guide-grid">
+<section class="panel">
+<h2>Project Inputs</h2>
+
+<form id="decision-form">
+<div class="question">
+<strong>1. Can patient-level data be centralized in a secure research environment?</strong>
+<label class="option"><input type="radio" name="centralize" value="yes"> Yes, legally and practically.</label>
+<label class="option"><input type="radio" name="centralize" value="no"> No, a real constraint blocks movement.</label>
+<label class="option"><input type="radio" name="centralize" value="unknown"> Unknown or not yet tested.</label>
+</div>
+
+<div class="question">
+<strong>2. What is the main scientific task?</strong>
+<label class="option"><input type="radio" name="task" value="train"> Train a new model across sites.</label>
+<label class="option"><input type="radio" name="task" value="evaluate"> Evaluate an existing model at external sites.</label>
+<label class="option"><input type="radio" name="task" value="analytics"> Estimate aggregate counts, rates, or summaries.</label>
+<label class="option"><input type="radio" name="task" value="local"> Support local-only models or local quality improvement.</label>
+</div>
+
+<div class="question">
+<strong>3. Are variables, labels, timing, and outcomes aligned?</strong>
+<label class="option"><input type="radio" name="alignment" value="aligned"> Yes, with a shared data dictionary and label protocol.</label>
+<label class="option"><input type="radio" name="alignment" value="partial"> Partly; harmonization work remains.</label>
+<label class="option"><input type="radio" name="alignment" value="not-aligned"> No; definitions differ across sites.</label>
+</div>
+
+<div class="question">
+<strong>4. What does the collaboration already have?</strong>
+<label class="option"><input type="checkbox" name="ready" value="sites"> Committed sites with named owners.</label>
+<label class="option"><input type="checkbox" name="ready" value="threat"> A written privacy and security threat model.</label>
+<label class="option"><input type="checkbox" name="ready" value="infra"> Compute, networking, logging, and update review.</label>
+<label class="option"><input type="checkbox" name="ready" value="evaluation"> Site-level and subgroup evaluation plan.</label>
+</div>
+
+<div class="question">
+<strong>5. What is the largest unresolved risk?</strong>
+<select id="risk" name="risk">
+<option value="governance">Governance, approvals, contracts, or ownership</option>
+<option value="heterogeneity">Heterogeneity, labels, missingness, or calibration</option>
+<option value="privacy">Privacy leakage, malicious updates, or operational metadata</option>
+<option value="operations">Infrastructure, deployment, monitoring, or maintenance</option>
+<option value="unclear">The scientific question is still unclear</option>
+</select>
+</div>
+
+<div class="button-row">
+<button type="button" id="make-recommendation">Recommend Design</button>
+<button type="reset" class="secondary" id="reset-guide">Reset</button>
+<button type="button" class="secondary" id="copy-guide">Copy Summary</button>
+</div>
+</form>
+</section>
+
+<section class="panel">
+<h2>Recommendation</h2>
+<div id="decision-result" class="result-box" aria-live="polite">
+Choose the inputs and generate a recommendation.
+</div>
+
+<h2>Design Menu</h2>
+<div class="resource-grid">
+<div class="resource-card"><h3>Centralized Analysis</h3><p>Usually easiest to audit, debug, and validate when lawful centralization is available.</p></div>
+<div class="resource-card"><h3>Federated Learning</h3><p>Best reserved for multicentre model training where raw data cannot move and shared training is scientifically necessary.</p></div>
+<div class="resource-card"><h3>Federated Evaluation</h3><p>Appropriate when a finished model must be tested at sites that cannot export patient-level data.</p></div>
+<div class="resource-card"><h3>Federated Analytics</h3><p>Often enough for counts, rates, feasibility checks, and distributed descriptive analyses.</p></div>
+</div>
+</section>
+</div>
+
+<script>
+const guideForm = document.getElementById("decision-form");
+const resultBox = document.getElementById("decision-result");
+const button = document.getElementById("make-recommendation");
+const copyButton = document.getElementById("copy-guide");
+
+function checkedValue(name) {
+  const field = guideForm.querySelector(`[name="${name}"]:checked`);
+  return field ? field.value : "";
+}
+
+function checkedList(name) {
+  return Array.from(guideForm.querySelectorAll(`[name="${name}"]:checked`)).map((item) => item.value);
+}
+
+function labelForReady(value) {
+  return {
+    sites: "site owners",
+    threat: "threat model",
+    infra: "infrastructure",
+    evaluation: "evaluation plan"
+  }[value] || value;
+}
+
+function renderRecommendation() {
+  const centralize = checkedValue("centralize");
+  const task = checkedValue("task");
+  const alignment = checkedValue("alignment");
+  const ready = checkedList("ready");
+  const risk = document.getElementById("risk").value;
+
+  if (!centralize || !task || !alignment) {
+    resultBox.innerHTML = `<strong>Discovery first.</strong><p>Answer the data movement, task, and alignment questions before choosing an architecture.</p>`;
+    return;
+  }
+
+  let title = "Discovery sprint before architecture";
+  let why = "The project has unresolved design information that can change the method choice.";
+  let next = "Run a two-week feasibility sprint: legal route, data dictionary, one test extract, and a draft evaluation table.";
+
+  if (centralize === "yes" && task === "train") {
+    title = "Start with centralized analysis";
+    why = "If lawful centralization is available, it is usually simpler to debug, monitor, and validate than FL.";
+    next = "Document why centralization is acceptable, then compare against a local-only baseline and a site-held-out validation plan.";
+  } else if (task === "evaluate") {
+    title = "Federated evaluation";
+    why = "The model already exists, so the scientific need is external validation rather than distributed training.";
+    next = "Prepare a containerized model, locked preprocessing, per-site metrics, and calibration and subgroup reports.";
+  } else if (task === "analytics") {
+    title = "Federated analytics";
+    why = "Aggregate statistics do not require the cost and attack surface of distributed model training.";
+    next = "Define the aggregate query, disclosure controls, minimum cell-size rules, and audit log.";
+  } else if (task === "local") {
+    title = "Local-only or hybrid design";
+    why = "If the goal is local improvement, shared governance may not justify shared training.";
+    next = "Use a common protocol and compare local models with local validation and optional federated benchmarking.";
+  } else if (centralize === "no" && task === "train" && alignment === "aligned" && ready.length >= 3) {
+    title = "Federated learning candidate";
+    why = "The data cannot move, the task needs shared model training, definitions are aligned, and enough operational pieces exist.";
+    next = "Draft the federation protocol: threat model, aggregation method, site weighting, update review, and failure handling.";
+  } else if (centralize === "no" && task === "train" && alignment !== "aligned") {
+    title = "Harmonize before FL";
+    why = "FL will move gradients or model updates, but it will not make labels, timestamps, outcomes, or missingness comparable.";
+    next = "Freeze the cohort definition, data dictionary, label protocol, preprocessing, and per-site quality checks before training.";
+  } else if (centralize === "unknown") {
+    title = "Do not choose FL yet";
+    why = "Unknown data-movement constraints often produce unnecessary technical complexity.";
+    next = "Ask legal, ethics, data-protection, and IT teams for a written answer on centralization and remote execution.";
+  }
+
+  const missing = ["sites", "threat", "infra", "evaluation"].filter((item) => !ready.includes(item));
+  const riskText = {
+    governance: "Resolve governance and responsibility before protocol lock.",
+    heterogeneity: "Prioritize site-level data profiling and worst-site performance.",
+    privacy: "Write the threat model and select defences before training.",
+    operations: "Prove the operational loop with a dry run before research training.",
+    unclear: "Clarify the clinical decision, target population, and intended use."
+  }[risk];
+
+  resultBox.dataset.summary = `${title}. ${why} Next: ${next} Main risk: ${riskText}`;
+  resultBox.innerHTML = `
+    <span class="badge">${title}</span>
+    <p><strong>Why:</strong> ${why}</p>
+    <p><strong>Next action:</strong> ${next}</p>
+    <p><strong>Risk focus:</strong> ${riskText}</p>
+    ${missing.length ? `<p><strong>Missing readiness items:</strong> ${missing.map(labelForReady).join(", ")}.</p>` : `<p><strong>Readiness:</strong> All listed readiness items are checked.</p>`}
+  `;
+}
+
+button.addEventListener("click", renderRecommendation);
+guideForm.addEventListener("reset", () => {
+  setTimeout(() => {
+    resultBox.removeAttribute("data-summary");
+    resultBox.textContent = "Choose the inputs and generate a recommendation.";
+  }, 0);
+});
+copyButton.addEventListener("click", async () => {
+  const summary = resultBox.dataset.summary || resultBox.textContent.trim();
+  await navigator.clipboard.writeText(summary);
+  copyButton.textContent = "Copied";
+  setTimeout(() => (copyButton.textContent = "Copy Summary"), 1200);
+});
+</script>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Multimodal federation across clinical data types</title>
+  <desc id="desc">Hospitals hold combinations of EHR, imaging, laboratory, vital sign, biomarker, and outcome data while only model updates move.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#0c6b6f"/></marker>
+    <style>
+      .bg{fill:#f7f4ee}.site{fill:#fff;stroke:#d8e0e4;stroke-width:3}.hub{fill:#d6ece9;stroke:#0c6b6f;stroke-width:5}.line{fill:none;stroke:#0c6b6f;stroke-width:5;marker-end:url(#arrow)}.dash{stroke-dasharray:11 12}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.coral{fill:#c85446}.amber{fill:#d99a2b}.h{font:800 34px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.p{font:700 22px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.s{font:600 17px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="760"/>
+  <circle class="hub" cx="700" cy="380" r="105"/>
+  <text class="h ink" x="700" y="366" text-anchor="middle">Shared</text>
+  <text class="h ink" x="700" y="408" text-anchor="middle">question</text>
+  <text class="s muted" x="700" y="444" text-anchor="middle">oxygen need, outcome, risk</text>
+  <g transform="translate(95 105)"><rect class="site" width="340" height="190" rx="8"/><text class="h ink" x="26" y="45">Site A</text><rect x="26" y="74" width="80" height="38" rx="5" fill="#d6ece9"/><text class="s ink" x="66" y="99" text-anchor="middle">EHR</text><rect x="118" y="74" width="92" height="38" rx="5" fill="#fff1cf"/><text class="s ink" x="164" y="99" text-anchor="middle">labs</text><rect x="222" y="74" width="88" height="38" rx="5" fill="#f6ddd9"/><text class="s ink" x="266" y="99" text-anchor="middle">CXR</text><text class="p muted" x="26" y="153">structured + image</text></g>
+  <g transform="translate(965 105)"><rect class="site" width="340" height="190" rx="8"/><text class="h ink" x="26" y="45">Site B</text><rect x="26" y="74" width="92" height="38" rx="5" fill="#fff1cf"/><text class="s ink" x="72" y="99" text-anchor="middle">vitals</text><rect x="130" y="74" width="88" height="38" rx="5" fill="#f6ddd9"/><text class="s ink" x="174" y="99" text-anchor="middle">CXR</text><rect x="230" y="74" width="80" height="38" rx="5" fill="#d6ece9"/><text class="s ink" x="270" y="99" text-anchor="middle">EHR</text><text class="p muted" x="26" y="153">different completeness</text></g>
+  <g transform="translate(95 475)"><rect class="site" width="340" height="190" rx="8"/><text class="h ink" x="26" y="45">Site C</text><rect x="26" y="74" width="116" height="38" rx="5" fill="#d6ece9"/><text class="s ink" x="84" y="99" text-anchor="middle">biomarkers</text><rect x="154" y="74" width="104" height="38" rx="5" fill="#fff1cf"/><text class="s ink" x="206" y="99" text-anchor="middle">outcome</text><text class="p muted" x="26" y="153">different modalities</text></g>
+  <g transform="translate(965 475)"><rect class="site" width="340" height="190" rx="8"/><text class="h ink" x="26" y="45">Site D</text><rect x="26" y="74" width="92" height="38" rx="5" fill="#f6ddd9"/><text class="s ink" x="72" y="99" text-anchor="middle">image</text><rect x="130" y="74" width="92" height="38" rx="5" fill="#d6ece9"/><text class="s ink" x="176" y="99" text-anchor="middle">labels</text><rect x="234" y="74" width="76" height="38" rx="5" fill="#fff1cf"/><text class="s ink" x="272" y="99" text-anchor="middle">age</text><text class="p muted" x="26" y="153">different protocol</text></g>
+  <line class="line dash" x1="445" y1="200" x2="600" y2="315"/><line class="line dash" x1="955" y1="200" x2="800" y2="315"/><line class="line dash" x1="445" y1="570" x2="600" y2="445"/><line class="line dash" x1="955" y1="570" x2="800" y2="445"/>
+</svg>

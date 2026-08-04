@@ -1,0 +1,28 @@
+@page {
+  size: A4;
+  margin: 16mm;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #172033;
+}
+
+h1,
+h2,
+h3 {
+  color: #10243f;
+}
+
+.check-item {
+  margin: 0.25rem 0;
+}
+
+.check-box {
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1.5px solid #10243f;
+  margin-right: 0.35rem;
+  vertical-align: -0.1rem;
+}

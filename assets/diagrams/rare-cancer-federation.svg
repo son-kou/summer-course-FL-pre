@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Rare brain cancer federation</title>
+  <desc id="desc">A world map-inspired network showing 71 sites, six continents, and 6314 patients connected for glioblastoma boundary delineation.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f4ee}.land{fill:#e1e6e8}.line{fill:none;stroke:#0c6b6f;stroke-width:3;opacity:.45}.node{fill:#c85446;stroke:#fff;stroke-width:3}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.card{fill:#fff;stroke:#d8e0e4;stroke-width:3}.h{font:900 44px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.p{font:700 24px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.s{font:500 20px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.big{font:900 58px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="760"/>
+  <path class="land" d="M160 235c70-65 185-58 240-25 48 30 88 12 140 38 60 30 50 86-25 90-62 3-112-21-184-3-85 22-162-5-198-54-16-22-8-34 27-46z"/>
+  <path class="land" d="M560 198c85-40 172-26 226 21 45 39 37 88-28 99-72 12-115-22-187-1-67 20-116-8-126-49-8-32 37-57 115-70z"/>
+  <path class="land" d="M875 260c82-66 214-56 283-5 53 40 38 98-32 104-56 5-97-16-151-3-77 19-139-4-166-45-15-23 4-34 66-51z"/>
+  <path class="land" d="M930 445c53-21 102-2 126 31 32 44-4 90-66 82-50-6-88-58-73-93 3-8 7-14 13-20z"/>
+  <path class="land" d="M265 475c73-42 145-26 181 18 32 39 8 82-55 86-58 4-118-26-144-66-11-17-5-29 18-38z"/>
+  <circle class="teal" cx="705" cy="375" r="74" opacity=".16"/>
+  <text class="big teal" x="705" y="360" text-anchor="middle">71</text>
+  <text class="p ink" x="705" y="400" text-anchor="middle">sites</text>
+  <g>
+    <line class="line" x1="705" y1="375" x2="275" y2="245"/><line class="line" x1="705" y1="375" x2="390" y2="314"/><line class="line" x1="705" y1="375" x2="575" y2="250"/><line class="line" x1="705" y1="375" x2="768" y2="298"/><line class="line" x1="705" y1="375" x2="1000" y2="305"/><line class="line" x1="705" y1="375" x2="1110" y2="297"/><line class="line" x1="705" y1="375" x2="348" y2="530"/><line class="line" x1="705" y1="375" x2="989" y2="505"/>
+    <circle class="node" cx="275" cy="245" r="12"/><circle class="node" cx="390" cy="314" r="10"/><circle class="node" cx="575" cy="250" r="11"/><circle class="node" cx="768" cy="298" r="10"/><circle class="node" cx="1000" cy="305" r="12"/><circle class="node" cx="1110" cy="297" r="10"/><circle class="node" cx="348" cy="530" r="11"/><circle class="node" cx="989" cy="505" r="12"/>
+  </g>
+  <g transform="translate(70 55)">
+    <rect class="card" width="420" height="135" rx="8"/>
+    <text class="h ink" x="25" y="57">Rare disease</text>
+    <text class="s muted" x="25" y="95">No single institution can easily cover</text>
+    <text class="s muted" x="25" y="121">the needed diversity and volume.</text>
+  </g>
+  <g transform="translate(960 555)">
+    <rect class="card" width="340" height="130" rx="8"/>
+    <text class="big teal" x="28" y="62">6,314</text>
+    <text class="p ink" x="30" y="98">patients</text>
+    <text class="s muted" x="30" y="122">6 continents</text>
+  </g>
+</svg>

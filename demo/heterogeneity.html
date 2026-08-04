@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Federated Learning Heterogeneity Demo</title>
+  <link rel="stylesheet" href="heterogeneity.css">
+</head>
+<body>
+  <header class="demo-header">
+    <a href="../index.html" class="back-link">Slides</a>
+    <h1>Heterogeneity Demo</h1>
+    <p>Change the collaboration and watch the global model hide or reveal site-level problems.</p>
+  </header>
+
+  <main class="demo-shell">
+    <section class="controls" aria-label="Simulation controls">
+      <label>
+        Heterogeneity
+        <input id="heterogeneity" type="range" min="0" max="100" value="55">
+      </label>
+      <label>
+        Site imbalance
+        <input id="imbalance" type="range" min="0" max="100" value="60">
+      </label>
+      <label>
+        Privacy noise
+        <input id="privacy" type="range" min="0" max="60" value="12">
+      </label>
+      <label>
+        Strategy
+        <select id="strategy">
+          <option value="fedavg">FedAvg-style global model</option>
+          <option value="fedprox">Regularized global model</option>
+          <option value="personalized">Personalized heads</option>
+          <option value="harmonize">Harmonize before training</option>
+        </select>
+      </label>
+      <div class="button-row">
+        <button id="randomize" type="button">Randomize Sites</button>
+        <button id="reset" type="button" class="secondary">Reset</button>
+        <button id="copy" type="button" class="secondary">Copy Summary</button>
+      </div>
+    </section>
+
+    <section class="chart-panel" aria-label="Site performance chart">
+      <svg id="chart" class="chart-svg" viewBox="0 0 920 470" role="img" aria-labelledby="chart-title chart-desc">
+        <title id="chart-title">AUROC by site</title>
+        <desc id="chart-desc">Bar chart comparing site-level and global model performance.</desc>
+      </svg>
+      <div id="takeaway" class="takeaway" aria-live="polite"></div>
+    </section>
+
+    <section class="site-grid" id="sites" aria-label="Hospital summaries"></section>
+  </main>
+
+  <script src="heterogeneity.js"></script>
+</body>
+</html>

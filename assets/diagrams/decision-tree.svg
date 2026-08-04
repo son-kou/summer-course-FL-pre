@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 820" role="img" aria-labelledby="title desc">
+  <title id="title">Decision tree for choosing a federated method</title>
+  <desc id="desc">If data can be centralized, prefer a simpler centralized design. If not, choose training, evaluation, or analytics according to the research need, with harmonization and governance as prerequisites.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#0c6b6f"/></marker>
+    <style>
+      .bg{fill:#f7f4ee}.node{fill:#fff;stroke:#d8e0e4;stroke-width:3}.choice{fill:#d6ece9;stroke:#0c6b6f;stroke-width:4}.warn{fill:#fff1cf;stroke:#d99a2b;stroke-width:4}.line{fill:none;stroke:#0c6b6f;stroke-width:4;marker-end:url(#arrow)}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.coral{fill:#c85446}.h{font:900 36px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.p{font:800 22px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.s{font:600 18px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1500" height="820"/>
+  <rect class="choice" x="470" y="45" width="560" height="90" rx="8"/>
+  <text class="h ink" x="750" y="88" text-anchor="middle">Can data be centralized?</text>
+  <text class="s muted" x="750" y="116" text-anchor="middle">legally, practically, and scientifically</text>
+  <line class="line" x1="600" y1="135" x2="350" y2="225"/><line class="line" x1="900" y1="135" x2="1150" y2="225"/>
+  <rect class="warn" x="100" y="225" width="500" height="105" rx="8"/>
+  <text class="p ink" x="350" y="267" text-anchor="middle">Yes</text><text class="s ink" x="350" y="299" text-anchor="middle">Prefer centralized unless another constraint exists</text>
+  <rect class="node" x="900" y="225" width="500" height="105" rx="8"/>
+  <text class="p ink" x="1150" y="267" text-anchor="middle">No</text><text class="s ink" x="1150" y="299" text-anchor="middle">First check harmonization and governance</text>
+  <line class="line" x1="1150" y1="330" x2="1150" y2="405"/>
+  <rect class="choice" x="900" y="405" width="500" height="90" rx="8"/>
+  <text class="p ink" x="1150" y="445" text-anchor="middle">What do you need?</text>
+  <text class="s muted" x="1150" y="472" text-anchor="middle">new model, validation, or statistics</text>
+  <line class="line" x1="1025" y1="495" x2="735" y2="590"/><line class="line" x1="1150" y1="495" x2="1150" y2="590"/><line class="line" x1="1275" y1="495" x2="1565" y2="590" transform="translate(-250 0)"/>
+  <rect class="node" x="480" y="590" width="320" height="105" rx="8"/>
+  <text class="p teal" x="640" y="635" text-anchor="middle">Train shared model</text><text class="s ink" x="640" y="666" text-anchor="middle">consider FL</text>
+  <rect class="node" x="990" y="590" width="320" height="105" rx="8"/>
+  <text class="p teal" x="1150" y="635" text-anchor="middle">Validate model</text><text class="s ink" x="1150" y="666" text-anchor="middle">federated evaluation</text>
+  <rect class="node" x="700" y="705" width="380" height="80" rx="8"/>
+  <text class="p teal" x="890" y="752" text-anchor="middle">Counts or summaries: analytics</text>
+</svg>

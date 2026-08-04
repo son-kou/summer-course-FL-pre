@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">What stays local and what may move in federated learning</title>
+  <desc id="desc">Raw medical images, EHR records, identifiers and labels stay local; model parameters, updates, metrics, counts, logs, metadata and final model may move.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#c85446"/></marker>
+    <style>
+      .bg{fill:#f7f4ee}.card{fill:#fff;stroke:#d8e0e4;stroke-width:3}.safe{fill:#d6ece9;stroke:#0c6b6f;stroke-width:3}.move{fill:#f6ddd9;stroke:#c85446;stroke-width:3}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.coral{fill:#c85446}.line{fill:none;stroke:#c85446;stroke-width:5;marker-end:url(#arrow)}.h{font:900 40px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.p{font:800 25px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.s{font:600 19px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="760"/>
+  <text class="h ink" x="700" y="75" text-anchor="middle">Federated learning is not automatic privacy</text>
+  <g transform="translate(90 135)">
+    <rect class="card" width="520" height="500" rx="8"/>
+    <text class="p teal" x="35" y="55">Stays local</text>
+    <rect class="safe" x="35" y="95" width="430" height="55" rx="7"/><text class="s ink" x="60" y="130">raw medical images</text>
+    <rect class="safe" x="35" y="170" width="430" height="55" rx="7"/><text class="s ink" x="60" y="205">patient-level EHR records</text>
+    <rect class="safe" x="35" y="245" width="430" height="55" rx="7"/><text class="s ink" x="60" y="280">direct identifiers</text>
+    <rect class="safe" x="35" y="320" width="430" height="55" rx="7"/><text class="s ink" x="60" y="355">local labels and notes</text>
+    <text class="s muted" x="35" y="438">Local does not mean invisible to risk.</text>
+  </g>
+  <g transform="translate(790 135)">
+    <rect class="card" width="520" height="500" rx="8"/>
+    <text class="p coral" x="35" y="55">May move</text>
+    <rect class="move" x="35" y="95" width="430" height="48" rx="7"/><text class="s ink" x="60" y="126">model parameters</text>
+    <rect class="move" x="35" y="156" width="430" height="48" rx="7"/><text class="s ink" x="60" y="187">gradients or updates</text>
+    <rect class="move" x="35" y="217" width="430" height="48" rx="7"/><text class="s ink" x="60" y="248">local metrics and counts</text>
+    <rect class="move" x="35" y="278" width="430" height="48" rx="7"/><text class="s ink" x="60" y="309">logs and metadata</text>
+    <rect class="move" x="35" y="339" width="430" height="48" rx="7"/><text class="s ink" x="60" y="370">the final model</text>
+    <text class="s muted" x="35" y="438">Ask for a threat model.</text>
+  </g>
+  <line class="line" x1="610" y1="375" x2="790" y2="375"/>
+</svg>

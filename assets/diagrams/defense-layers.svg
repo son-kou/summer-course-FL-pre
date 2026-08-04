@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Defence in depth for federated medical AI</title>
+  <desc id="desc">Layered protections include governance, access control, authenticated participants, encrypted transport, secure aggregation, differential privacy, logging, and incident response.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f4ee}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.coral{fill:#c85446}.amber{fill:#d99a2b}.layer{fill:#fff;stroke:#d8e0e4;stroke-width:3}.h{font:900 42px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.p{font:800 25px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.s{font:600 18px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="760"/>
+  <text class="h ink" x="90" y="80">Defence in depth</text>
+  <text class="s muted" x="90" y="116">No single technical layer answers every privacy, security, or governance question.</text>
+  <g transform="translate(170 170)">
+    <rect class="layer" x="0" y="0" width="1060" height="430" rx="18"/>
+    <rect x="65" y="55" width="930" height="330" rx="18" fill="#d6ece9" stroke="#0c6b6f" stroke-width="4"/>
+    <rect x="140" y="105" width="780" height="230" rx="18" fill="#fff1cf" stroke="#d99a2b" stroke-width="4"/>
+    <rect x="225" y="155" width="610" height="130" rx="18" fill="#f6ddd9" stroke="#c85446" stroke-width="4"/>
+    <circle cx="530" cy="220" r="54" fill="#10243f"/>
+    <text class="p" x="530" y="228" text-anchor="middle" fill="#fff">model</text>
+    <text class="s ink" x="530" y="36" text-anchor="middle">Governance, contracts, lawful basis</text>
+    <text class="s ink" x="530" y="88" text-anchor="middle">Access control, roles, audit trails</text>
+    <text class="s ink" x="530" y="139" text-anchor="middle">Authenticated participants, encrypted transport</text>
+    <text class="s ink" x="530" y="318" text-anchor="middle">Secure aggregation, differential privacy where appropriate</text>
+    <text class="s ink" x="530" y="370" text-anchor="middle">Monitoring, logging, incident response, withdrawal plans</text>
+  </g>
+  <text class="p coral" x="700" y="680" text-anchor="middle">"Privacy-preserving" is a claim to examine, not a label to accept.</text>
+</svg>

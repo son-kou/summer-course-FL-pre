@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">The algorithm is the tip of the iceberg</title>
+  <desc id="desc">FedAvg, architecture, and learning rate appear above water. Governance, data definitions, infrastructure, monitoring, ownership, withdrawal and maintenance are below water.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f4ee}.water{fill:#d6ece9}.ice{fill:#fff;stroke:#9fb6bd;stroke-width:3}.deep{fill:#e9edf0;stroke:#9fb6bd;stroke-width:3}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.coral{fill:#c85446}.h{font:900 42px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.p{font:800 24px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.s{font:600 18px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.tiny{font:600 16px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="760"/>
+  <text class="h ink" x="85" y="80">The algorithm is the tip</text>
+  <text class="s muted" x="86" y="116">What determines feasibility is usually below the surface.</text>
+  <rect class="water" x="0" y="280" width="1400" height="480"/>
+  <path class="ice" d="M610 105 L770 105 L900 280 L480 280 Z"/>
+  <path class="deep" d="M480 280 L900 280 L1040 640 L700 705 L380 640 Z"/>
+  <line x1="0" y1="280" x2="1400" y2="280" stroke="#0c6b6f" stroke-width="5"/>
+  <text class="p ink" x="690" y="170" text-anchor="middle">FedAvg</text>
+  <text class="p ink" x="690" y="212" text-anchor="middle">architecture</text>
+  <text class="p ink" x="690" y="254" text-anchor="middle">learning rate</text>
+  <text class="tiny ink" x="700" y="335" text-anchor="middle">common data definitions</text>
+  <text class="tiny ink" x="700" y="370" text-anchor="middle">ethics approvals and data-controller responsibilities</text>
+  <text class="tiny ink" x="700" y="405" text-anchor="middle">local IT approval, certificates, firewalls</text>
+  <text class="tiny ink" x="700" y="440" text-anchor="middle">compute capacity, software versions, monitoring</text>
+  <text class="tiny ink" x="700" y="475" text-anchor="middle">failure recovery, logs, reproducibility</text>
+  <text class="tiny ink" x="700" y="510" text-anchor="middle">model ownership and publication rights</text>
+  <text class="tiny ink" x="700" y="545" text-anchor="middle">site withdrawal, incident response</text>
+  <text class="tiny ink" x="700" y="580" text-anchor="middle">long-term maintenance after the paper</text>
+  <text class="p coral" x="700" y="720" text-anchor="middle">A federation is a collaboration before it is an algorithm.</text>
+</svg>

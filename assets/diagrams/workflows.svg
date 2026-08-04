@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 760" role="img" aria-labelledby="title desc">
+  <title id="title">Five research designs for data that may not move</title>
+  <desc id="desc">Centralized learning, local-only models, federated learning, federated evaluation, and federated analytics are compared visually.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#0c6b6f"/></marker>
+    <style>
+      .bg{fill:#f7f4ee}.card{fill:#fff;stroke:#d8e0e4;stroke-width:3}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.coral{fill:#c85446}.amber{fill:#d99a2b}.line{fill:none;stroke:#0c6b6f;stroke-width:5;marker-end:url(#arrow)}.dash{stroke-dasharray:9 12}.h{font:800 30px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.p{font:600 20px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.s{font:500 17px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1500" height="760"/>
+  <g transform="translate(35 70)">
+    <rect class="card" width="270" height="600" rx="8"/>
+    <text class="h ink" x="24" y="48">Centralized</text>
+    <text class="s muted" x="24" y="78">Move data to one place</text>
+    <g transform="translate(30 130)"><circle class="teal" cx="20" cy="30" r="18"/><circle class="amber" cx="20" cy="115" r="18"/><circle class="coral" cx="20" cy="200" r="18"/></g>
+    <line class="line" x1="68" y1="160" x2="175" y2="255"/><line class="line" x1="68" y1="245" x2="175" y2="270"/><line class="line" x1="68" y1="330" x2="175" y2="285"/>
+    <rect x="165" y="230" width="68" height="68" rx="8" fill="#d6ece9" stroke="#0c6b6f" stroke-width="3"/>
+    <text class="p ink" x="199" y="272" text-anchor="middle">ML</text>
+    <text class="s muted" x="24" y="520">Best when lawful, practical,</text><text class="s muted" x="24" y="546">and scientifically clean.</text>
+  </g>
+  <g transform="translate(325 70)">
+    <rect class="card" width="270" height="600" rx="8"/>
+    <text class="h ink" x="24" y="48">Local-only</text>
+    <text class="s muted" x="24" y="78">One model per site</text>
+    <g transform="translate(55 140)">
+      <circle class="teal" cx="35" cy="35" r="22"/><rect x="92" y="10" width="64" height="50" rx="8" fill="#d6ece9" stroke="#0c6b6f" stroke-width="3"/><text class="p ink" x="124" y="42" text-anchor="middle">ML</text>
+      <circle class="amber" cx="35" cy="135" r="22"/><rect x="92" y="110" width="64" height="50" rx="8" fill="#fff1cf" stroke="#d99a2b" stroke-width="3"/><text class="p ink" x="124" y="142" text-anchor="middle">ML</text>
+      <circle class="coral" cx="35" cy="235" r="22"/><rect x="92" y="210" width="64" height="50" rx="8" fill="#f6ddd9" stroke="#c85446" stroke-width="3"/><text class="p ink" x="124" y="242" text-anchor="middle">ML</text>
+    </g>
+    <text class="s muted" x="24" y="520">Useful baseline, but limited</text><text class="s muted" x="24" y="546">by local sample size.</text>
+  </g>
+  <g transform="translate(615 70)">
+    <rect class="card" width="270" height="600" rx="8"/>
+    <text class="h ink" x="24" y="48">Federated</text>
+    <text class="s muted" x="24" y="78">Move model updates</text>
+    <circle class="teal" cx="70" cy="185" r="20"/><circle class="amber" cx="70" cy="285" r="20"/><circle class="coral" cx="70" cy="385" r="20"/>
+    <rect x="175" y="248" width="66" height="66" rx="8" fill="#d6ece9" stroke="#0c6b6f" stroke-width="3"/><text class="p ink" x="208" y="289" text-anchor="middle">Σ</text>
+    <line class="line" x1="95" y1="185" x2="170" y2="258"/><line class="line" x1="95" y1="285" x2="170" y2="281"/><line class="line" x1="95" y1="385" x2="170" y2="304"/>
+    <line class="line dash" x1="174" y1="332" x2="95" y2="404"/><line class="line dash" x1="174" y1="332" x2="95" y2="292"/><line class="line dash" x1="174" y1="332" x2="95" y2="202"/>
+    <text class="s muted" x="24" y="520">Train a shared model</text><text class="s muted" x="24" y="546">without pooling raw data.</text>
+  </g>
+  <g transform="translate(905 70)">
+    <rect class="card" width="270" height="600" rx="8"/>
+    <text class="h ink" x="24" y="48">Evaluation</text>
+    <text class="s muted" x="24" y="78">Send finished model</text>
+    <rect x="98" y="135" width="74" height="58" rx="8" fill="#d6ece9" stroke="#0c6b6f" stroke-width="3"/><text class="p ink" x="135" y="171" text-anchor="middle">ML</text>
+    <circle class="teal" cx="70" cy="285" r="20"/><circle class="amber" cx="135" cy="355" r="20"/><circle class="coral" cx="200" cy="285" r="20"/>
+    <line class="line" x1="128" y1="194" x2="78" y2="260"/><line class="line" x1="135" y1="195" x2="135" y2="327"/><line class="line" x1="142" y1="194" x2="192" y2="260"/>
+    <text class="s muted" x="24" y="520">Benchmark generalization</text><text class="s muted" x="24" y="546">without retraining.</text>
+  </g>
+  <g transform="translate(1195 70)">
+    <rect class="card" width="270" height="600" rx="8"/>
+    <text class="h ink" x="24" y="48">Analytics</text>
+    <text class="s muted" x="24" y="78">Aggregate statistics</text>
+    <circle class="teal" cx="70" cy="210" r="20"/><circle class="amber" cx="70" cy="300" r="20"/><circle class="coral" cx="70" cy="390" r="20"/>
+    <rect x="160" y="244" width="72" height="112" rx="8" fill="#fff" stroke="#0c6b6f" stroke-width="3"/>
+    <text class="p ink" x="196" y="285" text-anchor="middle">n</text><text class="p ink" x="196" y="326" text-anchor="middle">%</text>
+    <line class="line" x1="95" y1="210" x2="154" y2="266"/><line class="line" x1="95" y1="300" x2="154" y2="300"/><line class="line" x1="95" y1="390" x2="154" y2="334"/>
+    <text class="s muted" x="24" y="520">Answer counts, rates,</text><text class="s muted" x="24" y="546">means, and summaries.</text>
+  </g>
+</svg>

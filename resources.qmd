@@ -1,0 +1,53 @@
+---
+title: "Curated Resources"
+pagetitle: "Resources"
+---
+
+<div class="page-header">
+<p>Starting points for a clinically oriented reader who wants enough federated learning to ask sharper research questions.</p>
+</div>
+
+## Course Materials
+
+<div class="resource-grid">
+<div class="resource-card"><h3>Reveal Deck</h3><p>The main 30-minute lecture with speaker notes and optional vertical backup slides.</p><p><a href="index.html">Open slides</a></p></div>
+<div class="resource-card"><h3>Decision Guide</h3><p>Interactive method-selection guide for choosing centralized, local-only, federated-learning, federated-evaluation, or federated-analytics designs.</p><p><a href="decision-guide.html">Use guide</a></p></div>
+<div class="resource-card"><h3>Readiness Checklist</h3><p>Operational checklist covering clinical question, data movement, harmonization, evaluation, privacy, and governance.</p><p><a href="checklist.html">Open checklist</a></p></div>
+<div class="resource-card"><h3>Heterogeneity Demo</h3><p>A lightweight simulation showing why a global average can hide site-level failure.</p><p><a href="demo/heterogeneity.html">Launch demo</a></p></div>
+</div>
+
+## First Reading
+
+<div class="resource-grid">
+<div class="resource-card"><h3>Federated Learning Overview</h3><p>Rieke et al. frame federated learning as a digital-health collaboration model rather than only an optimization technique.</p><p><a href="https://doi.org/10.1038/s41746-020-00323-1">npj Digital Medicine, 2020</a></p></div>
+<div class="resource-card"><h3>Medical Imaging Review</h3><p>Kaissis et al. summarize privacy-preserving machine learning concepts relevant to medical imaging federations.</p><p><a href="https://doi.org/10.1038/s42256-020-0186-1">Nature Machine Intelligence, 2020</a></p></div>
+<div class="resource-card"><h3>Healthcare Architecture Review</h3><p>Antunes et al. provide a systematic review and architecture proposal for healthcare federated learning.</p><p><a href="https://doi.org/10.1145/3501813">ACM Computing Surveys, 2022</a></p></div>
+<div class="resource-card"><h3>Open Problems</h3><p>Kairouz et al. is a broad reference for technical foundations, privacy, personalization, and systems questions.</p><p><a href="https://doi.org/10.1561/2200000083">Foundations and Trends in ML, 2021</a></p></div>
+</div>
+
+## Medical Case Studies
+
+<div class="resource-grid">
+<div class="resource-card"><h3>Rare Cancer Boundary Detection</h3><p>Pati et al. demonstrate a large-scale glioblastoma federation across 71 sites and six continents.</p><p><a href="https://doi.org/10.1038/s41467-022-33407-5">Nature Communications, 2022</a></p></div>
+<div class="resource-card"><h3>COVID-19 Oxygen Prediction</h3><p>Dayan et al. show multimodal clinical prediction across institutions using vitals, labs, and imaging.</p><p><a href="https://doi.org/10.1038/s41591-021-01506-3">Nature Medicine, 2021</a></p></div>
+<div class="resource-card"><h3>Federated Benchmarking</h3><p>MedPerf focuses on evaluating medical AI models across distributed sites without centralizing test data.</p><p><a href="https://doi.org/10.1038/s42256-023-00652-2">Nature Machine Intelligence, 2023</a></p></div>
+<div class="resource-card"><h3>Federated Analytics Platform</h3><p>CODA illustrates how distributed analysis and machine learning can be organized for health data networks.</p><p><a href="https://doi.org/10.1093/jamia/ocad235">JAMIA, 2024</a></p></div>
+</div>
+
+## Tools To Explore
+
+<div class="resource-grid">
+<div class="resource-card"><h3>Flower</h3><p>Friendly framework and tutorials for learning federated learning concepts and building simulations.</p><p><a href="https://flower.ai/docs/framework/main/en/tutorial-series-what-is-federated-learning.html">Flower docs</a></p></div>
+<div class="resource-card"><h3>TensorFlow Federated</h3><p>Research-oriented tutorials for federated algorithms and evaluation workflows.</p><p><a href="https://www.tensorflow.org/federated/tutorials/tutorials_overview">TFF tutorials</a></p></div>
+<div class="resource-card"><h3>NVIDIA FLARE</h3><p>Production-oriented federated learning platform often used in medical AI collaborations.</p><p><a href="https://nvflare.readthedocs.io/en/main/welcome.html">NVIDIA FLARE docs</a></p></div>
+<div class="resource-card"><h3>OpenFL</h3><p>Federated learning framework with examples and deployment concepts.</p><p><a href="https://openfl.readthedocs.io/en/latest/">OpenFL docs</a></p></div>
+</div>
+
+## Reporting And Governance
+
+<div class="resource-grid">
+<div class="resource-card"><h3>TRIPOD+AI</h3><p>Reporting guidance for clinical prediction models that use regression or machine learning.</p><p><a href="https://doi.org/10.1136/bmj-2023-078378">BMJ, 2024</a></p></div>
+<div class="resource-card"><h3>DECIDE-AI</h3><p>Early-stage clinical evaluation reporting guidance for AI decision-support systems.</p><p><a href="https://doi.org/10.1038/s41591-022-01772-9">Nature Medicine, 2022</a></p></div>
+<div class="resource-card"><h3>Governance Review</h3><p>Eden et al. map governance themes in federated learning for healthcare.</p><p><a href="https://doi.org/10.1038/s41746-025-01836-3">npj Digital Medicine, 2025</a></p></div>
+<div class="resource-card"><h3>Federated Health Networks</h3><p>Vis et al. discuss distributed analysis across health-data networks.</p><p><a href="https://doi.org/10.3389/fpubh.2021.712569">Frontiers in Public Health, 2021</a></p></div>
+</div>

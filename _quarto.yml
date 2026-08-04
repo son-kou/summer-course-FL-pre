@@ -1,0 +1,43 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - assets/**
+    - demo/**
+    - downloads/**
+    - references.bib
+
+website:
+  title: "Federated Learning in Medical AI"
+  site-url: "https://son-kou.github.io/summer-course-FL-pre/"
+  repo-url: "https://github.com/son-kou/summer-course-FL-pre"
+  navbar:
+    left:
+      - text: "Slides"
+        href: index.html
+      - text: "Decision Guide"
+        href: decision-guide.html
+      - text: "Checklist"
+        href: checklist.html
+      - text: "Heterogeneity Demo"
+        href: demo/heterogeneity.html
+      - text: "References"
+        href: references.html
+      - text: "Resources"
+        href: resources.html
+    right:
+      - icon: github
+        href: "https://github.com/son-kou/summer-course-FL-pre"
+
+format:
+  html:
+    theme: cosmo
+    css: styles/site.css
+    toc: true
+    link-external-newwindow: true
+    smooth-scroll: true
+
+bibliography: references.bib
+
+execute:
+  freeze: auto

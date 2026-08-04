@@ -1,0 +1,145 @@
+---
+title: "Annotated References"
+pagetitle: "References"
+---
+
+<div class="page-header">
+<p>The page reads <code>references.bib</code> directly, so the visible list and the project bibliography stay in sync.</p>
+</div>
+
+<div class="panel">
+<div class="search-row">
+<input id="reference-search" type="search" placeholder="Search title, author, venue, DOI, or keyword">
+<select id="reference-filter">
+<option value="all">All categories</option>
+<option value="foundations">Foundations</option>
+<option value="optimization">Optimization and personalization</option>
+<option value="privacy">Privacy and security</option>
+<option value="healthcare">Healthcare reviews</option>
+<option value="cases">Medical case studies</option>
+<option value="governance">Governance and evaluation</option>
+<option value="teaching">Teaching and tools</option>
+</select>
+</div>
+<p id="reference-count" class="copy-status" aria-live="polite"></p>
+</div>
+
+<div id="reference-list" class="reference-list"></div>
+
+<script>
+const search = document.getElementById("reference-search");
+const filter = document.getElementById("reference-filter");
+const list = document.getElementById("reference-list");
+const count = document.getElementById("reference-count");
+
+const categories = {
+  foundations: ["mcmahan2017", "kairouz2021", "li2020challenges", "yang2019fml"],
+  optimization: ["li2020fedprox", "karimireddy2020scaffold", "reddi2021fedopt", "li2021fedbn", "fallah2020personalized", "tavakoli2024personalized", "pan2024mmfl", "che2023mmfl", "huang2024mmfl", "wang2024fairness"],
+  privacy: ["bonawitz2017secure", "dwork2014dp", "shokri2017membership", "zhu2019deep", "bagdasaryan2020backdoor", "hitaj2017gan", "froelicher2021famhe"],
+  healthcare: ["rieke2020future", "kaissis2020secure", "sheller2020medicine", "kaissis2021end", "antunes2022systematic", "xu2021healthcare", "rehman2023radiology", "darzidehkalani2022part1", "bakas2026deployment"],
+  cases: ["pati2022rare", "dayan2021exam", "karargyris2023medperf", "lo2021oct", "yeom2024pathology", "huang2023aki", "zhang2024adaptive", "mullie2024coda"],
+  governance: ["eden2025governance", "vis2021networks", "zech2018generalization", "wynants2020covid", "collins2024tripodai", "vasey2022decide"],
+  teaching: ["ramage2020analytics", "cambridge2025course", "stanford2020biods220", "cofe2025tutorial", "miccai2022tutorial", "quartoReveal", "quartoPresenting", "quartoAdvanced", "quartoPages", "flowerDocs", "tensorflowFederatedDocs", "nvflareDocs", "openflDocs", "medperfDocs", "mlcommonsMedical"]
+};
+
+const categoryLabels = {
+  foundations: "Foundations",
+  optimization: "Optimization and personalization",
+  privacy: "Privacy and security",
+  healthcare: "Healthcare reviews",
+  cases: "Medical case studies",
+  governance: "Governance and evaluation",
+  teaching: "Teaching and tools"
+};
+
+const annotations = {
+  mcmahan2017: "Introduces FedAvg, the cleanest starting point for explaining one training round.",
+  kairouz2021: "Broad technical map of open problems, including privacy, optimization, personalization, and systems.",
+  li2020challenges: "Concise overview for moving from basic workflow to real-world limitations.",
+  pati2022rare: "Primary rare-cancer example used in the lecture; illustrates why multicentre federation can matter.",
+  dayan2021exam: "Primary multimodal COVID-19 example; useful for connecting imaging, vitals, labs, and outcomes.",
+  karargyris2023medperf: "Supports the distinction between federated training and federated benchmarking/evaluation.",
+  eden2025governance: "Recent governance review used for the organizational and responsibility portions of the course.",
+  zech2018generalization: "Clear medical AI example showing site-level generalization problems without invoking FL.",
+  bonawitz2017secure: "Reference point for secure aggregation as one layer of defence, not a complete privacy guarantee.",
+  shokri2017membership: "Motivates membership inference risk and the need to specify a threat model.",
+  zhu2019deep: "Motivates gradient leakage risk in distributed learning workflows.",
+  bagdasaryan2020backdoor: "Shows why malicious or compromised participants matter in federated settings.",
+  collins2024tripodai: "Reporting standard anchor for clinical prediction model transparency.",
+  vasey2022decide: "Supports early-stage clinical evaluation and decision-support framing.",
+  ramage2020analytics: "Useful contrast case: many distributed questions need analytics rather than model training."
+};
+
+function field(entry, name) {
+  const regex = new RegExp(`${name}\\s*=\\s*[{"]([\\s\\S]*?)[}"],?\\n`, "i");
+  const match = entry.raw.match(regex);
+  return match ? match[1].replace(/\s+/g, " ").trim() : "";
+}
+
+function parseBibtex(text) {
+  const chunks = text.split(/\n(?=@)/).filter((chunk) => chunk.trim().startsWith("@"));
+  return chunks.map((raw) => {
+    const head = raw.match(/^@\w+\{([^,]+),/);
+    const key = head ? head[1] : "unknown";
+    const category = Object.keys(categories).find((name) => categories[name].includes(key)) || "foundations";
+    const url = field({ raw }, "url");
+    const doi = field({ raw }, "doi");
+    return {
+      key,
+      raw: raw.trim(),
+      category,
+      title: field({ raw }, "title").replace(/[{}]/g, ""),
+      author: field({ raw }, "author").replace(/[{}]/g, ""),
+      venue: field({ raw }, "journal") || field({ raw }, "booktitle") || field({ raw }, "publisher") || field({ raw }, "howpublished"),
+      year: field({ raw }, "year"),
+      doi,
+      url,
+      annotation: annotations[key] || `Included as supporting evidence for ${categoryLabels[category].toLowerCase()}.`
+    };
+  });
+}
+
+let references = [];
+
+function renderReferences() {
+  const query = search.value.trim().toLowerCase();
+  const selected = filter.value;
+  const shown = references.filter((ref) => {
+    const text = [ref.key, ref.title, ref.author, ref.venue, ref.year, ref.doi, ref.url, ref.annotation].join(" ").toLowerCase();
+    return (selected === "all" || ref.category === selected) && (!query || text.includes(query));
+  });
+  count.textContent = `${shown.length} of ${references.length} references shown.`;
+  list.innerHTML = shown.map((ref) => `
+    <article class="reference-card">
+      <h3>${ref.title}</h3>
+      <p><span class="badge">${categoryLabels[ref.category]}</span> <strong>${ref.year || "n.d."}</strong> ${ref.venue ? `· ${ref.venue}` : ""}</p>
+      <p>${ref.author}</p>
+      <p>${ref.annotation}</p>
+      <p>${ref.doi ? `DOI: <a href="https://doi.org/${ref.doi}">${ref.doi}</a>` : ref.url ? `<a href="${ref.url}">Source link</a>` : ""}</p>
+      <button type="button" class="secondary" data-key="${ref.key}">Copy BibTeX</button>
+    </article>
+  `).join("");
+}
+
+list.addEventListener("click", async (event) => {
+  const button = event.target.closest("button[data-key]");
+  if (!button) return;
+  const ref = references.find((item) => item.key === button.dataset.key);
+  await navigator.clipboard.writeText(ref.raw);
+  button.textContent = "Copied";
+  setTimeout(() => (button.textContent = "Copy BibTeX"), 1200);
+});
+
+fetch("references.bib")
+  .then((response) => response.text())
+  .then((text) => {
+    references = parseBibtex(text);
+    renderReferences();
+  })
+  .catch(() => {
+    list.innerHTML = `<article class="reference-card"><h3>Reference file unavailable</h3><p>Open <code>references.bib</code> in the repository to view the full bibliography.</p></article>`;
+  });
+
+search.addEventListener("input", renderReferences);
+filter.addEventListener("change", renderReferences);
+</script>

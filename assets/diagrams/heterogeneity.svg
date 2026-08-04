@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Cross-hospital heterogeneity</title>
+  <desc id="desc">Three hospitals show different distributions for patients, scanners, labels, missingness, and outcomes.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f7f4ee}.card{fill:#fff;stroke:#d8e0e4;stroke-width:3}.ink{fill:#10243f}.muted{fill:#596579}.teal{fill:#0c6b6f}.coral{fill:#c85446}.amber{fill:#d99a2b}.axis{stroke:#596579;stroke-width:3}.h{font:800 32px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.p{font:700 21px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}.s{font:500 17px -apple-system,BlinkMacSystemFont,Segoe UI,Arial}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="760"/>
+  <g transform="translate(80 80)">
+    <rect class="card" width="370" height="560" rx="8"/>
+    <text class="h ink" x="28" y="48">Hospital A</text><text class="s muted" x="28" y="78">tertiary referral centre</text>
+    <line class="axis" x1="52" y1="415" x2="316" y2="415"/><line class="axis" x1="52" y1="150" x2="52" y2="415"/>
+    <path d="M52 410 C90 330 125 210 174 222 C220 234 238 338 316 388" fill="none" stroke="#0c6b6f" stroke-width="8"/>
+    <circle class="teal" cx="130" cy="242" r="9"/><circle class="teal" cx="190" cy="228" r="9"/><circle class="teal" cx="248" cy="318" r="9"/>
+    <text class="p ink" x="28" y="472">High severity</text><text class="s muted" x="28" y="504">more rare cases, protocol A,</text><text class="s muted" x="28" y="528">complete specialist labels</text>
+  </g>
+  <g transform="translate(515 80)">
+    <rect class="card" width="370" height="560" rx="8"/>
+    <text class="h ink" x="28" y="48">Hospital B</text><text class="s muted" x="28" y="78">community catchment</text>
+    <line class="axis" x1="52" y1="415" x2="316" y2="415"/><line class="axis" x1="52" y1="150" x2="52" y2="415"/>
+    <path d="M52 392 C108 372 130 315 165 255 C203 191 258 195 316 238" fill="none" stroke="#d99a2b" stroke-width="8"/>
+    <circle class="amber" cx="112" cy="366" r="9"/><circle class="amber" cx="166" cy="254" r="9"/><circle class="amber" cx="266" cy="202" r="9"/>
+    <text class="p ink" x="28" y="472">Different prevalence</text><text class="s muted" x="28" y="504">different pathway, missing labs,</text><text class="s muted" x="28" y="528">local coding habits</text>
+  </g>
+  <g transform="translate(950 80)">
+    <rect class="card" width="370" height="560" rx="8"/>
+    <text class="h ink" x="28" y="48">Hospital C</text><text class="s muted" x="28" y="78">different scanner/vendor</text>
+    <line class="axis" x1="52" y1="415" x2="316" y2="415"/><line class="axis" x1="52" y1="150" x2="52" y2="415"/>
+    <path d="M52 380 C110 225 154 245 190 305 C232 375 268 366 316 318" fill="none" stroke="#c85446" stroke-width="8"/>
+    <circle class="coral" cx="100" cy="260" r="9"/><circle class="coral" cx="191" cy="304" r="9"/><circle class="coral" cx="282" cy="352" r="9"/>
+    <text class="p ink" x="28" y="472">Domain shift</text><text class="s muted" x="28" y="504">scanner intensity, annotation</text><text class="s muted" x="28" y="528">style, outcome definition</text>
+  </g>
+  <text class="s muted" x="700" y="705" text-anchor="middle">Clinical meaning can drift even when variable names look identical.</text>
+</svg>
