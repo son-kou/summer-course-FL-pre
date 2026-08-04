@@ -1,4 +1,6 @@
 :root {
+  --font-display: "Avenir Next", "Inter", "Segoe UI Variable Display", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Avenir Next", "Inter", "Segoe UI Variable Text", "Helvetica Neue", Arial, sans-serif;
   --navy: #10243f;
   --ink: #172033;
   --teal: #0c6b6f;
@@ -18,7 +20,7 @@ body {
   min-height: 100vh;
   background: var(--paper);
   color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
   letter-spacing: 0;
 }
 
@@ -178,4 +180,73 @@ button {
   .lab-shell {
     grid-template-columns: 1fr;
   }
+}
+
+.embed body {
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+
+.embed .lab-shell {
+  grid-template-columns: minmax(0, 0.53fr) minmax(280px, 0.47fr);
+  gap: 10px;
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.embed .image-panel,
+.embed .panel {
+  min-width: 0;
+  min-height: 0;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.embed .scan-frame {
+  width: min(100%, 440px);
+}
+
+.embed .caption {
+  display: none;
+}
+
+.embed h1 {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.embed h2 {
+  margin-bottom: 9px;
+  font-size: 15px;
+}
+
+.embed .eyebrow {
+  margin-bottom: 5px;
+  font-size: 11px;
+}
+
+.embed label {
+  grid-template-columns: 7.8rem minmax(0, 1fr);
+  gap: 8px;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.embed button {
+  font-size: 12px;
+  padding: 7px 10px;
+}
+
+.embed .mini-panel {
+  margin-top: 10px;
+  padding: 9px;
+}
+
+.embed #readout {
+  margin-top: 7px;
+  font-size: 11.5px;
 }

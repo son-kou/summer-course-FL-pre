@@ -34,6 +34,7 @@ if [ -x "${PWD}/node_modules/.bin/sass" ]; then
 fi
 
 python3 scripts/generate_qr.py
+python3 scripts/generate_rehearsal_notes.py
 python3 scripts/generate_checklist_pdf.py
 python3 scripts/generate_research_lens_pdf.py
 quarto render

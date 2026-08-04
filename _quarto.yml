@@ -16,20 +16,14 @@ website:
     left:
       - text: "Slides"
         href: index.html
-      - text: "Decision Guide"
-        href: decision-guide.html
-      - text: "Checklist"
-        href: checklist.html
-      - text: "Research Lens"
-        href: multicentre-research-lens.html
-      - text: "Frontier"
-        href: frontier.html
-      - text: "Heterogeneity Demo"
-        href: demo/heterogeneity.html
-      - text: "References"
+      - text: "Course Materials"
+        href: resources.html#course-materials
+      - text: "Labs"
+        href: resources.html#interactive-labs
+      - text: "Further Reading"
+        href: resources.html#further-reading
+      - text: "Full References"
         href: references.html
-      - text: "Resources"
-        href: resources.html
     right:
       - icon: github
         href: "https://github.com/son-kou/summer-course-FL-pre"

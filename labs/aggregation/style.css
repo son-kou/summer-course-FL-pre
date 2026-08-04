@@ -1,4 +1,6 @@
 :root {
+  --font-display: "Avenir Next", "Inter", "Segoe UI Variable Display", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Avenir Next", "Inter", "Segoe UI Variable Text", "Helvetica Neue", Arial, sans-serif;
   --navy: #10243f;
   --ink: #172033;
   --teal: #0c6b6f;
@@ -18,7 +20,7 @@ body {
   min-height: 100vh;
   background: var(--paper);
   color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
   letter-spacing: 0;
 }
 
@@ -141,4 +143,73 @@ svg {
   .lab-shell {
     grid-template-columns: 1fr;
   }
+}
+
+.embed body {
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+
+.embed .lab-shell {
+  grid-template-columns: minmax(185px, 0.34fr) minmax(0, 0.66fr);
+  gap: 10px;
+  width: 100vw;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.embed .panel {
+  min-width: 0;
+  min-height: 0;
+  padding: 14px;
+}
+
+.embed h1 {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.embed .eyebrow {
+  margin-bottom: 5px;
+  font-size: 11px;
+}
+
+.embed .segmented {
+  gap: 6px;
+  margin: 8px 0 12px;
+}
+
+.embed button {
+  font-size: 13px;
+  padding: 6px 8px;
+}
+
+.embed .toggle,
+.embed .warning {
+  font-size: 12px;
+}
+
+.embed .warning {
+  margin-top: 10px;
+  padding: 8px 10px;
+}
+
+.embed svg {
+  height: 100%;
+  min-height: 0;
+}
+
+.embed .summary {
+  gap: 8px;
+}
+
+.embed .summary > div {
+  padding: 8px 10px;
+}
+
+.embed .number {
+  font-size: 23px;
 }

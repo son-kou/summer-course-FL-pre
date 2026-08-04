@@ -1,4 +1,6 @@
 :root {
+  --font-display: "Avenir Next", "Inter", "Segoe UI Variable Display", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Avenir Next", "Inter", "Segoe UI Variable Text", "Helvetica Neue", Arial, sans-serif;
   --navy: #10243f;
   --ink: #172033;
   --teal: #0c6b6f;
@@ -12,7 +14,7 @@
 body {
   color: var(--ink);
   background: var(--paper);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-family: var(--font-body);
   letter-spacing: 0;
 }
 
@@ -20,6 +22,8 @@ h1,
 h2,
 h3 {
   color: var(--navy);
+  font-family: var(--font-display);
+  font-weight: 680;
   letter-spacing: 0;
 }
 
@@ -37,21 +41,36 @@ a {
 .page-header {
   border-bottom: 4px solid var(--teal);
   margin-bottom: 1.4rem;
+  max-width: 58rem;
+}
+
+main.content {
+  max-width: 1180px;
+}
+
+main.content p,
+main.content li {
+  line-height: 1.55;
 }
 
 .resource-grid,
 .guide-grid,
 .checklist-grid {
+  display: grid;
+  gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 .checklist-grid {
-  display: grid;
   gap: 1rem;
 }
 
 .resource-grid {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.resource-grid.compact {
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
 }
 
 .guide-grid {
@@ -66,6 +85,31 @@ a {
   border-radius: 8px;
   padding: 1rem;
   box-shadow: 0 8px 24px rgba(16, 36, 63, 0.06);
+}
+
+.resource-card {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+}
+
+.resource-card h3,
+.resource-card p {
+  margin: 0;
+}
+
+.resource-card h3 {
+  font-size: 1.06rem;
+}
+
+.resource-card p {
+  color: #465267;
+}
+
+.resource-card.subtle {
+  background: #fbfaf7;
+  border-style: dashed;
+  box-shadow: none;
 }
 
 .panel h2,
@@ -133,6 +177,27 @@ select:focus {
   font-size: 0.82rem;
   font-weight: 700;
   margin-right: 0.25rem;
+}
+
+.reading-section {
+  margin: 1rem 0;
+  border-top: 1px solid var(--mist);
+  padding-top: 1rem;
+}
+
+.reading-section h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.1rem;
+}
+
+.reading-list {
+  display: grid;
+  gap: 0.55rem;
+  padding-left: 1.15rem;
+}
+
+.reading-list li {
+  max-width: 70rem;
 }
 
 .search-row {

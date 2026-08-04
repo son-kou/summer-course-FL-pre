@@ -1,0 +1,356 @@
+{
+  "slides": [
+    {
+      "id": "title",
+      "slideNumber": "0",
+      "title": "Federated Learning in Medical AI: When Data Cannot Move",
+      "targetSeconds": 66,
+      "keyPointsEn": [
+        "Federated learning is framed as a multicentre collaboration design.",
+        "The lecture asks when data, models, metrics, or only conclusions should move.",
+        "The goal is careful clinical AI, not algorithm enthusiasm."
+      ],
+      "keyPointsZh": [
+        "本讲把联邦学习放在多中心临床合作的语境中，而不是只讲算法。",
+        "核心问题是谁可以移动：数据、模型、指标，还是只有结论。",
+        "目标是更严谨的临床 AI 研究，而不是宣传某一种技术。"
+      ],
+      "scriptEn": "Today I will talk about federated learning in medical AI from a clinical research perspective. The title is deliberately about data that cannot move, because that is where the method becomes interesting. In many medical questions, the disease, the workflow, and the evidence are multicentre, but patient-level data cannot simply be pooled. Federation does not replace multicentre science. It is one possible way to make multicentre science possible under legal, technical, and institutional constraints. I will keep the algorithmic details light and focus on what clinical PhD students can borrow: how to reason about collaboration design, heterogeneity, privacy, evaluation, and governance.",
+      "scriptZh": "今天我会从临床研究的角度介绍医学 AI 中的联邦学习。题目强调“数据不能移动”，因为这正是联邦学习变得有意义的地方。很多医学问题本来就是多中心的：疾病分布、工作流和证据都跨机构存在，但患者级数据往往不能简单集中。联邦学习并不能替代多中心科学，它只是让多中心科学在法律、技术和机构限制下仍然可能的一种方式。本讲不会深入算法细节，而是强调临床博士可以借鉴的研究习惯：如何设计合作、理解异质性、处理隐私、做评估和治理。",
+      "transitionEn": "Let us start with a concrete four-hospital dilemma.",
+      "transitionZh": "我们先从一个四家医院的具体困境开始。",
+      "delivery": "Pause after the title. The MRI is visual context, not evidence from a study.",
+      "skipIfLate": "Skip the image attribution aloud; keep the framing sentence."
+    },
+    {
+      "id": "four-hospitals-one-question",
+      "slideNumber": "1",
+      "title": "Four Hospitals, One Question",
+      "targetSeconds": 84,
+      "keyPointsEn": [
+        "The shared clinical question must come before the algorithm.",
+        "Sites differ in population, measurements, labels, workflows, and governance.",
+        "The first design choice is what information is allowed to move."
+      ],
+      "keyPointsZh": [
+        "共同临床问题必须先于算法选择。",
+        "机构之间在患者、测量、标签、工作流和治理上都有差异。",
+        "第一步是明确什么信息可以移动。"
+      ],
+      "scriptEn": "Imagine four hospitals that agree on the clinical question: can we build a useful model for this patient group? But each hospital brings a different constraint. One has a rare outcome and a careful MRI protocol. Another has more data, but a different scanner fleet and workflow. A third has good labels, but the definition changed during the study period. The fourth has missing modalities and stricter governance. This is not yet a machine-learning problem. It is first a collaboration design problem. If we skip that step, we may build a technically impressive model that answers the wrong clinical question or represents only the easiest site.",
+      "scriptZh": "设想四家医院都同意研究同一个临床问题：能否为这类患者建立一个有用的模型？但每家医院都有不同限制。有的医院结局罕见、MRI 协议很严格；有的医院数据量更大，但扫描设备和流程不同；有的医院标签质量好，但研究期间定义发生过变化；还有的医院缺少某些模态，同时治理要求更严格。这时问题还不是“用哪个机器学习算法”，而是“如何设计合作”。如果跳过这一步，可能会得到一个技术上漂亮、但临床上回答错误问题的模型。",
+      "transitionEn": "Once the collaboration problem is visible, we can compare the design options.",
+      "transitionZh": "当合作问题清楚以后，我们才能比较不同的设计方案。",
+      "delivery": "Walk through the site cards clockwise. Ask the audience which constraint they recognize from their own work.",
+      "skipIfLate": "Read only the central question and one example site."
+    },
+    {
+      "id": "five-collaboration-designs",
+      "slideNumber": "2",
+      "title": "Five Collaboration Designs",
+      "targetSeconds": 90,
+      "keyPointsEn": [
+        "Federated learning is one design, not the default answer.",
+        "Pooling, local-only models, federated training, federated evaluation, and federated analytics answer different questions.",
+        "The design should match the clinical task and governance constraints."
+      ],
+      "keyPointsZh": [
+        "联邦学习只是设计选项之一，不是默认答案。",
+        "集中数据、本地模型、联邦训练、联邦评估和联邦分析解决的问题不同。",
+        "设计必须与临床任务和治理限制匹配。"
+      ],
+      "scriptEn": "Before we say federated learning, we should compare the collaboration designs. Centralized pooling gives the strongest statistical control, but it also creates the highest data-movement burden. Local-only models are simple to govern, but they often generalize poorly. Federated learning moves model updates rather than raw patient records. Federated evaluation asks a different question: can a model be tested where the data live? Federated analytics may be enough when we need distributed estimation rather than training. The point is not that one design is morally superior. The point is that the design should match the clinical aim, the data rights, and the evidence we need.",
+      "scriptZh": "在说“联邦学习”之前，我们应该先比较合作设计。集中数据有最强的统计控制能力，但数据移动的负担也最大。本地模型治理简单，但外部泛化能力往往有限。联邦学习移动的是模型更新，而不是患者原始记录。联邦评估回答的是另一个问题：模型能否在数据所在的地方被测试？有时我们需要的只是分布式估计，这时联邦分析就足够了。重点不是哪一种方案更高级，而是设计必须匹配临床目标、数据权利和所需证据。",
+      "transitionEn": "Now we can zoom in on what actually happens in one federated-learning round.",
+      "transitionZh": "接下来我们放大看一次联邦学习轮次中到底发生了什么。",
+      "delivery": "Point to the diagram first, then use the short labels. Do not read every label twice.",
+      "skipIfLate": "Keep only centralized, FL, and federated evaluation."
+    },
+    {
+      "id": "one-federated-learning-round",
+      "slideNumber": "3",
+      "title": "One Federated-Learning Round",
+      "targetSeconds": 120,
+      "keyPointsEn": [
+        "Raw patient records stay local, but information still moves.",
+        "Aggregation embeds assumptions about site size, quality, and fairness.",
+        "The sandbox is conceptual, not a clinical policy recommendation."
+      ],
+      "keyPointsZh": [
+        "患者原始数据留在本地，但信息仍然在移动。",
+        "聚合方式隐含了关于样本量、质量和公平性的假设。",
+        "右侧工具只是教学概念，不是临床聚合政策建议。"
+      ],
+      "scriptEn": "A basic federated-learning round is easy to describe. Each hospital receives a model, trains locally, sends back an update, and the coordinator aggregates the updates into the next shared model. The sentence sounds simple, but notice the important qualification: raw patient records stay local, while model information still moves. The aggregation step is also not neutral. If we weight by sample size, the largest site has the loudest voice. If we weight sites equally, we protect smaller sites but may increase variance. If we include quality or fairness signals, we have entered a clinical governance question. Use the sandbox to feel that difference. The numbers are illustrative; this is not a recommended clinical aggregation policy.",
+      "scriptZh": "一次基本的联邦学习轮次很好描述：每家医院收到模型，在本地训练，返回更新，然后协调方把这些更新聚合成下一轮共享模型。这个过程听起来很简单，但关键在于：患者原始记录留在本地，可是模型信息仍然发生了移动。聚合也不是中性的。如果按样本量加权，最大中心的声音最大；如果每个中心等权，小中心更受保护，但不确定性可能增加；如果加入质量或公平性信号，就已经进入临床治理问题。右侧沙盒是为了感受这种差异。这里的数值都是示意，不是临床推荐政策。",
+      "transitionEn": "With the mechanism clear, we can ask how mature the medical evidence is.",
+      "transitionZh": "理解机制以后，我们再看医学证据到底成熟到什么程度。",
+      "delivery": "Toggle equal-site and fairness weighting. Say explicitly that the lab is conceptual.",
+      "skipIfLate": "Skip quality-aware weighting and show only sample-size versus equal-site."
+    },
+    {
+      "id": "achievement-versus-evidence-gap",
+      "slideNumber": "4",
+      "title": "Achievement Versus Evidence Gap",
+      "targetSeconds": 108,
+      "keyPointsEn": [
+        "Medical FL literature is large and technically active.",
+        "Real-life clinical FL applications are a small fraction of the evidence base.",
+        "This is a reason for rigorous evaluation, not dismissal."
+      ],
+      "keyPointsZh": [
+        "医学联邦学习文献数量很大，技术发展也很活跃。",
+        "真正的现实临床应用只占很小一部分。",
+        "这不是否定联邦学习的理由，而是要求更严格评估的理由。"
+      ],
+      "scriptEn": "The evidence gap is important to state carefully. Federated learning in healthcare is not a tiny literature. Teo and colleagues included 612 healthcare FL articles, with work across 64 regions. But only 32 of those studies, about 5.2 percent, were real-life FL applications in that review. So the message is balanced. The field is large, creative, and moving quickly. At the same time, clinically mature deployment evidence is still limited. That should not make us dismiss FL. It should make us evaluate it like clinical infrastructure: what was simulated, what was implemented, what was externally evaluated, and what would justify local clinical use?",
+      "scriptZh": "这里需要非常准确地表达证据差距。医学联邦学习并不是一个很小的文献领域。Teo 等人的综述纳入了 612 篇医疗 FL 文章，覆盖 64 个地区。但在这项综述中，真正属于现实 FL 应用的只有 32 项，大约 5.2%。所以结论必须平衡：这个领域规模很大、技术很活跃、发展很快；但临床成熟部署的证据仍然有限。这不是否定 FL 的理由，而是提醒我们要像评估临床基础设施一样评估它：哪些只是模拟，哪些真正实施，哪些做过外部评估，什么证据足以支持本地使用。",
+      "transitionEn": "The brain-cancer literature shows both the promise and the evaluation challenge.",
+      "transitionZh": "脑肿瘤研究同时展示了联邦学习的潜力和评估挑战。",
+      "delivery": "Use the funnel, not the supporting text, as the spoken structure.",
+      "skipIfLate": "Omit the 64-region context."
+    },
+    {
+      "id": "brain-cancer-scale-benchmarking-evaluation",
+      "slideNumber": "5",
+      "title": "Brain Cancer: Scale, Benchmarking, Evaluation",
+      "targetSeconds": 126,
+      "keyPointsEn": [
+        "Brain tumor segmentation is a strong rare-disease example.",
+        "The research progression runs from distributed training to benchmarking to external evaluation.",
+        "Average performance can hide site-specific or outlier failures."
+      ],
+      "keyPointsZh": [
+        "脑肿瘤分割是罕见病多中心研究的典型例子。",
+        "研究进展从分布式训练，到分布式基准，再到外部评估。",
+        "平均表现好并不代表每个机构都安全。"
+      ],
+      "scriptEn": "Brain cancer is one of the strongest examples because the disease is relatively rare, imaging is central, and no single institution sees the whole clinical picture. Pati and colleagues showed large-scale distributed training across 71 sites, six continents, and 6,314 glioblastoma patients. That demonstrates why federation can matter. But the story does not stop at training. MedPerf helped formalize distributed benchmarking, where models can be evaluated without moving test data. The FeTS challenge then pushed the evaluation question further, with many models assessed across distributed institutions. The key clinical lesson is not just that federation can scale. It is that good average performance can coexist with weak performance at particular sites or in outlier cases.",
+      "scriptZh": "脑肿瘤是一个很有代表性的例子，因为疾病相对罕见，影像是核心数据，而单个机构很难覆盖完整临床图景。Pati 等人的研究展示了跨 71 个中心、六大洲、6314 名胶质母细胞瘤患者的大规模分布式训练，这说明联邦学习为什么可能重要。但故事并不止于训练。MedPerf 推动了分布式基准评估：模型可以在测试数据不移动的情况下接受评估。FeTS 挑战进一步把问题推进到多机构外部评估。最关键的临床教训不是“联邦学习可以扩大规模”这么简单，而是平均表现良好仍然可能掩盖某些机构或异常病例上的失败。",
+      "transitionEn": "That brings us to the first transferable lesson: heterogeneity is signal.",
+      "transitionZh": "这引出第一个可迁移的经验：异质性本身就是信号。",
+      "delivery": "Do not imply the public MRI is study data. Point to the progression, not the image.",
+      "skipIfLate": "Keep Pati and FeTS; omit MedPerf detail."
+    },
+    {
+      "id": "lesson-1-treat-heterogeneity-as-signal",
+      "slideNumber": "6",
+      "title": "Lesson 1: Treat Heterogeneity as Signal",
+      "targetSeconds": 90,
+      "keyPointsEn": [
+        "Site differences can reflect real clinical and measurement differences.",
+        "Feature, label, concept, and workflow shifts require different responses.",
+        "Institution should be treated as a latent variable."
+      ],
+      "keyPointsZh": [
+        "中心差异往往反映真实的临床和测量差异。",
+        "特征、标签、概念和工作流偏移需要不同处理方式。",
+        "机构本身应被视为一个潜在变量。"
+      ],
+      "scriptEn": "When hospitals disagree statistically, the first question should not be how to average the disagreement away. The first question is what the disagreement means. Feature shift may come from scanners, assays, populations, or timing. Label shift may mean that prevalence or event frequency differs. Concept shift is more serious: the outcome may not mean exactly the same thing across sites or across time. Workflow shift reminds us that referral, annotation, treatment, and documentation practices are part of the data-generating process. This lesson is not specific to federated learning. Any multicentre clinical AI project should treat institution as a latent variable that may explain both model performance and clinical meaning.",
+      "scriptZh": "当不同医院在统计上不一致时，第一个问题不应该是如何把差异平均掉，而是这些差异到底意味着什么。特征偏移可能来自扫描设备、实验检测、患者群体或时间点。标签偏移可能意味着患病率或事件频率不同。概念偏移更严重：同一个结局在不同中心或不同时间可能并不完全代表同一个临床含义。工作流偏移提醒我们，转诊、标注、治疗和记录方式本身就是数据生成过程的一部分。这个教训并不只属于联邦学习。任何多中心临床 AI 项目都应把机构看作一个潜在变量。",
+      "transitionEn": "The MRI lab makes one form of apparent domain shift visible.",
+      "transitionZh": "接下来的 MRI 实验会让一种表观域偏移变得可见。",
+      "delivery": "Ask which shift type the audience most often sees.",
+      "skipIfLate": "Mention only feature shift and concept shift."
+    },
+    {
+      "id": "interactive-mri-domain-shift-lab",
+      "slideNumber": "7",
+      "title": "Interactive MRI Domain-Shift Lab",
+      "targetSeconds": 114,
+      "keyPointsEn": [
+        "The same public MRI can appear different under simple display transformations.",
+        "The lab is educational and not scanner physics.",
+        "Appearance changes can pressure thresholds, prevalence assumptions, and calibration."
+      ],
+      "keyPointsZh": [
+        "同一张公开 MRI 图像在简单显示变换下会呈现不同外观。",
+        "这个实验用于教学，不代表真实扫描物理。",
+        "外观变化会影响阈值、患病率假设和校准压力。"
+      ],
+      "scriptEn": "This lab uses one public MRI image and changes only the browser-side appearance. We can adjust intensity, contrast, noise, blur, and a simple bias-field effect. These are educational approximations, not scanner physics and not segmentation ground truth. The point is to make a familiar problem visible: the anatomy has not changed, but the measurement appearance has. If a model or a threshold is sensitive to these differences, then site-level performance and calibration may change. The threshold panel is also illustrative. It reminds us that a domain shift is not only a visual problem; it can change apparent-positive rates, prevalence assumptions, and how confident a model should be.",
+      "scriptZh": "这个实验使用一张公开 MRI 图像，只改变浏览器端的显示外观。我们可以调节强度、对比度、噪声、模糊和一个简单的偏置场效果。这些都是教学近似，不是真实扫描物理，也不是分割真值。重点是把一个常见问题可视化：解剖结构没有改变，但测量外观改变了。如果模型或阈值对这些差异敏感，那么不同中心的表现和校准都可能改变。阈值面板也是示意性的，它提醒我们域偏移不只是视觉问题，还可能改变表观阳性率、患病率假设和模型置信度。",
+      "transitionEn": "Once sites differ, the next question is what should be shared and what should remain local.",
+      "transitionZh": "既然中心之间存在差异，下一步就是决定什么应共享，什么应保留在本地。",
+      "delivery": "Move contrast or bias field, then click baseline split. Keep the explanation short.",
+      "skipIfLate": "Use reset plus one contrast change only."
+    },
+    {
+      "id": "shared-and-local-models",
+      "slideNumber": "8",
+      "title": "Shared and Local Models",
+      "targetSeconds": 108,
+      "keyPointsEn": [
+        "Personalization is often an honest form of federation.",
+        "The solution spectrum runs from robust global models to local fine-tuning.",
+        "Worst-site performance should shape the choice."
+      ],
+      "keyPointsZh": [
+        "个性化模型往往是更诚实的联邦学习形式。",
+        "方案光谱从稳健全局模型到本地微调。",
+        "最差中心表现应影响模型选择。"
+      ],
+      "scriptEn": "If sites differ, a single global model may not be the right endpoint. The solution is a spectrum. At one end, we harmonize definitions and build a robust global model. In the middle, we can use target-aware reweighting or a shared backbone with local calibration. At the local end, we fine-tune or calibrate for a specific hospital, but only if local data are sufficient. This is close to partial pooling in statistics: borrow strength where it is justified, but do not erase local accountability. Use the interactive chart to compare mean performance with worst-site performance. A model that improves the average while harming the weakest site may not be clinically acceptable.",
+      "scriptZh": "如果中心之间存在差异，一个单一全局模型未必是最合适的终点。解决方案其实是一条光谱。一端是统一定义并训练稳健的全局模型；中间可以做目标中心重加权，或共享主干加本地校准；另一端是针对特定医院微调或校准，但前提是本地数据足够。这和统计学中的部分池化很接近：在合理的地方借力，但不能抹掉本地责任。右侧图用于比较平均表现和最差中心表现。如果一个模型提升了平均值，却损害了最弱中心，它可能并不具备临床可接受性。",
+      "transitionEn": "The next complication is that sites may not even measure the same modalities.",
+      "transitionZh": "下一个复杂性是：不同中心甚至可能没有测量同样的模态。",
+      "delivery": "Move the shared-local slider toward both extremes and point to the worst-site curve.",
+      "skipIfLate": "Explain partial pooling without moving all sliders."
+    },
+    {
+      "id": "lesson-2-missing-modalities-are-design-inputs",
+      "slideNumber": "9",
+      "title": "Lesson 2: Missing Modalities Are Design Inputs",
+      "targetSeconds": 108,
+      "keyPointsEn": [
+        "Missing modality is a design input, not cleanup.",
+        "The modality-by-site matrix defines what can be shared.",
+        "Imputation or reconstruction does not remove missing-data bias."
+      ],
+      "keyPointsZh": [
+        "缺失模态是研究设计输入，而不是后期清理问题。",
+        "模态-中心矩阵决定了什么可以共享。",
+        "插补或重建并不能消除缺失数据偏倚。"
+      ],
+      "scriptEn": "Many clinical federations are not neat tables. One hospital may have MRI and EHR, another CT and pathology, another genomics but no imaging. That is not just missing data; it is missing modality. The matrix helps us see what learning problem is actually possible. A common clinical core may be enough for one question. For richer questions, we may need modality-specific branches, partial aggregation, or distillation. But we should be careful with reconstruction and imputation. They may help a model run, and they can support sensitivity analysis, but they do not remove the bias created by who was measured, why they were measured, and what was unavailable.",
+      "scriptZh": "很多临床联邦并不是整齐的数据表。有的医院有 MRI 和 EHR，有的有 CT 和病理，有的有基因组数据却没有影像。这不仅是普通缺失值，而是缺失模态。这个矩阵帮助我们看清实际能够学习的问题是什么。对于某些问题，一个共同临床核心就足够；对于更复杂的问题，可能需要模态特异分支、部分聚合或蒸馏。但对重建和插补要谨慎。它们可以帮助模型运行，也可以用于敏感性分析，但不能消除“谁被测量、为什么被测量、什么不可用”所带来的偏倚。",
+      "transitionEn": "Even when we decide what can be shared, privacy still has to be treated as a system property.",
+      "transitionZh": "即便决定了什么可以共享，隐私仍然必须作为系统属性来处理。",
+      "delivery": "Toggle one modality off and ask what design remains possible.",
+      "skipIfLate": "Keep the matrix and the imputation warning."
+    },
+    {
+      "id": "lesson-3-privacy-is-a-systems-property",
+      "slideNumber": "10",
+      "title": "Lesson 3: Privacy is a Systems Property",
+      "targetSeconds": 102,
+      "keyPointsEn": [
+        "Data locality is not a complete privacy guarantee.",
+        "Updates, metrics, counts, logs, and releases can carry information.",
+        "A useful privacy discussion starts with a threat model."
+      ],
+      "keyPointsZh": [
+        "数据留在本地并不等于完整隐私保证。",
+        "更新、指标、计数、日志和模型发布都可能携带信息。",
+        "有效的隐私讨论应从威胁模型开始。"
+      ],
+      "scriptEn": "A common but dangerous shorthand is to say that federated learning is private because data stay local. Data locality is important, but it is not the whole privacy argument. Model updates may leak information. Per-site metrics or counts can be disclosive. Logs may reveal participation patterns, software versions, or failures. A released model can change the risk again. So the useful question is not, does FL guarantee privacy? The useful question is, what information flows through the system, who can see it, what could they infer, and what defence applies to that threat? The explorer on the right is qualitative on purpose. It asks prompts rather than producing a fake privacy score.",
+      "scriptZh": "一个常见但危险的简化说法是：因为数据留在本地，所以联邦学习是隐私安全的。数据本地化当然重要，但它不是完整的隐私论证。模型更新可能泄露信息；中心级指标或计数可能暴露敏感细胞；日志可能透露参与模式、软件版本或失败信息；模型发布后风险也会改变。所以真正有用的问题不是“FL 是否保证隐私”，而是系统中哪些信息在流动，谁能看到，能推断出什么，以及哪些防御对应哪种威胁。右侧工具刻意不给假分数，而是提出定性问题。",
+      "transitionEn": "The same system-level thinking applies to evaluation.",
+      "transitionZh": "同样的系统思维也适用于模型评估。",
+      "delivery": "Toggle updates, counts, and model release. Emphasize no fake score.",
+      "skipIfLate": "Read the local/may-move contrast and move on."
+    },
+    {
+      "id": "lesson-4-evaluate-the-hospital",
+      "slideNumber": "11",
+      "title": "Lesson 4: Evaluate the Hospital",
+      "targetSeconds": 108,
+      "keyPointsEn": [
+        "The average hospital is not a real deployment site.",
+        "Report global, per-site, worst-site, calibration, uncertainty, and abstention behavior.",
+        "Federated evaluation can keep test data distributed."
+      ],
+      "keyPointsZh": [
+        "“平均医院”并不是真实部署地点。",
+        "需要报告全局、分中心、最差中心、校准、不确定性和拒绝预测行为。",
+        "联邦评估可以让测试数据继续分布在本地。"
+      ],
+      "scriptEn": "Evaluation is where the clinical promise either survives or fails. A good global number can hide an unsafe hospital. That is why the protocol should specify more than one average metric. We need global and per-site results, worst-site behavior, subgroup performance, calibration, uncertainty, abstention, and drift. The chart on the right is illustrative, but the pattern is real: as unseen-site shift increases, the weakest site may fall below what we would accept clinically. Federated evaluation is useful here because test data can remain distributed. The key question becomes: would we deploy this model at each hospital, or only in the abstract average hospital?",
+      "scriptZh": "评估是临床承诺能否成立的关键环节。一个漂亮的全局指标可能掩盖某家医院的不安全表现。因此研究方案不能只规定一个平均指标。我们需要全局和分中心结果、最差中心表现、亚组表现、校准、不确定性、拒绝预测和漂移。右侧图是示意性的，但模式很真实：当未见中心偏移增大时，最弱中心可能低于临床可接受阈值。联邦评估在这里很有用，因为测试数据仍可留在本地。核心问题是：这个模型能否在每家医院部署，而不只是服务于抽象的平均医院？",
+      "transitionEn": "If that sounds operational, it is, because the algorithm is only the top layer.",
+      "transitionZh": "如果这听起来很像运营问题，那是因为算法只是最上面的一层。",
+      "delivery": "Increase unseen-site shift and point to the worst-site value.",
+      "skipIfLate": "Mention worst-site and calibration only."
+    },
+    {
+      "id": "the-real-world-federation-stack",
+      "slideNumber": "12",
+      "title": "The Real-World Federation Stack",
+      "targetSeconds": 90,
+      "keyPointsEn": [
+        "The visible algorithm is only the top layer.",
+        "Clinical, data, infrastructure, and governance layers carry much of the risk.",
+        "A federation is a collaboration before it is an algorithm."
+      ],
+      "keyPointsZh": [
+        "可见的算法只是最上层。",
+        "临床、数据、基础设施和治理层承担了大部分风险。",
+        "联邦首先是合作，然后才是算法。"
+      ],
+      "scriptEn": "The algorithm is the part that fits neatly on a slide: model, optimizer, aggregation, and schedule. But a real federation depends on lower layers. The clinical layer defines intended use, population, labels, and decision workflow. The data layer handles harmonization, missingness, provenance, and quality control. The infrastructure layer covers identity, compute, networking, monitoring, and incident response. The governance layer decides ethics, contracts, roles, authorship, withdrawal, and maintenance. If these layers are weak, a technically elegant federation may still fail. This is why I like the sentence: a federation is a collaboration before it is an algorithm.",
+      "scriptZh": "算法是最容易放在幻灯片上的部分：模型、优化器、聚合方式和通信计划。但真正的联邦依赖下面几层。临床层定义预期用途、目标人群、标签和决策工作流；数据层处理统一、缺失、来源和质量控制；基础设施层包括身份、计算、网络、监控和事故响应；治理层决定伦理、合同、角色、署名、退出和维护。如果这些层薄弱，一个技术上优雅的联邦仍然会失败。所以我想强调这句话：联邦首先是一种合作，然后才是算法。",
+      "transitionEn": "With that stack in mind, we can map the research frontier.",
+      "transitionZh": "带着这个分层结构，我们再看 2026 年的研究前沿。",
+      "delivery": "Use the four bands as the visual path; do not read every item.",
+      "skipIfLate": "Read the final sentence only."
+    },
+    {
+      "id": "research-frontier-map-2026",
+      "slideNumber": "13",
+      "title": "Research Frontier Map, 2026",
+      "targetSeconds": 120,
+      "keyPointsEn": [
+        "The frontier is six coupled research programs.",
+        "Maturity differs across areas, so preprints and deployments should not be treated the same.",
+        "Clinical relevance comes from matching method maturity to the local research question."
+      ],
+      "keyPointsZh": [
+        "研究前沿不是一个主题，而是六个相互关联的方向。",
+        "不同方向成熟度不同，不能把预印本和部署证据等同。",
+        "临床相关性来自方法成熟度与本地研究问题的匹配。"
+      ],
+      "scriptEn": "By 2026, the interesting questions are no longer only whether federated learning can train a model. The frontier is broader. Personalization asks whose hospital the model should serve. Multimodal FL asks what can be shared when sites have different modalities. Foundation-model work asks whether large models can be adapted efficiently, but clinical translation is still limited. Federated evaluation and analytics ask whether we need training, testing, or estimation. Uncertainty, fairness, robustness, and drift ask who is failed by the average. Infrastructure and governance ask who is responsible when the federation breaks. These areas do not have the same maturity. Some are peer-reviewed methods; some are benchmarks or preprints; some are deployment infrastructure. A clinical PhD should name that maturity level explicitly.",
+      "scriptZh": "到 2026 年，有意思的问题已经不只是“联邦学习能否训练模型”。前沿更宽。个性化方向问模型应该服务哪家医院；多模态 FL 问当不同中心有不同模态时，什么可以共享；基础模型方向问大型模型能否高效适配，但临床转化证据仍有限；联邦评估和分析问我们需要的是训练、测试还是估计；不确定性、公平性、稳健性和漂移关注谁会被平均结果掩盖；基础设施和治理则问联邦出问题时谁负责。这些方向成熟度不同，有的是同行评议方法，有的是基准或预印本，有的是部署基础设施。临床博士应明确说明这种成熟度。",
+      "transitionEn": "Finally, let us translate all of this into habits a clinical PhD can use tomorrow.",
+      "transitionZh": "最后，我们把这些内容转化为临床博士明天就能使用的研究习惯。",
+      "delivery": "Read one mature area and one emerging area. Mention preprints carefully.",
+      "skipIfLate": "Use only personalization, multimodal, and governance."
+    },
+    {
+      "id": "what-clinical-phds-can-borrow-tomorrow",
+      "slideNumber": "14",
+      "title": "What Clinical PhDs Can Borrow Tomorrow",
+      "targetSeconds": 84,
+      "keyPointsEn": [
+        "The transferable lesson is research discipline.",
+        "Make collaboration design, site heterogeneity, evaluation, and privacy explicit.",
+        "Publish what could not be measured or harmonized."
+      ],
+      "keyPointsZh": [
+        "最可迁移的内容是研究设计纪律。",
+        "把合作设计、中心异质性、评估和隐私都明确写出来。",
+        "也要报告哪些内容无法测量或统一。"
+      ],
+      "scriptEn": "Even if you never run a federated-learning system, you can borrow the habits. Start with the collaboration design, not the model name. Write the data-movement policy as a scientific method. Model institution as a variable, not as an inconvenience. Predefine worst-site, subgroup, calibration, and drift criteria. Treat privacy as information flow plus governance. And publish the negative space: what could not be measured, moved, or harmonized. These habits make multicentre clinical AI more honest. They also make a grant proposal or study protocol easier to evaluate, because the collaboration assumptions are visible rather than hidden inside the algorithm.",
+      "scriptZh": "即使你永远不运行真正的联邦学习系统，也可以借鉴这些习惯。先从合作设计开始，而不是从模型名称开始。把数据移动政策写成科学方法的一部分。把机构作为变量，而不是麻烦。预先定义最差中心、亚组、校准和漂移标准。把隐私看作信息流加治理。还要报告“负空间”：哪些东西不能测量、不能移动、不能统一。这些习惯会让多中心临床 AI 更诚实，也让基金申请和研究方案更容易评估，因为合作假设被明确写出来，而不是藏在算法里。",
+      "transitionEn": "I will close with three messages and the course resources.",
+      "transitionZh": "最后用三句话和课程资源作结。",
+      "delivery": "Point to the handout link. Do not read every habit slowly.",
+      "skipIfLate": "Read habits 1, 3, and 4 only."
+    },
+    {
+      "id": "final-synthesis-and-resources",
+      "slideNumber": "15",
+      "title": "Final Synthesis and Resources",
+      "targetSeconds": 54,
+      "keyPointsEn": [
+        "FL helps when the clinical question is shared but data cannot be pooled.",
+        "It fails when heterogeneity, privacy, evaluation, and governance are afterthoughts.",
+        "The transferable habit is to make the collaboration visible."
+      ],
+      "keyPointsZh": [
+        "当临床问题共享但数据不能集中时，FL 可能有帮助。",
+        "如果异质性、隐私、评估和治理被事后处理，FL 会失败。",
+        "最重要的习惯是让合作结构变得可见。"
+      ],
+      "scriptEn": "To close, I want to leave three messages. Federated learning helps when the clinical question is shared, but patient-level data cannot or should not be pooled. It fails when heterogeneity, privacy, evaluation, and governance are treated as afterthoughts. And the transferable habit is to make the collaboration visible: what moves, what stays local, who is represented, who is failed by the average, and who is responsible. The QR code links to the slides, labs, handouts, and references. Thank you, and I am happy to take questions.",
+      "scriptZh": "最后我想留下三句话。第一，当临床问题是共同的，但患者级数据不能或不应集中时，联邦学习可能有帮助。第二，如果异质性、隐私、评估和治理只是事后补充，联邦学习会失败。第三，最可迁移的习惯是让合作结构变得可见：什么会移动，什么留在本地，谁被代表，谁被平均值掩盖，以及谁负责。二维码链接到幻灯片、实验、讲义和参考文献。谢谢大家，欢迎提问。",
+      "transitionEn": "End of talk.",
+      "transitionZh": "报告结束。",
+      "delivery": "Leave the QR code on screen during questions.",
+      "skipIfLate": "Read only the three final messages."
+    }
+  ]
+}

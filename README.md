@@ -39,13 +39,30 @@ For the full reproducible local check used during development:
 ./scripts/validate_project.sh
 ```
 
-That helper regenerates the QR code and PDFs, renders the Quarto site, and checks required internal files, links, labs, iframes, citation count, malformed Reveal attributes, local path leaks, and asset provenance. The small npm dev dependency pins a Sass CLI for local Quarto environments that do not expose their bundled Sass binary correctly; the GitHub Pages workflow uses the official Quarto setup action.
+That helper regenerates the QR code, bilingual rehearsal notes, and PDFs; renders the Quarto site; and checks required internal files, links, labs, iframes, rehearsal scripts, QR source, citation count, malformed Reveal attributes, local path leaks, and asset provenance. The small npm dev dependency pins a Sass CLI for local Quarto environments that do not expose their bundled Sass binary correctly; the GitHub Pages workflow uses the official Quarto setup action.
+
+## Rehearsal Mode
+
+Normal slide mode is intentionally clean:
+
+```text
+index.html
+```
+
+Open the same deck with `?practice=1` to expose the private bilingual rehearsal drawer:
+
+```text
+index.html?practice=1
+```
+
+The drawer reads `assets/practice/slide-scripts.json`, updates on Reveal slide and fragment events, and supports `Alt+R`, `Escape`, tabs, focus trapping, and an exit control that removes the practice query parameter. Printable English-Chinese rehearsal notes are generated as `rehearsal-notes.qmd` and rendered to `rehearsal-notes.html`.
 
 ## Presenter View And Navigation
 
 - `Right` / `Left`: move through the main story.
 - `Up` / `Down`: optional vertical detail slides.
 - `S`: presenter view with notes.
+- `Alt+R`: open/close bilingual rehearsal notes, only in `?practice=1`.
 - `O`: overview mode.
 - `F`: fullscreen.
 - `E`: export/print view where supported by Reveal.js.
@@ -76,6 +93,7 @@ The workflow renders the Quarto project, uploads the `_site` artifact, and deplo
 - `checklist.qmd`: web checklist.
 - `references.qmd`: searchable annotated bibliography.
 - `resources.qmd`: curated learning resources and full lab links.
+- `rehearsal-notes.qmd`: generated printable bilingual rehearsal notes.
 - `multicentre-research-lens.qmd`: HTML version of the clinical AI research lens handout.
 - `frontier.qmd`: research frontier map.
 - `demo/`: standalone heterogeneity teaching simulation.
@@ -83,6 +101,7 @@ The workflow renders the Quarto project, uploads the `_site` artifact, and deplo
 - `assets/diagrams/`: original SVG diagrams.
 - `assets/mri/`: public MRI asset and provenance README.
 - `assets/brand/`: official AU logo PNG and conservative Cercare Medical text wordmark.
+- `assets/practice/`: bilingual rehearsal scripts and the optional Reveal drawer controller.
 - `styles/`: CSS for the website and Reveal.js presentation.
 - `research/`: source inventory, course design notes, and image licence log.
 - `scripts/`: lightweight validation helpers.

@@ -1,66 +1,83 @@
 ---
-title: "Curated Resources"
-pagetitle: "Resources"
+title: "Course Resources"
+pagetitle: "Course Resources"
 ---
 
 <div class="page-header">
-<p>Starting points for a clinically oriented reader who wants enough federated learning to ask sharper research questions.</p>
+<p>Entry points for the slides, rehearsal material, interactive laboratories, and a compact reading path for clinically oriented PhD students.</p>
 </div>
 
-## Course Materials
+## Course Materials {#course-materials}
 
-<div class="resource-grid">
-<div class="resource-card"><h3>Reveal Deck</h3><p>The main 30-minute lecture with speaker notes and optional vertical backup slides.</p><p><a href="index.html">Open slides</a></p></div>
-<div class="resource-card"><h3>Decision Guide</h3><p>Interactive method-selection guide for choosing centralized, local-only, federated-learning, federated-evaluation, or federated-analytics designs.</p><p><a href="decision-guide.html">Use guide</a></p></div>
-<div class="resource-card"><h3>Readiness Checklist</h3><p>Operational checklist covering clinical question, data movement, harmonization, evaluation, privacy, and governance.</p><p><a href="checklist.html">Open checklist</a></p></div>
-<div class="resource-card"><h3>Clinical AI Research Lens</h3><p>A one-page HTML/PDF handout on what clinical researchers can borrow from federated learning.</p><p><a href="multicentre-research-lens.html">Open lens</a></p></div>
-<div class="resource-card"><h3>Heterogeneity Demo</h3><p>A lightweight simulation showing why a global average can hide site-level failure.</p><p><a href="demo/heterogeneity.html">Launch demo</a></p></div>
-<div class="resource-card"><h3>Research Frontier Map</h3><p>A 2026-oriented map of personalized, multimodal, foundation-model, evaluation, UQ, and governance questions.</p><p><a href="frontier.html">Open frontier</a></p></div>
+<div class="resource-grid compact">
+<div class="resource-card"><h3>Lecture Slides</h3><p>Main Reveal.js deck with optional vertical backup slides.</p><p><a href="index.html">Open slides</a></p></div>
+<div class="resource-card"><h3>Rehearsal Mode</h3><p>The same deck with bilingual English-Chinese delivery notes exposed in a private drawer.</p><p><a href="index.html?practice=1">Open rehearsal deck</a></p></div>
+<div class="resource-card"><h3>Printable Bilingual Notes</h3><p>English and Chinese scripts, key points, timing, transitions, and late-running notes.</p><p><a href="rehearsal-notes.html">Open notes</a></p></div>
+<div class="resource-card"><h3>Clinical AI Research Lens</h3><p>One-page handout on what multicentre clinical AI projects can borrow from FL.</p><p><a href="multicentre-research-lens.html">HTML</a> · <a href="downloads/multicentre-clinical-ai-research-lens.pdf">PDF</a></p></div>
+<div class="resource-card"><h3>Readiness Checklist</h3><p>Operational checklist for clinical question, data movement, evaluation, privacy, and governance.</p><p><a href="checklist.html">HTML checklist</a> · <a href="downloads/federated-study-readiness-checklist.pdf">PDF</a></p></div>
+<div class="resource-card"><h3>Design Decision Guide</h3><p>Interactive guide for choosing pooling, local-only, FL, federated evaluation, or federated analytics.</p><p><a href="decision-guide.html">Use guide</a></p></div>
+<div class="resource-card subtle"><h3>Complete Bibliography</h3><p>The full annotated bibliography is kept separate from this resources page.</p><p><a href="references.html">Open full references</a></p></div>
 </div>
 
 ## Interactive Labs {#interactive-labs}
 
-<div class="resource-grid">
-<div class="resource-card"><h3>Aggregation Sandbox</h3><p>Change sample-size, equal-site, quality-aware, and fairness weighting assumptions in one FL round.</p><p><a href="labs/aggregation/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>MRI Domain Shift</h3><p>Use a public MRI image to explore apparent intensity, contrast, noise, blur, bias-field, threshold, prevalence, and label-noise shifts.</p><p><a href="labs/mri-domain-shift/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>Shared Versus Local</h3><p>Explore the conceptual trade-off between global mean performance and worst-site performance.</p><p><a href="labs/personalization/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>Missing Modality</h3><p>Toggle MRI, CT, EHR, pathology, and genomics availability across sites and see design consequences.</p><p><a href="labs/missing-modality/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>Privacy Threat Surface</h3><p>Use qualitative prompts to map what can leak through updates, metrics, logs, participants, and model release.</p><p><a href="labs/privacy-threat-model/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>Hospital-Level Evaluation</h3><p>Stress-test global, per-site, worst-site, calibration, uncertainty, and abstention thinking with illustrative values.</p><p><a href="labs/evaluation-shift/index.html">Launch lab</a></p></div>
+<div class="resource-grid compact">
+<div class="resource-card"><h3>Aggregation Sandbox</h3><p>Compare sample-size, equal-site, quality-aware, and fairness weighting assumptions.</p><p><a href="labs/aggregation/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>MRI Domain Shift</h3><p>Use one public MRI image to explore apparent intensity, contrast, noise, blur, bias-field, prevalence, and label-noise shifts.</p><p><a href="labs/mri-domain-shift/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>Shared Versus Local</h3><p>Explore partial-pooling intuition and the tension between mean-site and worst-site performance.</p><p><a href="labs/personalization/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>Missing Modality</h3><p>Toggle MRI, CT, EHR, pathology, and genomics availability across hospitals.</p><p><a href="labs/missing-modality/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>Privacy Threat Surface</h3><p>Map what can leak through model updates, counts, logs, participants, and model release.</p><p><a href="labs/privacy-threat-model/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>Hospital-Level Evaluation</h3><p>Stress-test per-site performance, calibration, unseen-site shift, uncertainty, and abstention thinking.</p><p><a href="labs/evaluation-shift/index.html">Launch lab</a></p></div>
+<div class="resource-card subtle"><h3>Heterogeneity Demo</h3><p>Standalone simulation showing why global averages can hide site-level failure.</p><p><a href="demo/heterogeneity.html">Launch demo</a></p></div>
 </div>
 
-## First Reading
+## Further Reading, Articles, Courses, and Lectures {#further-reading}
 
-<div class="resource-grid">
-<div class="resource-card"><h3>Federated Learning Overview</h3><p>Rieke et al. frame federated learning as a digital-health collaboration model rather than only an optimization technique.</p><p><a href="https://doi.org/10.1038/s41746-020-00323-1">npj Digital Medicine, 2020</a></p></div>
-<div class="resource-card"><h3>Medical Imaging Review</h3><p>Kaissis et al. summarize privacy-preserving machine learning concepts relevant to medical imaging federations.</p><p><a href="https://doi.org/10.1038/s42256-020-0186-1">Nature Machine Intelligence, 2020</a></p></div>
-<div class="resource-card"><h3>Healthcare Architecture Review</h3><p>Antunes et al. provide a systematic review and architecture proposal for healthcare federated learning.</p><p><a href="https://doi.org/10.1145/3501813">ACM Computing Surveys, 2022</a></p></div>
-<div class="resource-card"><h3>Open Problems</h3><p>Kairouz et al. is a broad reference for technical foundations, privacy, personalization, and systems questions.</p><p><a href="https://doi.org/10.1561/2200000083">Foundations and Trends in ML, 2021</a></p></div>
+<div class="reading-section">
+<h3>Start Here</h3>
+<ul class="reading-list">
+<li><a href="https://doi.org/10.1038/s41746-020-00323-1">Rieke et al., 2020</a>: medical FL framed as collaboration for digital health.</li>
+<li><a href="https://doi.org/10.1561/2200000083">Kairouz et al., 2021</a>: technical foundations and open problems.</li>
+<li><a href="https://doi.org/10.1145/3501813">Antunes et al., 2022</a>: systematic healthcare FL architecture review.</li>
+</ul>
 </div>
 
-## Medical Case Studies
-
-<div class="resource-grid">
-<div class="resource-card"><h3>Rare Cancer Boundary Detection</h3><p>Pati et al. demonstrate a large-scale glioblastoma federation across 71 sites and six continents.</p><p><a href="https://doi.org/10.1038/s41467-022-33407-5">Nature Communications, 2022</a></p></div>
-<div class="resource-card"><h3>COVID-19 Oxygen Prediction</h3><p>Dayan et al. show multimodal clinical prediction across institutions using vitals, labs, and imaging.</p><p><a href="https://doi.org/10.1038/s41591-021-01506-3">Nature Medicine, 2021</a></p></div>
-<div class="resource-card"><h3>Federated Benchmarking</h3><p>MedPerf focuses on evaluating medical AI models across distributed sites without centralizing test data.</p><p><a href="https://doi.org/10.1038/s42256-023-00652-2">Nature Machine Intelligence, 2023</a></p></div>
-<div class="resource-card"><h3>Federated Analytics Platform</h3><p>CODA illustrates how distributed analysis and machine learning can be organized for health data networks.</p><p><a href="https://doi.org/10.1093/jamia/ocad235">JAMIA, 2024</a></p></div>
+<div class="reading-section">
+<h3>Medical Imaging and Clinical Evidence</h3>
+<ul class="reading-list">
+<li><a href="https://doi.org/10.1038/s42256-020-0186-1">Kaissis et al., 2020</a>: privacy-preserving machine learning for medical imaging.</li>
+<li><a href="https://doi.org/10.1038/s41467-022-33407-5">Pati et al., 2022</a>: large-scale glioblastoma federation across 71 sites.</li>
+<li><a href="https://doi.org/10.1038/s42256-023-00652-2">Karargyris et al., 2023</a>: MedPerf and distributed medical AI benchmarking.</li>
+<li><a href="https://doi.org/10.1038/s41591-021-01506-3">Dayan et al., 2021</a>: COVID-19 oxygen prediction across institutions.</li>
+</ul>
 </div>
 
-## Tools To Explore
-
-<div class="resource-grid">
-<div class="resource-card"><h3>Flower</h3><p>Friendly framework and tutorials for learning federated learning concepts and building simulations.</p><p><a href="https://flower.ai/docs/framework/main/en/tutorial-series-what-is-federated-learning.html">Flower docs</a></p></div>
-<div class="resource-card"><h3>TensorFlow Federated</h3><p>Research-oriented tutorials for federated algorithms and evaluation workflows.</p><p><a href="https://www.tensorflow.org/federated/tutorials/tutorials_overview">TFF tutorials</a></p></div>
-<div class="resource-card"><h3>NVIDIA FLARE</h3><p>Production-oriented federated learning platform often used in medical AI collaborations.</p><p><a href="https://nvflare.readthedocs.io/en/main/welcome.html">NVIDIA FLARE docs</a></p></div>
-<div class="resource-card"><h3>OpenFL</h3><p>Federated learning framework with examples and deployment concepts.</p><p><a href="https://openfl.readthedocs.io/en/latest/">OpenFL docs</a></p></div>
+<div class="reading-section">
+<h3>Heterogeneity, Personalization, and Missing Modalities</h3>
+<ul class="reading-list">
+<li><a href="https://doi.org/10.1371/journal.pmed.1002683">Zech et al., 2018</a>: site-level generalization failure in medical imaging.</li>
+<li><a href="https://openreview.net/forum?id=6YEQUn0QICG">Li et al., 2021</a>: FedBN for feature-shift settings.</li>
+<li><a href="https://doi.org/10.1093/jamia/ocad235">CODA, 2024</a>: distributed analysis and machine learning for health data networks.</li>
+<li><a href="frontier.html">Research frontier map</a>: personalized, multimodal, foundation-model, evaluation, UQ, and governance directions.</li>
+</ul>
 </div>
 
-## Reporting And Governance
+<div class="reading-section">
+<h3>Privacy, Evaluation, and Governance</h3>
+<ul class="reading-list">
+<li><a href="https://doi.org/10.1109/SP.2017.41">Shokri et al., 2017</a>: membership inference attack vocabulary.</li>
+<li><a href="https://doi.org/10.1145/3133956.3133982">Bonawitz et al., 2017</a>: secure aggregation systems framing.</li>
+<li><a href="https://doi.org/10.1136/bmj-2023-078378">TRIPOD+AI, 2024</a>: reporting guidance for clinical prediction models.</li>
+<li><a href="https://doi.org/10.1038/s41746-025-01836-3">Eden et al., 2025</a>: governance themes for healthcare FL.</li>
+</ul>
+</div>
 
-<div class="resource-grid">
-<div class="resource-card"><h3>TRIPOD+AI</h3><p>Reporting guidance for clinical prediction models that use regression or machine learning.</p><p><a href="https://doi.org/10.1136/bmj-2023-078378">BMJ, 2024</a></p></div>
-<div class="resource-card"><h3>DECIDE-AI</h3><p>Early-stage clinical evaluation reporting guidance for AI decision-support systems.</p><p><a href="https://doi.org/10.1038/s41591-022-01772-9">Nature Medicine, 2022</a></p></div>
-<div class="resource-card"><h3>Governance Review</h3><p>Eden et al. map governance themes in federated learning for healthcare.</p><p><a href="https://doi.org/10.1038/s41746-025-01836-3">npj Digital Medicine, 2025</a></p></div>
-<div class="resource-card"><h3>Federated Health Networks</h3><p>Vis et al. discuss distributed analysis across health-data networks.</p><p><a href="https://doi.org/10.3389/fpubh.2021.712569">Frontiers in Public Health, 2021</a></p></div>
+<div class="reading-section">
+<h3>Courses, Frameworks, and Tutorials</h3>
+<ul class="reading-list">
+<li><a href="https://flower.ai/docs/framework/main/en/tutorial-series-what-is-federated-learning.html">Flower tutorials</a>: approachable simulations and framework concepts.</li>
+<li><a href="https://www.tensorflow.org/federated/tutorials/tutorials_overview">TensorFlow Federated tutorials</a>: research-oriented FL examples.</li>
+<li><a href="https://nvflare.readthedocs.io/en/main/welcome.html">NVIDIA FLARE documentation</a>: production-oriented healthcare FL platform concepts.</li>
+<li><a href="https://openfl.readthedocs.io/en/latest/">OpenFL documentation</a>: federated learning examples and deployment vocabulary.</li>
+</ul>
 </div>
