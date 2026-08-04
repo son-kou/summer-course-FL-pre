@@ -10,25 +10,24 @@ The course starts from a medical collaboration dilemma rather than an algorithm 
 
 ## Narrative Architecture
 
-1. Start with constrained data movement.
-2. Compare five designs: centralized analysis, local-only modelling, federated learning, federated evaluation, and federated analytics.
-3. Explain one FL round without technical overload.
-4. Use public medical case studies for concrete motivation.
-5. Introduce the hard truths: heterogeneity, privacy leakage, and governance.
-6. End with a decision tree, scenarios, and checklist.
+The 2026 research edition is structured as three acts:
+
+1. What FL is: constrained data movement, collaboration designs, one FL round, and aggregation assumptions.
+2. Where medical FL research stands: evidence-gap metrics, brain-cancer federation, FeTS benchmarking, and current implementation limits.
+3. What every clinical PhD can learn: heterogeneity, domain shift, personalization, missing modalities, privacy, hospital-level evaluation, governance, frontier map, and transferable research habits.
 
 ## Timing
 
-The live run is designed for about 29 minutes of content plus one minute of buffer. Vertical slides are optional backups and are not part of the default timed route.
+The live run is designed for 26.2 minutes of spoken content plus a 1.8-minute buffer. There are 16 horizontal main slides and optional vertical backups for the FedAvg formula, evidence details, and frontier reading map.
 
 ## Evidence Policy
 
-Main slides use short visible citations and links. Supporting pages include the full BibTeX file, an annotated reference browser, and a source inventory with verification dates. Public clinical studies are described as educational examples only.
+Main slides use short visible citations and links. Supporting pages include the full BibTeX file, an annotated reference browser, and a source inventory with verification dates. Preprints are labelled as preprints in the bibliography and notes. Public clinical studies are described as educational examples only.
 
 ## Visual Policy
 
-All diagrams are original SVG assets created for this course. The deck does not include patient images, institutional data, copied publisher figures, or external stock illustrations.
+Most diagrams are original SVG assets created for this course. The 2026 edition adds an official AU logo asset, a conservative Cercare Medical text wordmark, and a public Wikimedia glioma MRI image. The MRI is used only as a teaching visual and domain-shift lab input; it is not from Pati et al., FeTS, Aarhus University, Cercare Medical, or the presenter.
 
 ## Accessibility And Delivery
 
-The primary course artifact is a Quarto Reveal.js deck with keyboard navigation, speaker notes, and a static GitHub Pages deployment path. Supporting tools are static HTML and JavaScript so they can run without a backend.
+The primary course artifact is a Quarto Reveal.js deck with keyboard navigation, speaker notes, and a static GitHub Pages deployment path. Supporting labs are static HTML and JavaScript so they can run offline after render and without a backend.

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Threat-Surface Explorer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="lab-shell">
+    <section class="panel">
+      <p class="eyebrow">Threat-surface explorer</p>
+      <h1>Privacy is a systems property</h1>
+      <div class="toggles">
+        <label><input type="checkbox" data-topic="updates" checked> model updates visible</label>
+        <label><input type="checkbox" data-topic="counts" checked> counts and metrics visible</label>
+        <label><input type="checkbox" data-topic="logs"> orchestration logs retained</label>
+        <label><input type="checkbox" data-topic="participants"> participant can be malicious</label>
+        <label><input type="checkbox" data-topic="release"> model released externally</label>
+      </div>
+    </section>
+    <section class="panel">
+      <svg id="map" viewBox="0 0 800 430" role="img" aria-label="Information-flow map"></svg>
+      <div id="prompts" class="prompts"></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

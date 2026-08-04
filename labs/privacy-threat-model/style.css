@@ -1,0 +1,97 @@
+:root {
+  --navy: #10243f;
+  --ink: #172033;
+  --teal: #0c6b6f;
+  --coral: #c85446;
+  --amber: #d99a2b;
+  --paper: #f7f4ee;
+  --line: #d7e0e4;
+  --mist: #edf4f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+.lab-shell {
+  display: grid;
+  grid-template-columns: minmax(290px, 0.35fr) minmax(500px, 0.65fr);
+  gap: 16px;
+  width: min(1180px, 100vw);
+  min-height: 100vh;
+  padding: 18px;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 16px;
+  color: var(--navy);
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 1.04;
+}
+
+.toggles {
+  display: grid;
+  gap: 12px;
+}
+
+label {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+input {
+  margin-right: 8px;
+  accent-color: var(--teal);
+}
+
+svg {
+  display: block;
+  width: 100%;
+  min-height: 320px;
+}
+
+.prompts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.prompts article {
+  border-left: 5px solid var(--teal);
+  background: var(--mist);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .lab-shell,
+  .prompts {
+    grid-template-columns: 1fr;
+  }
+}

@@ -35,5 +35,6 @@ fi
 
 python3 scripts/generate_qr.py
 python3 scripts/generate_checklist_pdf.py
+python3 scripts/generate_research_lens_pdf.py
 quarto render
 python3 scripts/check_links.py _site

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospital-Level Evaluation Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="lab-shell">
+    <section class="panel controls">
+      <p class="eyebrow">Evaluation lab</p>
+      <h1>Evaluate the hospital, not the average hospital</h1>
+      <label>Unseen-site shift <input id="shift" type="range" min="0" max="100" value="42"></label>
+      <label>Abstention threshold <input id="abstain" type="range" min="0" max="100" value="34"></label>
+      <p class="warning">Illustrative values. Use the pattern: global, per-site, worst-site, calibration, subgroup, uncertainty, abstention, temporal drift.</p>
+    </section>
+    <section class="panel">
+      <svg id="chart" viewBox="0 0 820 430" role="img" aria-label="Per-site evaluation chart"></svg>
+      <div id="readout" class="readout"></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

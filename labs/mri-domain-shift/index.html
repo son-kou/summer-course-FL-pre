@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MRI Domain Shift Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="lab-shell">
+    <section class="image-panel" aria-label="MRI visual">
+      <div class="scan-frame">
+        <img id="scan" src="../../assets/mri/brain_mri_glioma_00.jpg" alt="Public false-color glioma MRI from Wikimedia Commons">
+        <div id="bias" class="bias"></div>
+        <div id="noise" class="noise"></div>
+        <div id="split" class="split"></div>
+      </div>
+      <p class="caption">Educational approximations using one public image. These controls are not scanner physics.</p>
+    </section>
+    <section class="panel" aria-label="Domain-shift controls">
+      <p class="eyebrow">MRI domain-shift lab</p>
+      <h1>Same anatomy, changed appearance</h1>
+      <label>Intensity <input id="intensity" type="range" min="55" max="145" value="100"></label>
+      <label>Contrast <input id="contrast" type="range" min="55" max="170" value="100"></label>
+      <label>Noise <input id="noiseControl" type="range" min="0" max="100" value="12"></label>
+      <label>Blur <input id="blur" type="range" min="0" max="9" value="0"></label>
+      <label>Bias field <input id="biasControl" type="range" min="0" max="100" value="18"></label>
+      <label class="toggle"><input id="compare" type="checkbox"> compare baseline split</label>
+      <button id="reset" type="button">Reset</button>
+      <div class="mini-panel">
+        <h2>Threshold panel</h2>
+        <label>Decision threshold <input id="threshold" type="range" min="20" max="90" value="55"></label>
+        <label>Prevalence shift <input id="prevalence" type="range" min="5" max="45" value="18"></label>
+        <label>Label noise <input id="labelNoise" type="range" min="0" max="30" value="4"></label>
+        <p id="readout"></p>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

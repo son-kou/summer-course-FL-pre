@@ -63,3 +63,23 @@ Verification date for this inventory: 2026-08-04. Sources were selected from pee
 | `openflDocs` | OpenFL documentation | Official docs | https://openfl.readthedocs.io/en/latest/ | Platform exploration | Versioned docs may change. |
 | `medperfDocs` | MedPerf documentation | Official docs | https://docs.medperf.org/what_is_medperf/ | Federated benchmarking resource | Documentation may evolve. |
 | `mlcommonsMedical` | MLCommons Medical AI Working Group | Official page | https://mlcommons.org/working-groups/data/medical/ | Community and benchmarking context | Working-group scope may change. |
+
+## 2026 Research Edition Verification Additions
+
+| Key | Source | Type | DOI or Stable URL | Course Use | Limitation |
+|---|---|---|---|---|---|
+| `teo2024systematic` | Teo et al., healthcare FL systematic review (2024) | Systematic review | https://doi.org/10.1016/j.xcrm.2024.101419 | Slide 4 evidence-gap metrics: 612 included studies, 5.2% real-life applications, 32/612 studies, 64 regions. | Includes literature up to 2023-08-31; correction DOI 10.1016/j.xcrm.2024.101481 fixed author list. |
+| `li2025pitfalls` | Li et al., implementation recommendations (2025) | Healthcare implementation review | https://doi.org/10.1016/j.media.2025.103497 | Evidence-gap and real-world stack slides. | Review/recommendation paper rather than a single deployment trial. |
+| `bujotzek2025radiology` | Bujotzek et al., real-world FL in radiology (2025) | Radiology implementation paper | https://doi.org/10.1093/jamia/ocae259 | Real-world federation stack and deployment-hurdle framing. | Radiology-focused. |
+| `zenk2025fets` | Zenk et al., FeTS decentralized benchmarking (2025) | Medical AI benchmarking study | https://doi.org/10.1038/s41467-025-60466-1 | Brain-cancer, evaluation, and worst-site lessons. | Benchmarking/evaluation focus; not proof of clinical utility. |
+| `pati2024privacy` | Pati et al., privacy preservation review (2024) | Privacy review | https://doi.org/10.1016/j.patter.2024.100974 | Privacy systems-property slide. | Review-level; local threat model still required. |
+| `koutsoubis2025uq` | Koutsoubis et al., privacy-preserving FL and UQ in medical imaging (2025) | Medical imaging review | https://doi.org/10.1148/ryai.240637 | Privacy, uncertainty, and postdeployment-monitoring claims. | Imaging-focused; UQ adoption remains uneven. |
+| `zhu2025fedweight` | Zhu et al., FedWeight (2025) | Healthcare methods paper | https://doi.org/10.1038/s41746-025-01661-8 | Target reweighting/personalization slide. | EHR tasks; not a universal weighting policy. |
+| `pirmani2025ms` | Pirmani et al., personalized FL for multiple sclerosis (2025) | Clinical registry methods study | https://doi.org/10.1038/s41746-025-01788-8 | Shared-local spectrum and partial-pooling analogy. | Simulation constrained by governance and local-data sufficiency. |
+| `thrasher2025mmfl` | Thrasher et al., multimodal FL in healthcare review (2025) | Review | https://doi.org/10.1007/s41666-025-00226-4 | Missing-modality slide and resources. | Review-level. |
+| `saha2025incongruent` | Saha et al., incongruent medical vision-language MMFL (2025) | Peer-reviewed conference paper | https://doi.org/10.1609/aaai.v39i27.35054 | Missing-modality methods and frontier map. | Benchmark/task-specific. |
+| `fhbench2025` | Wang et al., FHBench (2025) | Preprint benchmark | https://doi.org/10.48550/arXiv.2504.10817 | Missing-modality and frontier benchmark example. | Preprint; label as emerging evidence. |
+| `medmmfl2026` | Chhetri et al., Med-MMFL (2026) | Preprint benchmark | https://doi.org/10.48550/arXiv.2602.04416 | Multimodal medical FL benchmark example. | Preprint; not treated as established clinical evidence. |
+| `li2025fedfoundation` | Li et al., federated foundation models in biomedical healthcare (2025) | Review | https://doi.org/10.1186/s13040-024-00414-9 | Foundation-model frontier slide. | Biomedical review; clinical deployment evidence limited. |
+| `bian2025peftfedfm` | Bian et al., PEFT for foundation models in FL (2025) | Preprint survey | https://arxiv.org/abs/2504.21099 | PEFT frontier context. | Preprint; feasibility signal only. |
+| `wang2026foundationhealthcare` | Wang et al., healthcare foundation-model review (2026) | Review | https://doi.org/10.1186/s12967-026-08211-0 | Foundation-model clinical translation context. | Not specific to FL. |

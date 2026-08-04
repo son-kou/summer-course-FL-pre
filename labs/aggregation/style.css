@@ -1,0 +1,144 @@
+:root {
+  --navy: #10243f;
+  --ink: #172033;
+  --teal: #0c6b6f;
+  --coral: #c85446;
+  --amber: #d99a2b;
+  --paper: #f7f4ee;
+  --line: #d7e0e4;
+  --mist: #edf4f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
+}
+
+.lab-shell {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.38fr) minmax(330px, 0.62fr);
+  gap: 12px;
+  width: min(1180px, 100vw);
+  min-height: 100vh;
+  padding: 12px;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+h1 {
+  margin: 0 0 16px;
+  color: var(--navy);
+  font-size: clamp(19px, 2.1vw, 30px);
+  line-height: 1.04;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--teal);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 12px 0 18px;
+}
+
+button {
+  border: 1px solid var(--teal);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--navy);
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+button.active {
+  background: var(--teal);
+  color: #fff;
+}
+
+.toggle {
+  display: block;
+  margin: 12px 0;
+  font-size: 15px;
+}
+
+.toggle input {
+  margin-right: 8px;
+}
+
+.warning {
+  margin: 18px 0 0;
+  border-left: 5px solid var(--coral);
+  background: #fff5ef;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.output {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 8px;
+  min-width: 0;
+}
+
+svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.summary > div {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--mist);
+  padding: 10px 12px;
+}
+
+.number {
+  display: block;
+  color: var(--navy);
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.label {
+  color: #556274;
+  font-size: 13px;
+}
+
+@media (max-width: 620px) {
+  .lab-shell {
+    grid-template-columns: 1fr;
+  }
+}

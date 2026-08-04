@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shared Versus Local Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="lab-shell">
+    <section class="panel controls">
+      <p class="eyebrow">Personalization lab</p>
+      <h1>Shared representation, local accountability</h1>
+      <label>Shared-local mix <input id="mix" type="range" min="0" max="100" value="52"></label>
+      <label>Heterogeneity <input id="heterogeneity" type="range" min="0" max="100" value="58"></label>
+      <label>Local data per site <input id="localData" type="range" min="10" max="100" value="44"></label>
+      <p class="warning">Partial pooling intuition: borrow strength, but keep site-level error visible.</p>
+    </section>
+    <section class="panel">
+      <svg id="curve" viewBox="0 0 820 470" role="img" aria-label="Conceptual global and worst-site performance curves"></svg>
+      <div class="summary">
+        <div><strong id="global">0.00</strong><span>mean-site performance</span></div>
+        <div><strong id="worst">0.00</strong><span>worst-site performance</span></div>
+        <div><strong id="advice">-</strong><span>clinical interpretation</span></div>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+---
+title: "Federated Learning Research Frontier Map, 2026"
+pagetitle: "Research Frontier"
+---
+
+<div class="page-header">
+<p>A clinically oriented map of fast-moving FL research areas, with maturity labels so preprints and established evidence are not conflated.</p>
+</div>
+
+<div class="resource-grid">
+<div class="resource-card"><h3>Personalized and Target-Aware FL</h3><p><strong>Question:</strong> whose hospital should the model serve?</p><p><strong>Signals:</strong> FedBN, FedWeight, personalized MS prediction.</p><p><span class="badge">Maturing methods</span> Peer-reviewed methods exist, but clinical deployment evidence remains task-specific.</p></div>
+<div class="resource-card"><h3>Multimodal and Missing-Modality FL</h3><p><strong>Question:</strong> what can be shared when sites do not measure the same modalities?</p><p><strong>Signals:</strong> incongruent medical MMFL, FHBench, Med-MMFL.</p><p><span class="badge">Emerging</span> Mix of peer-reviewed work and preprints; label benchmark status carefully.</p></div>
+<div class="resource-card"><h3>Foundation Models and PEFT</h3><p><strong>Question:</strong> can large models be adapted across sites without full fine-tuning?</p><p><strong>Signals:</strong> federated foundation-model reviews, PEFT-in-FL surveys.</p><p><span class="badge">Promising</span> Translation evidence is thinner than technical enthusiasm.</p></div>
+<div class="resource-card"><h3>Federated Evaluation, Analytics, and Causal Questions</h3><p><strong>Question:</strong> do we need to train, test, estimate, or audit?</p><p><strong>Signals:</strong> MedPerf, CODA, federated analytics networks.</p><p><span class="badge">Practical infrastructure</span> Often more immediately useful than training a model.</p></div>
+<div class="resource-card"><h3>Uncertainty, Fairness, Robustness, and Drift</h3><p><strong>Question:</strong> who is failed by the average result?</p><p><strong>Signals:</strong> FeTS evaluation, UQ in medical imaging, subgroup reporting.</p><p><span class="badge">Clinically essential</span> Still unevenly adopted in FL papers.</p></div>
+<div class="resource-card"><h3>Infrastructure, Governance, and Reproducibility</h3><p><strong>Question:</strong> who is accountable when the federation breaks?</p><p><strong>Signals:</strong> Eden governance review, radiology implementation guidance.</p><p><span class="badge">Deployment-critical</span> Often the limiting factor in real federations.</p></div>
+</div>
+
+## Lab Links
+
+<div class="resource-grid">
+<div class="resource-card"><h3>Aggregation</h3><p><a href="labs/aggregation/index.html">Open sandbox</a></p></div>
+<div class="resource-card"><h3>MRI Domain Shift</h3><p><a href="labs/mri-domain-shift/index.html">Open lab</a></p></div>
+<div class="resource-card"><h3>Shared Versus Local</h3><p><a href="labs/personalization/index.html">Open lab</a></p></div>
+<div class="resource-card"><h3>Missing Modality</h3><p><a href="labs/missing-modality/index.html">Open lab</a></p></div>
+<div class="resource-card"><h3>Privacy Threat Surface</h3><p><a href="labs/privacy-threat-model/index.html">Open lab</a></p></div>
+<div class="resource-card"><h3>Evaluation Shift</h3><p><a href="labs/evaluation-shift/index.html">Open lab</a></p></div>
+</div>

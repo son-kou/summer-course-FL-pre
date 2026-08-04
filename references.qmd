@@ -17,6 +17,8 @@ pagetitle: "References"
 <option value="privacy">Privacy and security</option>
 <option value="healthcare">Healthcare reviews</option>
 <option value="cases">Medical case studies</option>
+<option value="multimodal">Multimodal and missing modality</option>
+<option value="frontier">2026 frontier</option>
 <option value="governance">Governance and evaluation</option>
 <option value="teaching">Teaching and tools</option>
 </select>
@@ -34,11 +36,13 @@ const count = document.getElementById("reference-count");
 
 const categories = {
   foundations: ["mcmahan2017", "kairouz2021", "li2020challenges", "yang2019fml"],
-  optimization: ["li2020fedprox", "karimireddy2020scaffold", "reddi2021fedopt", "li2021fedbn", "fallah2020personalized", "tavakoli2024personalized", "pan2024mmfl", "che2023mmfl", "huang2024mmfl", "wang2024fairness"],
-  privacy: ["bonawitz2017secure", "dwork2014dp", "shokri2017membership", "zhu2019deep", "bagdasaryan2020backdoor", "hitaj2017gan", "froelicher2021famhe"],
-  healthcare: ["rieke2020future", "kaissis2020secure", "sheller2020medicine", "kaissis2021end", "antunes2022systematic", "xu2021healthcare", "rehman2023radiology", "darzidehkalani2022part1", "bakas2026deployment"],
-  cases: ["pati2022rare", "dayan2021exam", "karargyris2023medperf", "lo2021oct", "yeom2024pathology", "huang2023aki", "zhang2024adaptive", "mullie2024coda"],
-  governance: ["eden2025governance", "vis2021networks", "zech2018generalization", "wynants2020covid", "collins2024tripodai", "vasey2022decide"],
+  optimization: ["li2020fedprox", "karimireddy2020scaffold", "reddi2021fedopt", "li2021fedbn", "fallah2020personalized", "tavakoli2024personalized", "wang2024fairness", "zhu2025fedweight", "pirmani2025ms"],
+  privacy: ["bonawitz2017secure", "dwork2014dp", "shokri2017membership", "zhu2019deep", "bagdasaryan2020backdoor", "hitaj2017gan", "froelicher2021famhe", "pati2024privacy", "koutsoubis2025uq"],
+  healthcare: ["rieke2020future", "kaissis2020secure", "sheller2020medicine", "kaissis2021end", "antunes2022systematic", "xu2021healthcare", "rehman2023radiology", "darzidehkalani2022part1", "teo2024systematic", "li2025pitfalls", "abdulrahman2026survey", "bakas2026deployment"],
+  cases: ["pati2022rare", "dayan2021exam", "karargyris2023medperf", "zenk2025fets", "lo2021oct", "yeom2024pathology", "huang2023aki", "zhang2024adaptive", "mullie2024coda"],
+  multimodal: ["pan2024mmfl", "che2023mmfl", "huang2024mmfl", "thrasher2025mmfl", "saha2025incongruent", "fhbench2025", "medmmfl2026", "fedmekt2025", "wang2025missingmodality", "yan2025fedpmg", "fedmir2026"],
+  frontier: ["li2025fedfoundation", "bian2025peftfedfm", "wang2026foundationhealthcare", "zhu2025fedweight", "fhbench2025", "medmmfl2026", "koutsoubis2025uq", "zenk2025fets"],
+  governance: ["eden2025governance", "bujotzek2025radiology", "vis2021networks", "zech2018generalization", "wynants2020covid", "collins2024tripodai", "vasey2022decide"],
   teaching: ["ramage2020analytics", "cambridge2025course", "stanford2020biods220", "cofe2025tutorial", "miccai2022tutorial", "quartoReveal", "quartoPresenting", "quartoAdvanced", "quartoPages", "flowerDocs", "tensorflowFederatedDocs", "nvflareDocs", "openflDocs", "medperfDocs", "mlcommonsMedical"]
 };
 
@@ -48,6 +52,8 @@ const categoryLabels = {
   privacy: "Privacy and security",
   healthcare: "Healthcare reviews",
   cases: "Medical case studies",
+  multimodal: "Multimodal and missing modality",
+  frontier: "2026 frontier",
   governance: "Governance and evaluation",
   teaching: "Teaching and tools"
 };
@@ -57,9 +63,23 @@ const annotations = {
   kairouz2021: "Broad technical map of open problems, including privacy, optimization, personalization, and systems.",
   li2020challenges: "Concise overview for moving from basic workflow to real-world limitations.",
   pati2022rare: "Primary rare-cancer example used in the lecture; illustrates why multicentre federation can matter.",
+  teo2024systematic: "Why this matters to clinical researchers: it quantifies the gap between a large FL literature and much smaller real-life clinical use.",
+  li2025pitfalls: "Why this matters to clinical researchers: it turns implementation pitfalls into concrete planning questions for healthcare FL.",
+  bujotzek2025radiology: "Why this matters to clinical researchers: it focuses on real radiology deployment hurdles rather than idealized simulations.",
+  zenk2025fets: "Why this matters to clinical researchers: it shows why distributed external evaluation and worst-site behavior belong in the main result.",
   dayan2021exam: "Primary multimodal COVID-19 example; useful for connecting imaging, vitals, labs, and outcomes.",
   karargyris2023medperf: "Supports the distinction between federated training and federated benchmarking/evaluation.",
   eden2025governance: "Recent governance review used for the organizational and responsibility portions of the course.",
+  pati2024privacy: "Why this matters to clinical researchers: it explains why keeping raw data local is not the same as solving privacy.",
+  koutsoubis2025uq: "Why this matters to clinical researchers: it connects privacy, uncertainty, heterogeneity, and postdeployment monitoring in medical imaging.",
+  zhu2025fedweight: "Why this matters to clinical researchers: it makes target-site covariate shift a design variable rather than a post-hoc excuse.",
+  pirmani2025ms: "Why this matters to clinical researchers: it shows personalization gains and local-data limits in routine clinical registry data.",
+  thrasher2025mmfl: "Why this matters to clinical researchers: it maps multimodal FL choices for projects spanning imaging, text, omics, and EHR.",
+  saha2025incongruent: "Why this matters to clinical researchers: it studies medical vision-language FL when clients do not contribute matching modalities.",
+  fhbench2025: "Why this matters to clinical researchers: preprint benchmark for multimodal healthcare FL; useful, but not yet settled evidence.",
+  medmmfl2026: "Why this matters to clinical researchers: preprint benchmark expanding multimodal medical FL tasks; label as emerging evidence.",
+  li2025fedfoundation: "Why this matters to clinical researchers: it frames foundation-model FL as a biomedical opportunity with unresolved translation risks.",
+  bian2025peftfedfm: "Why this matters to clinical researchers: preprint survey of PEFT in FL; useful for feasibility, not clinical validation.",
   zech2018generalization: "Clear medical AI example showing site-level generalization problems without invoking FL.",
   bonawitz2017secure: "Reference point for secure aggregation as one layer of defence, not a complete privacy guarantee.",
   shokri2017membership: "Motivates membership inference risk and the need to specify a threat model.",
@@ -94,7 +114,7 @@ function parseBibtex(text) {
       year: field({ raw }, "year"),
       doi,
       url,
-      annotation: annotations[key] || `Included as supporting evidence for ${categoryLabels[category].toLowerCase()}.`
+      annotation: annotations[key] || `Why this matters to clinical researchers: included as supporting evidence for ${categoryLabels[category].toLowerCase()}.`
     };
   });
 }
@@ -114,7 +134,7 @@ function renderReferences() {
       <h3>${ref.title}</h3>
       <p><span class="badge">${categoryLabels[ref.category]}</span> <strong>${ref.year || "n.d."}</strong> ${ref.venue ? `· ${ref.venue}` : ""}</p>
       <p>${ref.author}</p>
-      <p>${ref.annotation}</p>
+      <p><strong>Why this matters to clinical researchers:</strong> ${ref.annotation.replace(/^Why this matters to clinical researchers:\\s*/i, "")}</p>
       <p>${ref.doi ? `DOI: <a href="https://doi.org/${ref.doi}">${ref.doi}</a>` : ref.url ? `<a href="${ref.url}">Source link</a>` : ""}</p>
       <button type="button" class="secondary" data-key="${ref.key}">Copy BibTeX</button>
     </article>

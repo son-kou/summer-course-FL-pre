@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aggregation Sandbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="lab-shell">
+    <section class="panel controls" aria-label="Aggregation controls">
+      <p class="eyebrow">Aggregation sandbox</p>
+      <h1>One round, different weighting assumptions</h1>
+      <div class="segmented" role="group" aria-label="Aggregation mode">
+        <button class="active" type="button" data-mode="sample">Sample-size</button>
+        <button type="button" data-mode="equal">Equal site</button>
+        <button type="button" data-mode="quality">Quality-aware</button>
+      </div>
+      <label class="toggle"><input id="quality" type="checkbox" checked> include quality signal</label>
+      <label class="toggle"><input id="fairness" type="checkbox"> upweight under-represented prevalence</label>
+      <p class="warning">Conceptual teaching tool - not a recommended clinical aggregation policy.</p>
+    </section>
+
+    <section class="panel output" aria-label="Aggregation output">
+      <svg id="chart" viewBox="0 0 760 430" role="img" aria-label="Site weights and aggregate update"></svg>
+      <div class="summary">
+        <div><span id="aggregate" class="number">0.000</span><span class="label">aggregate update</span></div>
+        <div><span id="dominance" class="number">0%</span><span class="label">largest site weight</span></div>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

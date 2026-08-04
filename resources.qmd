@@ -13,7 +13,20 @@ pagetitle: "Resources"
 <div class="resource-card"><h3>Reveal Deck</h3><p>The main 30-minute lecture with speaker notes and optional vertical backup slides.</p><p><a href="index.html">Open slides</a></p></div>
 <div class="resource-card"><h3>Decision Guide</h3><p>Interactive method-selection guide for choosing centralized, local-only, federated-learning, federated-evaluation, or federated-analytics designs.</p><p><a href="decision-guide.html">Use guide</a></p></div>
 <div class="resource-card"><h3>Readiness Checklist</h3><p>Operational checklist covering clinical question, data movement, harmonization, evaluation, privacy, and governance.</p><p><a href="checklist.html">Open checklist</a></p></div>
+<div class="resource-card"><h3>Clinical AI Research Lens</h3><p>A one-page HTML/PDF handout on what clinical researchers can borrow from federated learning.</p><p><a href="multicentre-research-lens.html">Open lens</a></p></div>
 <div class="resource-card"><h3>Heterogeneity Demo</h3><p>A lightweight simulation showing why a global average can hide site-level failure.</p><p><a href="demo/heterogeneity.html">Launch demo</a></p></div>
+<div class="resource-card"><h3>Research Frontier Map</h3><p>A 2026-oriented map of personalized, multimodal, foundation-model, evaluation, UQ, and governance questions.</p><p><a href="frontier.html">Open frontier</a></p></div>
+</div>
+
+## Interactive Labs {#interactive-labs}
+
+<div class="resource-grid">
+<div class="resource-card"><h3>Aggregation Sandbox</h3><p>Change sample-size, equal-site, quality-aware, and fairness weighting assumptions in one FL round.</p><p><a href="labs/aggregation/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>MRI Domain Shift</h3><p>Use a public MRI image to explore apparent intensity, contrast, noise, blur, bias-field, threshold, prevalence, and label-noise shifts.</p><p><a href="labs/mri-domain-shift/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>Shared Versus Local</h3><p>Explore the conceptual trade-off between global mean performance and worst-site performance.</p><p><a href="labs/personalization/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>Missing Modality</h3><p>Toggle MRI, CT, EHR, pathology, and genomics availability across sites and see design consequences.</p><p><a href="labs/missing-modality/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>Privacy Threat Surface</h3><p>Use qualitative prompts to map what can leak through updates, metrics, logs, participants, and model release.</p><p><a href="labs/privacy-threat-model/index.html">Launch lab</a></p></div>
+<div class="resource-card"><h3>Hospital-Level Evaluation</h3><p>Stress-test global, per-site, worst-site, calibration, uncertainty, and abstention thinking with illustrative values.</p><p><a href="labs/evaluation-shift/index.html">Launch lab</a></p></div>
 </div>
 
 ## First Reading

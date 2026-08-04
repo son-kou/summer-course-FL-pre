@@ -1,0 +1,65 @@
+---
+title: "What Clinical Researchers Can Borrow from Federated Learning"
+pagetitle: "Multicentre Clinical AI Research Lens"
+---
+
+<div class="page-header">
+<p>A one-page lens for planning multicentre clinical AI projects, whether or not the project ultimately uses federated learning.</p>
+</div>
+
+<div class="print-actions">
+<a class="button-link" href="downloads/multicentre-clinical-ai-research-lens.pdf">Download PDF</a>
+<button type="button" class="secondary" onclick="window.print()">Print HTML</button>
+</div>
+
+## The Lens
+
+::: {.checklist-grid}
+::: {.check-section}
+### 1. Collaboration Design
+
+State what moves: patient-level data, model updates, metrics, aggregate counts, or only conclusions. Explain why that movement is scientifically and legally justified.
+:::
+::: {.check-section}
+### 2. Institution As A Variable
+
+Plan analyses by site from the start. Describe scanner, assay, referral, label, annotation, and workflow differences as measurable context rather than noise.
+:::
+::: {.check-section}
+### 3. Missingness And Modality
+
+Make a modality-by-site matrix before modelling. Distinguish random absence from workflow, access, disease severity, and historical documentation patterns.
+:::
+::: {.check-section}
+### 4. Site-Level Evaluation
+
+Predefine global, per-site, worst-site, subgroup, calibration, uncertainty, abstention, unseen-site, and temporal-drift reporting.
+:::
+::: {.check-section}
+### 5. Privacy As Information Flow
+
+Write a threat model in plain language: who can see what, what can be inferred, what is logged, what is released, and who responds to incidents.
+:::
+::: {.check-section}
+### 6. Governance And Maintenance
+
+Name owners for clinical validity, data quality, security, ethics, contracts, authorship, model updates, withdrawal, and postdeployment monitoring.
+:::
+:::
+
+## Protocol Sentence Starters
+
+- "The primary collaboration design is ... because ..."
+- "Patient-level data will not move; the following information will move ..."
+- "Institution will be analysed as a source of clinical and measurement variation by ..."
+- "The study will be considered unsuccessful if any site or subgroup falls below ..."
+- "The privacy claim is limited to ... and does not cover ..."
+- "The model will be maintained, recalibrated, or retired when ..."
+
+## Related Course Material
+
+<div class="resource-grid">
+<div class="resource-card"><h3>Slides</h3><p><a href="index.html">Open the Reveal deck</a></p></div>
+<div class="resource-card"><h3>Readiness Checklist</h3><p><a href="checklist.html">Open the operational checklist</a></p></div>
+<div class="resource-card"><h3>References</h3><p><a href="references.html">Browse annotated sources</a></p></div>
+</div>

@@ -4,6 +4,7 @@ project:
   resources:
     - assets/**
     - demo/**
+    - labs/**
     - downloads/**
     - references.bib
 
@@ -19,6 +20,10 @@ website:
         href: decision-guide.html
       - text: "Checklist"
         href: checklist.html
+      - text: "Research Lens"
+        href: multicentre-research-lens.html
+      - text: "Frontier"
+        href: frontier.html
       - text: "Heterogeneity Demo"
         href: demo/heterogeneity.html
       - text: "References"

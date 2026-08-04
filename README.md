@@ -1,6 +1,6 @@
 # Federated Learning in Medical AI
 
-Course presentation for a 30-minute session by **Geng Sun**, Industrial PhD at Cercare Medical / Aarhus University, for clinically oriented PhD students on **18 August 2026**.
+Research-level Quarto Reveal.js course website for a 30-minute session by **Geng Sun**, Industrial PhD at Cercare Medical / Aarhus University, for clinically oriented PhD students on **18 August 2026**.
 
 The central question is:
 
@@ -10,11 +10,11 @@ The central question is:
 
 Participants should leave able to:
 
-- explain the basic federated-learning workflow without equations;
+- explain the basic federated-learning workflow and aggregation assumptions;
 - distinguish centralized learning, local-only learning, federated learning, federated evaluation, and federated analytics;
-- recognize when FL may be useful in multicentre medical research;
-- recognize when a centralized or simpler design may be preferable;
-- ask better questions about heterogeneity, governance, validation, privacy, and infrastructure.
+- summarize the current medical FL evidence gap without overstating clinical maturity;
+- ask better questions about heterogeneity, missing modalities, personalization, privacy, governance, validation, uncertainty, and infrastructure;
+- borrow FL research habits for multicentre clinical AI projects even when FL is not the final design.
 
 ## Local Preview
 
@@ -39,7 +39,7 @@ For the full reproducible local check used during development:
 ./scripts/validate_project.sh
 ```
 
-That helper regenerates the QR code and checklist PDF, renders the Quarto site, and checks required internal files and links. The small npm dev dependency pins a Sass CLI for local Quarto environments that do not expose their bundled Sass binary correctly; the GitHub Pages workflow uses the official Quarto setup action.
+That helper regenerates the QR code and PDFs, renders the Quarto site, and checks required internal files, links, labs, iframes, citation count, malformed Reveal attributes, local path leaks, and asset provenance. The small npm dev dependency pins a Sass CLI for local Quarto environments that do not expose their bundled Sass binary correctly; the GitHub Pages workflow uses the official Quarto setup action.
 
 ## Presenter View And Navigation
 
@@ -52,10 +52,11 @@ That helper regenerates the QR code and checklist PDF, renders the Quarto site, 
 
 ## Export PDF
 
-For the slide deck, open `index.html?print-pdf` in a browser and print to PDF. The readiness checklist also has a pre-rendered printable PDF at:
+For the slide deck, open `index.html?print-pdf` in a browser and print to PDF. The readiness checklist and multicentre clinical AI research lens also have pre-rendered printable PDFs at:
 
 ```text
 downloads/federated-study-readiness-checklist.pdf
+downloads/multicentre-clinical-ai-research-lens.pdf
 ```
 
 ## Deployment
@@ -74,9 +75,14 @@ The workflow renders the Quarto project, uploads the `_site` artifact, and deplo
 - `decision-guide.qmd`: interactive method-selection guide.
 - `checklist.qmd`: web checklist.
 - `references.qmd`: searchable annotated bibliography.
-- `resources.qmd`: curated learning resources.
+- `resources.qmd`: curated learning resources and full lab links.
+- `multicentre-research-lens.qmd`: HTML version of the clinical AI research lens handout.
+- `frontier.qmd`: research frontier map.
 - `demo/`: standalone heterogeneity teaching simulation.
+- `labs/`: standalone interactive labs embedded in the deck and linked from resources.
 - `assets/diagrams/`: original SVG diagrams.
+- `assets/mri/`: public MRI asset and provenance README.
+- `assets/brand/`: official AU logo PNG and conservative Cercare Medical text wordmark.
 - `styles/`: CSS for the website and Reveal.js presentation.
 - `research/`: source inventory, course design notes, and image licence log.
 - `scripts/`: lightweight validation helpers.
@@ -86,7 +92,7 @@ The workflow renders the Quarto project, uploads the `_site` artifact, and deplo
 
 Main-slide citations are intentionally concise. Full references are available in `references.bib`, `references.html`, and `research/source-inventory.md`.
 
-All committed teaching diagrams are original SVGs created for this course. No patient data, confidential Cercare data, proprietary figures, or copied publisher figures are used. Externally informed concepts are cited in the relevant slides and image licence log.
+Most committed teaching diagrams are original SVGs created for this course. No patient data, confidential Cercare data, proprietary figures, or copied publisher figures are used. The AU logo comes from the official AU logo package and is used unchanged. The MRI visual is a public Wikimedia Commons asset with attribution recorded in `assets/mri/README.md` and `research/image-licence-log.md`. The Cercare Medical asset is a text wordmark, not an official logo, because no redistributable official logo was available during implementation.
 
 ## Acknowledgements
 
