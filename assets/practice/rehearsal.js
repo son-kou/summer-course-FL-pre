@@ -42,6 +42,7 @@
       <button type="button" role="tab" aria-selected="true" data-tab="key">Key points</button>
       <button type="button" role="tab" aria-selected="false" data-tab="en">English script</button>
       <button type="button" role="tab" aria-selected="false" data-tab="zh">中文讲稿</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="interaction">Interactions</button>
       <button type="button" role="tab" aria-selected="false" data-tab="delivery">Delivery</button>
     </div>
     <div class="rehearsal-content" tabindex="-1"></div>
@@ -104,25 +105,39 @@
       `;
     }
     if (state.activeTab === "delivery") {
-      const interaction = script.interactionNotes && script.interactionNotes.length
-        ? `<h3>Interaction notes</h3>${list(script.interactionNotes)}`
-        : "";
       return `
         <section>
           <h3>Delivery note</h3>
           <p>${script.delivery || "No special delivery note."}</p>
-          ${interaction}
           <h3>Skip if late</h3>
           <p>${script.skipIfLate || "No skip note."}</p>
         </section>
       `;
     }
+    if (state.activeTab === "interaction") {
+      const notesEn = script.interactionNotes || [];
+      const notesZh = script.interactionNotesZh || [];
+      return `
+        <section>
+          <h3>Interactive controls and chart readings</h3>
+          ${notesEn.length ? list(notesEn) : "<p>No interactive parameter notes for this slide.</p>"}
+          <h3 lang="zh-Hans">交互参数和图表读数</h3>
+          <div lang="zh-Hans">
+            ${notesZh.length ? list(notesZh) : "<p>这一页没有需要特别说明的交互参数。</p>"}
+          </div>
+        </section>
+      `;
+    }
+    const interactionHint = script.interactionNotes && script.interactionNotes.length
+      ? `<p class="rehearsal-hint">This slide has parameter-by-parameter notes in the Interactions tab.</p>`
+      : "";
     return `
       <section>
         <h3>English key points</h3>
         ${list(script.keyPointsEn)}
         <h3 lang="zh-Hans">中文要点</h3>
         ${list(script.keyPointsZh)}
+        ${interactionHint}
       </section>
     `;
   }

@@ -191,6 +191,10 @@ def check_practice_assets(project: Path, errors: list[str]) -> None:
             notes = slide.get("interactionNotes")
             if not isinstance(notes, list) or not notes or any(not isinstance(item, str) or not item.strip() for item in notes):
                 errors.append(f"rehearsal slide {slide.get('id', index)} has invalid interaction notes")
+        if "interactionNotesZh" in slide:
+            notes = slide.get("interactionNotesZh")
+            if not isinstance(notes, list) or not notes or any(not isinstance(item, str) or not item.strip() for item in notes):
+                errors.append(f"rehearsal slide {slide.get('id', index)} has invalid Chinese interaction notes")
     if not (26 * 60 <= total_seconds <= 30 * 60):
         errors.append(f"rehearsal target time should be 26-30 minutes, found {total_seconds} seconds")
     js = (project / "assets/practice/rehearsal.js").read_text(encoding="utf-8", errors="replace")

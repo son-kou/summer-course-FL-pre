@@ -161,8 +161,17 @@ Point to the diagram first, then use the short labels. Do not read every label t
 
 ### Interaction Notes
 
-- This slide has no clickable controls; use it as a design menu. Changing the design changes what moves: raw data, model updates, finished models, test metrics, or only aggregate statistics.
-- When a student says "we should use FL", ask which card they mean: training, evaluation, or analytics often answer different clinical questions.
+- The five diagrams are a decision vocabulary, not clickable controls. Read them from left to right by asking what unit moves: raw records, separate local models, model updates, finished model, or aggregate statistics.
+- Changing the design changes the scientific claim. Pooling maximizes control but moves records; local-only minimizes movement but weakens generalization; FL trains together; federated evaluation tests a model where data live; federated analytics estimates counts or rates before modeling.
+- Use this slide to stop premature method choice. The practical question is not “can we do FL?” but “which movement pattern answers the clinical question with the least unnecessary burden?”
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>这五个图不是按钮，而是一套决策词汇。讲解时按从左到右读：移动的是原始记录、本地模型、模型更新、完成后的模型，还是汇总统计量。</li>
+<li>改变协作设计，就改变科学主张。集中数据控制力最强但移动负担最大；本地训练治理最简单但泛化最弱；联邦训练共同更新模型；联邦评估在数据所在处测试模型；联邦分析先估计数量、比例或均值。</li>
+<li>这一页用来阻止过早选择方法。真正的问题不是“能不能做 FL”，而是“哪一种移动模式能以最少的不必要负担回答临床问题”。</li>
+</ul>
 
 ### Skip If Late
 
@@ -208,10 +217,21 @@ Toggle equal-site and fairness weighting. Say explicitly that the lab is concept
 
 ### Interaction Notes
 
-- Click Sample-size to make the largest cohort dominate the aggregate update; the left bars show site weights and the aggregate readout shifts toward the largest site.
-- Click Equal site to give each hospital equal voice; smaller sites become visible, but the aggregate may become noisier.
-- Click Quality-aware and tick include quality signal to let the quality field affect the weights; tick upweight under-represented prevalence to make the rare-prevalence site matter more.
-- After each button or tick, point to two changes: the aggregate update and the largest-site-weight readout.
+- Sample-size weighting: each site weight follows cohort size. The largest hospital becomes visually dominant in the left bars, and the aggregate update moves toward that site’s local update.
+- Equal-site weighting: every hospital receives the same voice. Smaller sites become visible, but the aggregate can become noisier if a small site has unstable labels or measurement practice.
+- Quality-aware weighting: the quality field can change the left weight bars. Turning on “include quality signal” rewards cleaner local data; turning on “upweight under-represented prevalence” gives more influence to a rare-prevalence site.
+- Readouts: “aggregate update” is the weighted result; “largest site weight” shows how concentrated the federation is. If one site owns the aggregate, the federation may be technically distributed but scientifically centralized.
+- Teaching point: aggregation is not neutral accounting. It encodes what the collaboration values: size, fairness, data quality, target population, or some negotiated compromise.
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>Sample-size 按样本量加权：左侧权重条会让最大医院最显眼，aggregate update 会被拉向这个医院的本地更新。</li>
+<li>Equal-site 让每家医院声音相同：小中心会变得可见，但如果小中心标签或测量不稳定，整体估计可能更噪。</li>
+<li>Quality-aware 让数据质量影响权重。勾选 include quality signal 会奖励更可靠的数据；勾选 upweight under-represented prevalence 会提高罕见患病率中心的影响力。</li>
+<li>读数里 aggregate update 是加权后的总更新；largest site weight 显示联邦是否被某一个中心主导。如果一个中心拥有大部分权重，系统虽然是分布式的，科学上仍可能很集中。</li>
+<li>这一页说明：聚合不是中性的平均。它表达协作真正重视什么：规模、公平、数据质量、目标人群，或各方协商后的折中。</li>
+</ul>
 
 ### Skip If Late
 
@@ -383,10 +403,23 @@ Move contrast or bias field, then click baseline split. Keep the explanation sho
 
 ### Interaction Notes
 
-- Intensity brightens or darkens the image; contrast expands or compresses tissue separation; noise adds grain; blur removes edge detail; bias field adds a smooth intensity gradient.
-- The compare-baseline tick splits the current appearance against the reset image, helping the audience see that anatomy is unchanged while appearance moves.
-- Decision threshold changes the apparent-positive rate; prevalence shift changes the simulated site context; label noise makes the output less trustworthy.
-- Use Reset before leaving the slide so the next viewer starts from a clean state.
+- Intensity changes global brightness. It illustrates scanner gain, reconstruction scaling, or preprocessing differences that can move pixels without changing anatomy.
+- Contrast changes separation between tissue intensities. When contrast is altered, boundaries become easier or harder for a model even though the patient is the same.
+- Noise and blur change image reliability. Higher noise simulates lower signal-to-noise acquisition; higher blur simulates motion, slice thickness, reconstruction, or protocol differences.
+- Bias field adds spatial shading. The same structure becomes bright in one region and dim in another, showing why scanner and preprocessing are clinical variables in imaging AI.
+- Compare baseline split reveals that the anatomy is constant while appearance changes. Use it to say: domain shift can look harmless to a human and still change model behavior.
+- Threshold panel: decision threshold controls how cautious the classifier is; prevalence shift changes the base rate; label noise makes the observed target less reliable. The apparent-positive rate and calibration pressure change because evaluation depends on population and labels, not only the image.
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>Intensity 改变整体亮度，模拟扫描仪增益、重建尺度或预处理差异；解剖没有变，但像素分布变了。</li>
+<li>Contrast 改变组织强度之间的分离度。调高或调低后，边界对模型会更容易或更困难，即使病人是同一个。</li>
+<li>Noise 和 blur 改变图像可靠性。噪声更高表示信噪比更低；模糊更高可代表运动、层厚、重建或协议差异。</li>
+<li>Bias field 增加空间性亮暗不均。同一个结构在某些区域更亮、另一些区域更暗，说明扫描仪和预处理本身就是影像 AI 的变量。</li>
+<li>compare baseline split 用来对比“解剖不变、外观改变”。讲解重点是：domain shift 对人眼可能不夸张，但足以改变模型行为。</li>
+<li>Threshold panel 中，decision threshold 控制分类器谨慎程度；prevalence shift 改变基础患病率；label noise 让观察到的标签更不可靠。因此 apparent-positive rate 和 calibration pressure 会变化，说明评估依赖人群和标签，而不只依赖图像。</li>
+</ul>
 
 ### Skip If Late
 
@@ -432,9 +465,19 @@ Move the shared-local slider toward both extremes and point to the worst-site cu
 
 ### Interaction Notes
 
-- Shared-local mix moves between local-only, partial pooling, and shared-only assumptions; the curve changes because borrowing strength and local accountability trade off.
-- Heterogeneity widens the gap between mean-site and worst-site performance; local data per site makes local calibration more or less plausible.
-- Point to the worst-site readout, not only the mean-site readout. The clinical question is whether the weakest site is still acceptable.
+- Shared-local mix moves the vertical marker on the curve. More shared representation can improve the mean site, but the worst site can fall if local calibration is underpowered.
+- Heterogeneity widens the gap between mean-site and worst-site curves. When heterogeneity rises, global success becomes less informative about who is safe to deploy on.
+- Local data per site changes whether personalization is credible. With more local data, local adaptation can help; with little local data, it may overfit and create false confidence.
+- Teaching point: do not average away the vulnerable site. Personalization is not cosmetic customization; it is an accountability mechanism for local failure.
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>Shared-local mix 会移动曲线上的竖线。共享表示更多时，平均中心可能更好，但如果本地校准能力不足，最差中心可能下降。</li>
+<li>Heterogeneity 会拉大 mean-site 和 worst-site 曲线的距离。异质性越强，全局平均越不能说明哪些中心可以安全部署。</li>
+<li>Local data per site 决定个性化是否可信。本地数据更多时，本地适配可能有帮助；本地数据很少时，可能过拟合并产生虚假的安全感。</li>
+<li>这一页的重点是：不要用平均值掩盖脆弱中心。个性化不是装饰性的定制，而是对本地失败负责的一种机制。</li>
+</ul>
 
 ### Skip If Late
 
@@ -480,9 +523,19 @@ Toggle one modality off and ask what design remains possible.
 
 ### Interaction Notes
 
-- Each matrix tick means that a modality exists at a hospital. Removing a tick changes what can be treated as common clinical core.
-- Sparse modality rows push the design toward modality-specific encoders, partial aggregation, distillation, or missingness-aware evaluation.
-- Use one deliberate toggle only; the message is that missingness is a design input, not a cleanup step.
+- Each tick in the modality matrix means a hospital can contribute that modality. Removing a tick changes the common clinical core and can make complete-case analysis biased or impossible.
+- MRI, CT, EHR, pathology, and genomics are not interchangeable columns. Their availability reflects care pathways, referral patterns, cost, infrastructure, and indication bias.
+- Design consequence cards translate the ticks into architecture: common-core features, modality-specific encoders, dropout or distillation, and missingness-aware evaluation.
+- Teaching point: missingness is not a nuisance to hide after collection. It is an input to the federation design and should be reported as evidence about the clinical network.
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>矩阵里的每一个勾表示某家医院能提供这个模态。去掉一个勾，就会改变共同临床核心，complete-case 分析可能立刻有偏或不可行。</li>
+<li>MRI、CT、EHR、病理和基因组不是可以随便互换的列。它们的可用性反映诊疗路径、转诊模式、成本、基础设施和适应证偏倚。</li>
+<li>右侧设计后果把这些勾转换成架构选择：共同核心特征、模态专属编码器、dropout 或 distillation，以及考虑缺失性的评估。</li>
+<li>这一页说明：缺失不是收集完以后再隐藏的小麻烦。它是联邦设计的输入，也应该作为临床网络证据被报告。</li>
+</ul>
 
 ### Skip If Late
 
@@ -528,9 +581,19 @@ Toggle updates, counts, and model release. Emphasize no fake score.
 
 ### Interaction Notes
 
-- Model updates visible turns gradients or parameters into an information channel; counts and metrics visible adds small-cell and per-site disclosure risk.
-- Orchestration logs retained adds operational metadata; participant can be malicious introduces poisoning or inference by a participating site.
-- Model released externally changes downstream risk after training. The diagram and prompts change qualitatively; do not present the lab as a privacy score.
+- Each checkbox reveals another information flow. Model updates, counts, metrics, logs, malicious behavior, and external model release are different privacy surfaces, not one generic “data stay local” promise.
+- When a box is ticked, follow the arrows in the diagram and ask who can see the flow, who approves it, how long it is retained, and what suppression or audit rule applies.
+- Model updates can leak patient-like features; low counts or subgroup metrics can disclose rare cases; logs can reveal participation or timing; external release creates downstream model-use risk.
+- Teaching point: privacy is a system property. The claim “raw records stay local” starts the discussion; it does not finish the privacy argument.
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>每个 checkbox 都会暴露一种信息流。模型更新、计数、指标、日志、恶意参与者和模型外部发布，是不同的隐私攻击面，而不是一句“数据留在本地”可以覆盖。</li>
+<li>勾选某一项后，沿着图里的箭头问：谁能看见这条信息流？谁批准？保留多久？用什么抑制、审计或访问规则限制？</li>
+<li>模型更新可能泄露类似患者的特征；低计数或亚组指标可能暴露罕见病例；日志可能暴露参与和时间；外部发布会带来下游模型使用风险。</li>
+<li>这一页说明：隐私是系统属性。“原始记录留在本地”只是讨论起点，不是完整的隐私论证。</li>
+</ul>
 
 ### Skip If Late
 
@@ -576,9 +639,19 @@ Increase unseen-site shift and point to the worst-site value.
 
 ### Interaction Notes
 
-- Increase unseen-site shift to show the weakest hospital separating from the average.
-- Move abstention to show a safety/coverage trade-off: deferring uncertain cases may improve risk control but leaves fewer automated decisions.
-- Use calibration or subgroup controls if time allows; the audience should leave with the rule that global performance is never the whole evaluation.
+- Unseen-site shift lowers the red unseen-site bar relative to the known sites. It shows how a model can look acceptable on participating hospitals and still be weak on the next hospital.
+- Abstention threshold controls how often the system refuses or escalates uncertain cases. Raising it can protect safety but increases handoff burden; lowering it increases coverage but may hide uncertainty.
+- The bottom readout links global average, worst site, calibration gap, and abstention. These are not decorative metrics; they are deployment rules that should be pre-specified.
+- Teaching point: evaluation should name the hospital-level failure mode. A clinical report needs global performance plus per-site, worst-site, subgroup, calibration, drift, uncertainty, and abstention behavior.
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>Unseen-site shift 会让红色 unseen-site 柱相对已知中心下降，说明模型在参与医院看起来可以，但到了下一家医院仍可能变弱。</li>
+<li>Abstention threshold 控制系统拒绝预测或升级人工处理的频率。阈值更高可能更安全，但会增加交接负担；阈值更低覆盖更多病例，但可能掩盖不确定性。</li>
+<li>底部读数把 global average、worst site、calibration gap 和 abstention 连在一起。这些不是装饰性指标，而是应该预先写进方案的部署规则。</li>
+<li>这一页说明：评估要说清楚医院层面的失败模式。临床报告需要全局表现，也需要 per-site、worst-site、亚组、校准、漂移、不确定性和拒绝预测行为。</li>
+</ul>
 
 ### Skip If Late
 
@@ -672,72 +745,79 @@ Use only personalization, multimodal, and governance.
 
 ### Key Points
 
-- The takeaway is a clinical protocol habit, not a command to use FL.
-- Specify the clinical question, movement policy, heterogeneity audit, missing-modality plan, evaluation standard, and governance model.
-- These habits are useful for multicentre clinical AI even when FL is not the final design.
+- The useful lesson is not “use FL”; it is to make the multicentre study design inspectable.
+- Hospital, missingness, privacy flows, personalization, and worst-site behavior are part of the scientific object.
+- A clinical AI protocol should define movement, failure, ownership, and evidence before the algorithm becomes the center of attention.
 
 ### 中文要点
 
-- Takeaway 是一种临床方案设计习惯，而不是要求一定使用 FL。
-- 需要明确临床问题、信息移动政策、异质性审计、缺失模态计划、评估标准和治理模型。
-- 即使最后不采用 FL，这些习惯也适用于多中心临床 AI。
+- 真正有用的 takeaway 不是“使用 FL”，而是让多中心研究设计本身可检查。
+- 医院、缺失性、隐私信息流、个性化和最差中心表现，都是科学对象的一部分。
+- 临床 AI 方案应该先定义移动、失败、责任和证据，再让算法成为中心。
 
 ### English Script
 
-So what can a clinical PhD actually use after this lecture? Not a slogan that says use federated learning, but a practical protocol habit. First, write the clinical question and the target setting before naming the model. Second, decide what is allowed to move: raw data, model updates, metrics, finished models, or only conclusions. Third, treat hospital, scanner, workflow, and label definition as variables, because they shape the meaning of the data. Fourth, plan for missing modalities and local calibration from day one. Fifth, evaluate worst-site performance, uncertainty, drift, and abstention, not only the global average. Sixth, document privacy flows, roles, failure response, and maintenance. These are the pieces that make a multicentre AI study inspectable.
+So the takeaway is more subtle than “federated learning is good.” The transferable habit is to make the collaboration visible. First, treat FL as a study design, not a model choice: define the clinical question, the target setting, and the movement contract before naming the algorithm. Second, treat hospital as a variable. Scanner, referral, workflow, and label definition encode clinical practice; they are not just nuisance variation. Third, remember that the average is not the deployment site. Worst-site performance, calibration, drift, and abstention are safety endpoints, not supplementary analysis. Fourth, treat missingness as evidence about who is measured and what the model cannot know. Fifth, use personalization as accountability: local adaptation is justified when a shared model hides local risk. Sixth, describe privacy as a chain of flows, with owners and stop rules for updates, metrics, logs, and released models.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-那么，临床博士在这节课之后真正能用什么？不是一句“应该使用联邦学习”的口号，而是一套实用的方案设计习惯。第一，在说模型名称之前，先写清楚临床问题和目标应用场景。第二，决定什么可以移动：原始数据、模型更新、指标、完成后的模型，还是只有结论。第三，把医院、扫描设备、工作流和标签定义都当作变量，因为它们会改变数据的临床含义。第四，从第一天就计划缺失模态和本地校准。第五，评估最差中心、不确定性、漂移和拒绝预测，而不只是全局平均值。第六，记录隐私信息流、角色分工、失败响应和维护责任。这些部分会让多中心 AI 研究变得可检查、可讨论。
+所以最后的 takeaway 不是简单地说“联邦学习很好”。更可迁移的习惯，是把协作本身变得可见。第一，把 FL 当作研究设计，而不是模型选择：先定义临床问题、目标场景和信息移动契约，再说算法。第二，把医院当作变量。扫描仪、转诊、工作流和标签定义都编码了临床实践，不只是 nuisance variation。第三，记住平均值不是部署地点。最差中心表现、校准、漂移和拒绝预测是安全终点，不是补充分析。第四，把缺失性当作证据：它告诉我们谁被测量、模型永远不知道什么。第五，把个性化看作问责机制：只有当共享模型掩盖了本地风险时，本地适配才有临床意义。第六，把隐私描述成一条信息流链：更新、指标、日志和发布后的模型，都需要责任人和停止规则。
 
 </div>
 
 ### Transition
 
-**EN:** Let us pause for questions before I put the final QR and resource link on screen.
+**EN:** With those takeaways in mind, let us turn the room into a protocol clinic for a few minutes.
 
-**中文:** 在最后二维码和资源链接之前，我们先留出时间提问。
+**中文:** 带着这些 takeaway，我们把接下来的几分钟变成一个小型方案门诊。
 
 ### Delivery And Timing
 
 Target time: **1:30**.
 
-Use this as a synthesis slide. Do not read every item mechanically; group them as design, data, evaluation, and governance.
+Frame this as insight, not homework. Read the bold idea in each card, then add one sentence on why it changes a protocol or ethics discussion.
 
 ### Interaction Notes
 
-- This is a synthesis slide, not a lab. Ask which takeaway would change an audience member's next protocol meeting.
-- If discussion is quiet, invite them to pick one: data movement, heterogeneity audit, missing-modality plan, or worst-site evaluation.
+- This is a synthesis slide. Ask the audience which card would change their next protocol meeting: movement contract, hospital-as-variable, worst-site endpoint, missingness, personalization, or privacy flow.
+- If discussion is quiet, point to card 3 and ask: would your current project still look good if the deployment hospital were the worst site rather than the average site?
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>这是总结页。可以问听众：哪一张卡会改变你下一次写方案或伦理申请时的表达？信息移动契约、医院作为变量、最差中心终点、缺失性、个性化，还是隐私信息流？</li>
+<li>如果现场安静，就指向第 3 点问：如果部署医院不是平均中心，而是最差中心，你现在的项目还成立吗？</li>
+</ul>
 
 ### Skip If Late
 
-Read takeaways 1, 2, and 5, then move to Q&A.
+Read takeaways 1, 3, and 6, then move to Q&A.
 
 ## Slide 15: Q&A
 
 ### Key Points
 
-- Questions should be routed through design, evidence, or governance.
-- Project-specific questions are most useful when we map what moves and what must be evaluated locally.
-- A good Q&A can turn the lecture into a protocol critique.
+- Q&A is organized as a mini protocol clinic: question, movement, evidence, governance.
+- The best questions use a concrete project and ask what would change practice.
+- The prompt cards keep discussion from drifting into abstract FL enthusiasm.
 
 ### 中文要点
 
-- 提问可以围绕设计、证据或治理三条线展开。
-- 项目相关问题最好先画清楚什么会移动，以及什么必须在本地评估。
-- 好的 Q&A 可以把整节课转化为对研究方案的讨论。
+- Q&A 被设计成一个小型方案门诊：问题、移动、证据、治理。
+- 最好的问题来自具体项目，并追问什么证据会改变实践。
+- 提示卡能避免讨论停留在抽象的 FL 兴奋感上。
 
 ### English Script
 
-I want to leave space for questions, but I will frame them in the same way as the lecture. Bring a clinical AI project, and we can map what moves, what stays local, and what evidence would change practice. If the question is about design, we can ask whether federated training is really needed, or whether federated evaluation or federated analytics would answer the question more cleanly. If the question is about evidence, we can ask which hospital, subgroup, or drift scenario could fail even when the average looks good. If the question is about governance, we can ask who sees updates, metrics, logs, and released models, and who responds when assumptions break.
+For questions, I want to run this like a small protocol clinic. Bring one real or imagined clinical AI project. We will start with the clinical question, then map what moves, and finally ask what evidence would change care. If the question is about design, we ask whether federated training is needed at all, or whether evaluation, analytics, pooling, or local-only modeling is more honest. If the question is about evidence, we ask who could fail: a hospital, a subgroup, a drift scenario, or a missing modality. If the question is about governance, we ask what must be visible: updates, metrics, logs, released models, and incident response. And before any deployment claim, we ask what should have been pre-defined: worst-site threshold, calibration, abstention, and a stop rule.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-我想留一点时间给大家提问，但会沿用这节课的框架来回答。可以带着一个具体的临床 AI 项目来问：什么会移动，什么留在本地，什么证据会改变临床实践。如果问题属于设计，我们可以讨论是否真的需要联邦训练，还是联邦评估或联邦分析更干净地回答问题。如果问题属于证据，我们可以问哪家医院、哪个亚组或哪种漂移场景可能在平均结果很好时失败。如果问题属于治理，我们可以问谁能看到更新、指标、日志和发布后的模型，以及假设破裂时谁负责响应。
+提问环节我想把它做成一个小型方案门诊。请带一个真实或想象中的临床 AI 项目。我们先从临床问题开始，然后画出什么会移动，最后问什么证据会改变临床实践。如果问题属于设计，就问是否真的需要联邦训练，还是联邦评估、联邦分析、集中数据或本地模型更诚实。如果问题属于证据，就问谁可能失败：某家医院、某个亚组、某种漂移场景，还是某个缺失模态。如果问题属于治理，就问什么必须可见：更新、指标、日志、发布后的模型和事件响应。最后，在任何部署主张之前，我们都问哪些规则应该预先定义：最差中心阈值、校准、拒绝预测和停止规则。
 
 </div>
 
@@ -751,16 +831,23 @@ I want to leave space for questions, but I will frame them in the same way as th
 
 Target time: **2:18**.
 
-Invite one project-specific question first. If the room is quiet, seed the question: when would federated evaluation be better than federated training?
+Invite one project-specific question first. If nobody starts, ask for a project where data cannot move and route it through the four cards.
 
 ### Interaction Notes
 
-- Use the three prompt cards as routing buttons for discussion: design, evidence, governance.
-- For a project-specific question, first map what moves; second map who could fail; third map who is responsible for visibility and response.
+- Use the four cards as discussion routing buttons: design choice, failure mode, governance surface, and pre-specified rule.
+- For a project-specific question, first map what moves; second identify who could fail; third name who owns visibility and response; fourth define what evidence would stop or change the study.
+
+### 交互参数和图表读数
+
+<ul lang="zh-Hans">
+<li>把四张卡当作讨论路由按钮：设计选择、失败模式、治理表面、预先定义的规则。</li>
+<li>如果有人提出具体项目，先画什么会移动；再找谁可能失败；第三说清楚谁负责可见性和响应；第四定义什么证据会停止或改变研究。</li>
+</ul>
 
 ### Skip If Late
 
-If time has almost run out, say that questions can continue after the session and go directly to the QR slide.
+If time has almost run out, ask one seeded question on federated evaluation versus federated training, then go directly to the QR slide.
 
 ## Slide 16: Final Synthesis and Resources
 

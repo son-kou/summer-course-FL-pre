@@ -206,6 +206,13 @@ async function main() {
   if (!/中文讲稿|联邦学习/.test(zhText)) {
     errors.push("practice drawer Chinese tab did not render bilingual content");
   }
+  await page.evaluate(() => window.Reveal.slide(3, 0));
+  await page.waitForTimeout(350);
+  await page.locator('[data-tab="interaction"]').click();
+  const interactionText = await page.locator(".rehearsal-content").innerText();
+  if (!/Sample-size weighting|aggregate update|交互参数|聚合/.test(interactionText)) {
+    errors.push("practice drawer Interactions tab did not render parameter notes");
+  }
   await page.evaluate(() => window.Reveal.slide(4, 0));
   await page.waitForTimeout(350);
   const updatedTitle = await page.locator("#rehearsal-title").innerText();

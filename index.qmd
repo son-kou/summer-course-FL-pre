@@ -32,7 +32,7 @@ format:
 :::: {.title-grid}
 ::: {.title-copy}
 <div class="title-lockup" aria-label="Affiliations">
-  <img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo">
+  <img class="au-title-logo" src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo">
   <span class="brand-divider"></span>
   <span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span>
 </div>
@@ -127,11 +127,11 @@ Interaction instructions: Ask the audience to silently pick the first design the
 Exact citation reminders: No citation needed; this is an original fictional scenario.
 :::
 
-# 2. Five Collaboration Designs {#five-collaboration-designs}
+# 2. Five Collaboration Designs {.focus-workflows #five-collaboration-designs}
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.editorial-two-col .visual-led}
+:::: {.editorial-two-col .visual-led .workflow-focus}
 ::: {}
 ![](assets/diagrams/workflows.svg){.visual .tall fig-alt="Five collaboration designs: central data pooling, local-only modelling, federated learning, federated evaluation, and federated analytics."}
 :::
@@ -697,27 +697,45 @@ Exact citation reminders: FedWeight; Thrasher et al.; Li et al. federated founda
 :::: {.borrow-grid}
 ::: {.borrow-card}
 <span>1</span>
-Write the clinical question and target setting before naming the model.
+<div>
+<strong>FL is a study design, not a model choice.</strong>
+Name the clinical question, target setting, and movement contract first.
+</div>
 :::
 ::: {.borrow-card}
 <span>2</span>
-Decide what can move: raw data, updates, metrics, models, or only conclusions.
+<div>
+<strong>Hospital is a variable.</strong>
+Scanner, referral, workflow, and labels encode care pathways, not noise only.
+</div>
 :::
 ::: {.borrow-card}
 <span>3</span>
-Treat hospital, scanner, workflow, and label definition as variables.
+<div>
+<strong>The average is not the deployment site.</strong>
+Worst-site, calibration, drift, and abstention are primary safety endpoints.
+</div>
 :::
 ::: {.borrow-card}
 <span>4</span>
-Plan for missing modalities and local calibration from day one.
+<div>
+<strong>Missingness is evidence.</strong>
+A missing modality says who was measured and what the model cannot know.
+</div>
 :::
 ::: {.borrow-card}
 <span>5</span>
-Evaluate worst-site performance, uncertainty, drift, and abstention.
+<div>
+<strong>Personalization is accountability.</strong>
+Local adaptation is justified when a shared model hides local risk.
+</div>
 :::
 ::: {.borrow-card}
 <span>6</span>
-Document privacy flows, roles, failure response, and maintenance.
+<div>
+<strong>Privacy is a chain of flows.</strong>
+Updates, metrics, logs, and released models need owners and stop rules.
+</div>
 :::
 ::::
 
@@ -749,15 +767,23 @@ Exact citation reminders: TRIPOD+AI; DECIDE-AI; Eden et al.
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.qa-slide}
-::: {.qa-main}
-<span>Questions</span>
-Bring a clinical AI project; we can map what moves, what stays local, and what evidence would change practice.
+:::: {.qa-board}
+::: {.qa-anchor}
+<div class="qa-label">Q&A</div>
+<p class="qa-lead">Bring one real clinical AI project.</p>
+<p class="qa-sublead">We will map the federation before the method.</p>
+
+<div class="qa-flow">
+<p>Clinical question</p>
+<p>What moves?</p>
+<p>Evidence that changes care</p>
+</div>
 :::
-::: {.qa-prompts}
-<p><strong>Design:</strong> is FL needed, or would federated evaluation / analytics answer the question?</p>
-<p><strong>Evidence:</strong> which hospital, subgroup, or drift scenario could fail?</p>
-<p><strong>Governance:</strong> who sees updates, metrics, logs, and released models?</p>
+::: {.qa-prompt-grid}
+<p><strong>Use FL at all?</strong><span>Training, evaluation, analytics, pooling, or local-only?</span></p>
+<p><strong>Who could fail?</strong><span>Hospital, subgroup, drift scenario, or missing modality.</span></p>
+<p><strong>What must be governed?</strong><span>Updates, metrics, logs, released models, and incident response.</span></p>
+<p><strong>What would you predefine?</strong><span>Worst-site threshold, calibration, abstention, and stop rule.</span></p>
 :::
 ::::
 

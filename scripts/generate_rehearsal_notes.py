@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+from html import escape
 from pathlib import Path
 
 
@@ -24,6 +25,12 @@ def escape_table(text: str) -> str:
 
 def bullets(items: list[str]) -> str:
     return "\n".join(f"- {item}" for item in items)
+
+
+def html_bullets(items: list[str], lang: str | None = None) -> str:
+    lang_attr = f' lang="{escape(lang)}"' if lang else ""
+    list_items = "\n".join(f"<li>{escape(item)}</li>" for item in items)
+    return f"<ul{lang_attr}>\n{list_items}\n</ul>"
 
 
 def load_slides() -> list[dict]:
@@ -75,6 +82,13 @@ def slide_block(slide: dict, printable: bool) -> str:
             [
                 f"{section_prefix} Interaction Notes",
                 bullets(slide["interactionNotes"]),
+            ]
+        )
+    if slide.get("interactionNotesZh"):
+        parts.extend(
+            [
+                f"{section_prefix} 交互参数和图表读数",
+                html_bullets(slide["interactionNotesZh"], lang="zh-Hans"),
             ]
         )
     parts.extend(
