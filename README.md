@@ -63,7 +63,6 @@ The drawer reads `assets/practice/slide-scripts.json`, updates on Reveal slide a
 - `Up` / `Down`: optional vertical detail slides.
 - `S`: presenter view with notes.
 - `Alt+R`: open/close bilingual rehearsal notes, only in `?practice=1`.
-- `O`: overview mode.
 - `F`: fullscreen.
 - `E`: export/print view where supported by Reveal.js.
 
@@ -100,7 +99,7 @@ The workflow renders the Quarto project, uploads the `_site` artifact, and deplo
 - `labs/`: standalone interactive labs embedded in the deck and linked from resources.
 - `assets/diagrams/`: original SVG diagrams.
 - `assets/mri/`: public MRI asset and provenance README.
-- `assets/brand/`: official AU logo PNG and conservative Cercare Medical text wordmark.
+- `assets/brand/`: official AU logo PNG and user-provided official Cercare Medical PNG icon.
 - `assets/practice/`: bilingual rehearsal scripts and the optional Reveal drawer controller.
 - `styles/`: CSS for the website and Reveal.js presentation.
 - `research/`: source inventory, course design notes, and image licence log.
@@ -111,7 +110,7 @@ The workflow renders the Quarto project, uploads the `_site` artifact, and deplo
 
 Main-slide citations are intentionally concise. Full references are available in `references.bib`, `references.html`, and `research/source-inventory.md`.
 
-Most committed teaching diagrams are original SVGs created for this course. No patient data, confidential Cercare data, proprietary figures, or copied publisher figures are used. The AU logo comes from the official AU logo package and is used unchanged. The MRI visual is a public Wikimedia Commons asset with attribution recorded in `assets/mri/README.md` and `research/image-licence-log.md`. The Cercare Medical asset is a text wordmark, not an official logo, because no redistributable official logo was available during implementation.
+Most committed teaching diagrams are original SVGs created for this course. No patient data, confidential Cercare data, proprietary figures, or copied publisher figures are used. The AU logo comes from the official AU logo package and is used unchanged. The MRI visual is a public Wikimedia Commons asset with attribution recorded in `assets/mri/README.md` and `research/image-licence-log.md`. The Cercare Medical icon is a user-provided official PNG data-URI asset and is recorded in the same licence log.
 
 ## Acknowledgements
 

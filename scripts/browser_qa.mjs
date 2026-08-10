@@ -145,8 +145,8 @@ async function main() {
   await page.goto(urlFor("index.html"), { waitUntil: "networkidle" });
   await waitForReveal(page);
   const count = await horizontalCount(page);
-  if (count !== 16) {
-    errors.push(`expected 16 horizontal main slides, found ${count}`);
+  if (count !== 17) {
+    errors.push(`expected 17 horizontal main slides, found ${count}`);
   }
   const normalPracticeUi = await page.locator("#rehearsal-toggle, #rehearsal-drawer").count();
   if (normalPracticeUi !== 0) {
@@ -154,7 +154,7 @@ async function main() {
   }
 
   const finalQrOk = await page.evaluate(async () => {
-    window.Reveal.slide(15, 0);
+    window.Reveal.slide(16, 0);
     await new Promise((resolve) => setTimeout(resolve, 350));
     const img = document.querySelector('img[src*="site-qr.svg"]');
     if (!img) return false;

@@ -18,7 +18,7 @@ format:
     transition: fade
     background-transition: fade
     navigation-mode: vertical
-    overview: true
+    overview: false
     menu: true
     auto-stretch: false
     default-timing: 98
@@ -33,8 +33,8 @@ format:
 ::: {.title-copy}
 <div class="title-lockup" aria-label="Affiliations">
   <img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo">
-  <span></span>
-  <img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark">
+  <span class="brand-divider"></span>
+  <span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span>
 </div>
 
 <h1>Federated Learning in Medical AI:<br>When Data Cannot Move</h1>
@@ -74,7 +74,7 @@ Exact citation reminders: Public MRI attribution is recorded in `assets/mri/READ
 
 # 1. Four Hospitals, One Question {#four-hospitals-one-question}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.clinical-network}
 ::: {.site-card}
@@ -129,7 +129,7 @@ Exact citation reminders: No citation needed; this is an original fictional scen
 
 # 2. Five Collaboration Designs {#five-collaboration-designs}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.editorial-two-col .visual-led}
 ::: {}
@@ -157,18 +157,18 @@ Main evidence: Rieke et al. and Kairouz et al. provide broad FL framing; MedPerf
 
 Clinical translation: A PhD protocol should justify why model updates need to move, not merely say that raw data stay local.
 
-Transition: Now zoom in on what actually moves in one FL round.
+Transition: The menu tells us the options; now zoom in on the one option this lesson is mainly about and ask what actually moves.
 
 Optional skip: Skip local-only detail if the audience already knows the menu.
 
-Interaction instructions: Ask which design they picked on the previous slide; compare with this menu.
+Interaction instructions: Ask which design they picked on the previous slide; compare with this menu. Emphasize that the cards are not buttons here, but a decision vocabulary: changing the design changes whether the unit of movement is raw data, local models, model updates, test results, or only aggregate statistics.
 
 Exact citation reminders: Rieke et al. 2020; Kairouz et al. 2021; Karargyris et al. 2023.
 :::
 
 # 3. One Federated-Learning Round {#one-federated-learning-round}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.lab-layout .round-lab}
 ::: {.round-panel}
@@ -196,7 +196,7 @@ Transition: Step from the mechanism to the state of medical FL evidence.
 
 Optional skip: If the lab fails, describe the three buttons: sample-size, equal site, quality-aware.
 
-Interaction instructions: Toggle equal-site weighting, then fairness. Ask what changed and what governance question it creates.
+Interaction instructions: Use the right-hand sandbox slowly. Click **Sample-size** to show that the largest cohort dominates the aggregate update; click **Equal site** to show that smaller hospitals gain voice but the estimate may become noisier; click **Quality-aware** to include the quality signal. Tick **include quality signal** to let the quality field influence weights; tick **upweight under-represented prevalence** to make the rare-prevalence site more visible. Point to the left bars as site weights and the right bars as local update values; when a control changes, the aggregate update and "largest site weight" readouts change.
 
 Exact citation reminders: McMahan et al. 2017; Kairouz et al. 2021.
 :::
@@ -217,7 +217,7 @@ Where \(n_k\) is the number of local training examples at site \(k\). The formul
 
 # 4. Achievement Versus Evidence Gap {#achievement-versus-evidence-gap}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.evidence-funnel}
 ::: {.funnel-step}
@@ -303,7 +303,7 @@ Exact citation reminders: Teo et al. 2024; Li et al. 2025; Bujotzek et al. 2025.
 
 # 5. Brain Cancer: Scale, Benchmarking, Evaluation {#brain-cancer-scale-benchmarking-evaluation}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.brain-grid .visual-led}
 ::: {.mri-card}
@@ -342,7 +342,7 @@ Exact citation reminders: Pati et al. 2022; Karargyris et al. 2023; Zenk et al. 
 
 # 6. Lesson 1: Treat Heterogeneity as Signal {#lesson-1-treat-heterogeneity-as-signal}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.shift-taxonomy}
 ::: {.shift-card}
@@ -382,7 +382,7 @@ Main evidence: Zech et al. showed site-level generalization failures in chest ra
 
 Clinical translation: The same habit applies to any multicentre study: stratify, visualize, and document why sites differ.
 
-Transition: Let the audience see apparent domain shift on the same MRI image.
+Transition: Heterogeneity sounds abstract on a taxonomy slide; the next lab makes one common kind of shift visible on the same MRI image.
 
 Optional skip: Skip method names if the audience is clinically mixed.
 
@@ -393,7 +393,7 @@ Exact citation reminders: Zech et al. 2018; Li et al. 2021 FedBN.
 
 # 7. Interactive MRI Domain-Shift Lab {#interactive-mri-domain-shift-lab}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 <div class="lab-slide">
 <iframe class="lab-frame full" src="labs/mri-domain-shift/index.html?embed=1" title="Interactive MRI domain-shift lab" scrolling="no"></iframe>
@@ -415,14 +415,14 @@ Transition: Once sites differ, we need a vocabulary for what should be shared an
 
 Optional skip: Use the reset button and one contrast change only.
 
-Interaction instructions: Increase contrast and bias field, then enable baseline split. Stress that the values are educational approximations, not scanner physics.
+Interaction instructions: Move **Intensity** to brighten or darken the image; **Contrast** expands or compresses the tissue separation; **Noise** adds grain; **Blur** reduces edge detail; **Bias field** creates a smooth intensity gradient. Tick **compare baseline split** to split the image against the reset state. In the threshold panel, increasing **Decision threshold** usually lowers apparent positives; **Prevalence shift** changes the simulated positive-rate context; **Label noise** makes the readout less reliable. Say explicitly that these are educational approximations, not scanner physics.
 
 Exact citation reminders: Public MRI provenance in `assets/mri/README.md`; heterogeneity motivation from Zech et al. 2018.
 :::
 
 # 8. Shared and Local Models {#shared-and-local-models}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.lab-layout .personalization-lab}
 ::: {.solution-spectrum}
@@ -453,14 +453,14 @@ Transition: The next clinical complication is that sites may not even share the 
 
 Optional skip: If short, say "partial pooling" and show one slider move.
 
-Interaction instructions: Move the shared-local mix slider to the extremes and watch the worst-site curve.
+Interaction instructions: Move **Shared-local mix** toward local-only and shared-only; the curve shows the trade-off between borrowing strength and over-sharing. Increase **Heterogeneity** to widen the gap between mean-site and worst-site performance. Increase **Local data per site** to show when local calibration becomes more plausible. The key readout is not only the mean-site number; point to the worst-site value and the clinical interpretation tile.
 
 Exact citation reminders: Li et al. 2021; Zhu et al. 2025 FedWeight; Pirmani et al. 2025 personalized MS.
 :::
 
 # 9. Lesson 2: Missing Modalities Are Design Inputs {#lesson-2-missing-modalities-are-design-inputs}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.lab-layout .missing-lab}
 ::: {}
@@ -490,14 +490,14 @@ Transition: Even when raw data stay local, information still moves and privacy n
 
 Optional skip: Show the matrix, then read the reconstruction warning.
 
-Interaction instructions: Uncheck EHR at one site and ask what model design still makes sense.
+Interaction instructions: Toggle the modality checkboxes in the matrix. Removing **EHR** or **Pathology** at one hospital changes whether a common-core model is realistic. Sparse rows push the design toward modality-specific branches, partial aggregation, distillation, or missingness-aware evaluation. The audience should see that each tick is not a data-cleaning detail; it changes the feasible scientific question.
 
 Exact citation reminders: Thrasher et al. 2025; Saha et al. 2025; Wang et al. 2025 FHBench preprint; Chhetri et al. 2026 Med-MMFL preprint.
 :::
 
 # 10. Lesson 3: Privacy is a Systems Property {#lesson-3-privacy-is-a-systems-property}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.lab-layout .privacy-lab}
 ::: {.privacy-map}
@@ -528,14 +528,14 @@ Transition: The same systems thinking applies to evaluation.
 
 Optional skip: Read only the callout and toggle "model released externally."
 
-Interaction instructions: Toggle updates, counts, malicious participant, and release. Do not assign a fake privacy score; ask qualitative prompts.
+Interaction instructions: Tick **model updates visible** to show gradients or parameters as an information channel; tick **counts and metrics visible** to expose small-cell and per-site disclosure risk; tick **orchestration logs retained** to add operational metadata; tick **participant can be malicious** to introduce poisoning or inference by a site; tick **model released externally** to add downstream membership and misuse risk. The arrows and prompts change qualitatively; do not turn this into a fake privacy score.
 
 Exact citation reminders: Pati et al. privacy review; Shokri et al. 2017; Zhu et al. 2019; Bonawitz et al. 2017.
 :::
 
 # 11. Lesson 4: Evaluate the Hospital {#lesson-4-evaluate-the-hospital}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.lab-layout .evaluation-lab}
 ::: {.eval-protocol}
@@ -566,14 +566,14 @@ Transition: Now reveal why the algorithm is only the visible top of the federati
 
 Optional skip: If short, show worst-site and abstention only.
 
-Interaction instructions: Increase unseen-site shift and ask when the study should stop or require local calibration.
+Interaction instructions: Increase **unseen-site shift** to show the weakest hospital falling away from the average. Move the **abstention** control to show how deferring uncertain cases can improve safety at the cost of coverage. If the lab exposes calibration or subgroup controls, use one of them to underline that "good mean performance" is not enough. Ask when the protocol should require local calibration or stop deployment.
 
 Exact citation reminders: Zenk et al. 2025 FeTS; Karargyris et al. 2023; Koutsoubis et al. 2025; TRIPOD+AI.
 :::
 
 # 12. The Real-World Federation Stack {#the-real-world-federation-stack}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 ::: {.layered-stack}
 <div class="model-layer"><strong>Visible top:</strong> model · optimizer · aggregation · schedule</div>
@@ -609,7 +609,7 @@ Exact citation reminders: Eden et al. 2025; Li et al. 2025; Bujotzek et al. 2025
 
 # 13. Research Frontier Map, 2026 {#research-frontier-map-2026}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.frontier-grid}
 ::: {.frontier-card}
@@ -655,7 +655,7 @@ Main evidence: Personalized, multimodal, foundation-model, federated-evaluation,
 
 Clinical translation: A PhD student can position a project by naming the maturity level of the method, not by presenting every preprint as established.
 
-Transition: Distill the whole lecture into research habits that can be borrowed tomorrow.
+Transition: The frontier map is broad; now compress it into the few practical habits a clinical researcher can use in the next protocol meeting.
 
 Optional skip: Read one mature area and one emerging area only.
 
@@ -690,64 +690,100 @@ Exact citation reminders: FedWeight; Thrasher et al.; Li et al. federated founda
 :::
 ::::
 
-# 14. What Clinical PhDs Can Borrow Tomorrow {#what-clinical-phds-can-borrow-tomorrow}
+# 14. Practical Takeaways for Clinical AI {#practical-takeaways-for-clinical-ai}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.borrow-grid}
 ::: {.borrow-card}
 <span>1</span>
-Start with the collaboration design, not the model name.
+Write the clinical question and target setting before naming the model.
 :::
 ::: {.borrow-card}
 <span>2</span>
-Write the data-movement policy as a scientific method.
+Decide what can move: raw data, updates, metrics, models, or only conclusions.
 :::
 ::: {.borrow-card}
 <span>3</span>
-Model institution as a variable, not as an inconvenience.
+Treat hospital, scanner, workflow, and label definition as variables.
 :::
 ::: {.borrow-card}
 <span>4</span>
-Predefine worst-site, subgroup, calibration, and drift criteria.
+Plan for missing modalities and local calibration from day one.
 :::
 ::: {.borrow-card}
 <span>5</span>
-Treat privacy as information flow plus governance.
+Evaluate worst-site performance, uncertainty, drift, and abstention.
 :::
 ::: {.borrow-card}
 <span>6</span>
-Publish the negative space: what could not be measured, moved, or harmonized.
+Document privacy flows, roles, failure response, and maintenance.
 :::
 ::::
 
 <div class="download-band">
-Download: <a href="multicentre-research-lens.html">HTML research lens</a> | <a href="downloads/multicentre-clinical-ai-research-lens.pdf">one-page PDF</a>
+Use the resources page for the full reading path and interactive labs.
 </div>
 
 ::: {.notes}
 Timing: 1.4 minutes.
 
-Thesis: The most portable output of FL is a disciplined way to think about multicentre clinical AI.
+Thesis: The most useful takeaway is not "use FL"; it is a protocol habit for constrained multicentre clinical AI.
 
-Opening sentence: "Even if you never run a federation, you can steal the habits."
+Opening sentence: "So what can a clinical PhD actually use after this lecture? Not a slogan, but a checklist for the next protocol meeting."
 
-Main evidence: The six habits summarize the prior slides and align with reporting, evaluation, privacy, and governance references.
+Main evidence: The six points come directly from the course: collaboration design, data movement, heterogeneity, missing modalities, evaluation, and governance.
 
-Clinical translation: This is the actionable handout for the audience to use in their next protocol meeting.
+Clinical translation: These are practical questions for grant writing, ethics review, data-processing agreements, analysis plans, and deployment discussions.
 
-Transition: Close with the final synthesis and resources.
+Transition: Pause here for questions before the final QR/resource slide.
 
-Optional skip: Read only habits 1, 3, and 4.
+Optional skip: Read only takeaways 1, 2, and 5.
 
-Interaction instructions: Point to the downloadable one-page research lens.
+Interaction instructions: Ask the audience which takeaway would change one of their current projects. Do not open a lab here; this slide is for synthesis and discussion.
 
 Exact citation reminders: TRIPOD+AI; DECIDE-AI; Eden et al.
 :::
 
-# 15. Final Synthesis and Resources {#final-synthesis-and-resources}
+# 15. Q&A {#qa}
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span></span><img src="assets/brand/cercare-wordmark.svg" alt="Cercare Medical wordmark"></div>
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.qa-slide}
+::: {.qa-main}
+<span>Questions</span>
+Bring a clinical AI project; we can map what moves, what stays local, and what evidence would change practice.
+:::
+::: {.qa-prompts}
+<p><strong>Design:</strong> is FL needed, or would federated evaluation / analytics answer the question?</p>
+<p><strong>Evidence:</strong> which hospital, subgroup, or drift scenario could fail?</p>
+<p><strong>Governance:</strong> who sees updates, metrics, logs, and released models?</p>
+:::
+::::
+
+::: {.notes}
+Timing: 2.3 minutes.
+
+Thesis: Questions should be anchored in concrete study design, not abstract FL enthusiasm.
+
+Opening sentence: "I want to leave space for questions, but I will frame them in the same way as the lecture: bring a project, and we can map what moves and what must be evaluated locally."
+
+Main evidence: Use the three prompts to route questions toward design choice, evidence standards, and governance.
+
+Clinical translation: Encourage students to translate their own project into a movement map and an evaluation map.
+
+Transition: After discussion, return to the final QR slide so people can access labs and references.
+
+Optional skip: If there are no questions, ask one seeded question: "When would you choose federated evaluation instead of federated training?"
+
+Interaction instructions: Invite one project-specific question first. If discussion is quiet, ask the room to pick one of the three prompt cards and answer it in relation to their own data.
+
+Exact citation reminders: No new citations; this is a discussion slide.
+:::
+
+# 16. Final Synthesis and Resources {#final-synthesis-and-resources}
+
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
 :::: {.closing-grid}
 ::: {}
@@ -757,7 +793,7 @@ Exact citation reminders: TRIPOD+AI; DECIDE-AI; Eden et al.
 :::
 ::: {.qr-panel}
 ![](assets/qr/site-qr.svg){fig-alt="QR code for the course website."}
-<p><a href="resources.html">Resources, labs, handouts, and references</a></p>
+<p><a href="resources.html">Slides, labs, reading path, and references</a></p>
 <p class="source-note">Course site: https://son-kou.github.io/summer-course-FL-pre/</p>
 :::
 ::::
@@ -771,7 +807,7 @@ Opening sentence: "If you remember one thing, make it this: federation does not 
 
 Main evidence: Recap the four lessons: heterogeneity, shared/local modeling, privacy, and hospital-level evaluation.
 
-Clinical translation: Direct the audience to the labs and handouts rather than adding new content.
+Clinical translation: Direct the audience to the labs, reading path, and references rather than adding new content.
 
 Transition: End and invite questions.
 

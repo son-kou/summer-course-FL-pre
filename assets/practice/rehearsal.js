@@ -104,10 +104,14 @@
       `;
     }
     if (state.activeTab === "delivery") {
+      const interaction = script.interactionNotes && script.interactionNotes.length
+        ? `<h3>Interaction notes</h3>${list(script.interactionNotes)}`
+        : "";
       return `
         <section>
           <h3>Delivery note</h3>
           <p>${script.delivery || "No special delivery note."}</p>
+          ${interaction}
           <h3>Skip if late</h3>
           <p>${script.skipIfLate || "No skip note."}</p>
         </section>

@@ -29,10 +29,11 @@ pagetitle: "Bilingual Rehearsal Notes"
 | 11 | Lesson 4: Evaluate the Hospital | 1:48 |
 | 12 | The Real-World Federation Stack | 1:30 |
 | 13 | Research Frontier Map, 2026 | 2:00 |
-| 14 | What Clinical PhDs Can Borrow Tomorrow | 1:24 |
-| 15 | Final Synthesis and Resources | 0:54 |
-|  | **Planned spoken content** | **26:12** |
-|  | Buffer for questions and transitions | 3:48 |
+| 14 | Practical Takeaways for Clinical AI | 1:30 |
+| 15 | Q&A | 2:18 |
+| 16 | Final Synthesis and Resources | 0:54 |
+|  | **Planned spoken content** | **28:36** |
+|  | Buffer for questions and transitions | 1:24 |
 |  | **Course slot** | **30:00** |
 
 ## Bilingual Script
@@ -65,9 +66,9 @@ Today I will talk about federated learning in medical AI from a clinical researc
 
 #### Transition
 
-**EN:** Let us start with a concrete four-hospital dilemma.
+**EN:** We will turn that framing into a concrete four-hospital dilemma.
 
-**中文:** 我们先从一个四家医院的具体困境开始。
+**中文:** 接下来把这个框架放进一个四家医院的具体困境。
 
 #### Delivery And Timing
 
@@ -107,9 +108,9 @@ Imagine four hospitals that agree on the clinical question: can we build a usefu
 
 #### Transition
 
-**EN:** Once the collaboration problem is visible, we can compare the design options.
+**EN:** Once the dilemma is visible, the next step is to choose what kind of collaboration is actually being proposed.
 
-**中文:** 当合作问题清楚以后，我们才能比较不同的设计方案。
+**中文:** 当困境变得具体后，下一步是选择到底要设计哪一种合作。
 
 #### Delivery And Timing
 
@@ -149,15 +150,20 @@ Before we say federated learning, we should compare the collaboration designs. C
 
 #### Transition
 
-**EN:** Now we can zoom in on what actually happens in one federated-learning round.
+**EN:** From that menu, let us zoom into federated training and ask what really moves in one round.
 
-**中文:** 接下来我们放大看一次联邦学习轮次中到底发生了什么。
+**中文:** 在这些选项里，我们放大看联邦训练，并追问一轮中真正移动的是什么。
 
 #### Delivery And Timing
 
 Target time: **1:30**.
 
 Point to the diagram first, then use the short labels. Do not read every label twice.
+
+#### Interaction Notes
+
+- This slide has no clickable controls; use it as a design menu. Changing the design changes what moves: raw data, model updates, finished models, test metrics, or only aggregate statistics.
+- When a student says "we should use FL", ask which card they mean: training, evaluation, or analytics often answer different clinical questions.
 
 #### Skip If Late
 
@@ -191,15 +197,22 @@ A basic federated-learning round is easy to describe. Each hospital receives a m
 
 #### Transition
 
-**EN:** With the mechanism clear, we can ask how mature the medical evidence is.
+**EN:** With the mechanism on the table, we can judge the evidence more carefully: what has been shown, and what is still thin?
 
-**中文:** 理解机制以后，我们再看医学证据到底成熟到什么程度。
+**中文:** 机制清楚后，我们才能更谨慎地看证据：已经证明了什么，哪些仍然薄弱？
 
 #### Delivery And Timing
 
 Target time: **2:00**.
 
 Toggle equal-site and fairness weighting. Say explicitly that the lab is conceptual.
+
+#### Interaction Notes
+
+- Click Sample-size to make the largest cohort dominate the aggregate update; the left bars show site weights and the aggregate readout shifts toward the largest site.
+- Click Equal site to give each hospital equal voice; smaller sites become visible, but the aggregate may become noisier.
+- Click Quality-aware and tick include quality signal to let the quality field affect the weights; tick upweight under-represented prevalence to make the rare-prevalence site matter more.
+- After each button or tick, point to two changes: the aggregate update and the largest-site-weight readout.
 
 #### Skip If Late
 
@@ -233,9 +246,9 @@ The evidence gap is important to state carefully. Federated learning in healthca
 
 #### Transition
 
-**EN:** The brain-cancer literature shows both the promise and the evaluation challenge.
+**EN:** The brain-cancer literature is a useful case because it shows both impressive scale and the remaining evaluation problem.
 
-**中文:** 脑肿瘤研究同时展示了联邦学习的潜力和评估挑战。
+**中文:** 脑肿瘤文献很适合做案例，因为它同时展示了规模潜力和仍未解决的评估问题。
 
 #### Delivery And Timing
 
@@ -275,9 +288,9 @@ Brain cancer is one of the strongest examples because the disease is relatively 
 
 #### Transition
 
-**EN:** That brings us to the first transferable lesson: heterogeneity is signal.
+**EN:** That example leads directly to the first lesson: differences between hospitals are not just noise.
 
-**中文:** 这引出第一个可迁移的经验：异质性本身就是信号。
+**中文:** 这个例子直接引出第一个经验：医院之间的差异不只是噪声。
 
 #### Delivery And Timing
 
@@ -317,9 +330,9 @@ When hospitals disagree statistically, the first question should not be how to a
 
 #### Transition
 
-**EN:** The MRI lab makes one form of apparent domain shift visible.
+**EN:** To make that less abstract, the next lab changes the appearance of the same MRI while the anatomy stays fixed.
 
-**中文:** 接下来的 MRI 实验会让一种表观域偏移变得可见。
+**中文:** 为了让这个概念不那么抽象，下一页实验会在解剖不变的情况下改变同一张 MRI 的外观。
 
 #### Delivery And Timing
 
@@ -359,15 +372,22 @@ This lab uses one public MRI image and changes only the browser-side appearance.
 
 #### Transition
 
-**EN:** Once sites differ, the next question is what should be shared and what should remain local.
+**EN:** Once site differences are visible, the design question becomes how much should be shared and how much should remain local.
 
-**中文:** 既然中心之间存在差异，下一步就是决定什么应共享，什么应保留在本地。
+**中文:** 当中心差异可见以后，设计问题就变成：应该共享多少，又该保留多少本地特异性？
 
 #### Delivery And Timing
 
 Target time: **1:54**.
 
 Move contrast or bias field, then click baseline split. Keep the explanation short.
+
+#### Interaction Notes
+
+- Intensity brightens or darkens the image; contrast expands or compresses tissue separation; noise adds grain; blur removes edge detail; bias field adds a smooth intensity gradient.
+- The compare-baseline tick splits the current appearance against the reset image, helping the audience see that anatomy is unchanged while appearance moves.
+- Decision threshold changes the apparent-positive rate; prevalence shift changes the simulated site context; label noise makes the output less trustworthy.
+- Use Reset before leaving the slide so the next viewer starts from a clean state.
 
 #### Skip If Late
 
@@ -401,15 +421,21 @@ If sites differ, a single global model may not be the right endpoint. The soluti
 
 #### Transition
 
-**EN:** The next complication is that sites may not even measure the same modalities.
+**EN:** But even before personalization, many clinical networks face a simpler problem: the sites do not measure the same modalities.
 
-**中文:** 下一个复杂性是：不同中心甚至可能没有测量同样的模态。
+**中文:** 但在谈个性化之前，很多临床网络还有一个更基础的问题：不同中心测量的模态并不相同。
 
 #### Delivery And Timing
 
 Target time: **1:48**.
 
 Move the shared-local slider toward both extremes and point to the worst-site curve.
+
+#### Interaction Notes
+
+- Shared-local mix moves between local-only, partial pooling, and shared-only assumptions; the curve changes because borrowing strength and local accountability trade off.
+- Heterogeneity widens the gap between mean-site and worst-site performance; local data per site makes local calibration more or less plausible.
+- Point to the worst-site readout, not only the mean-site readout. The clinical question is whether the weakest site is still acceptable.
 
 #### Skip If Late
 
@@ -443,15 +469,21 @@ Many clinical federations are not neat tables. One hospital may have MRI and EHR
 
 #### Transition
 
-**EN:** Even when we decide what can be shared, privacy still has to be treated as a system property.
+**EN:** After deciding what can be shared scientifically, we still have to ask what information flows through the system and who can see it.
 
-**中文:** 即便决定了什么可以共享，隐私仍然必须作为系统属性来处理。
+**中文:** 在科学上决定什么可以共享之后，我们还必须问系统里流动了哪些信息，以及谁能看到。
 
 #### Delivery And Timing
 
 Target time: **1:48**.
 
 Toggle one modality off and ask what design remains possible.
+
+#### Interaction Notes
+
+- Each matrix tick means that a modality exists at a hospital. Removing a tick changes what can be treated as common clinical core.
+- Sparse modality rows push the design toward modality-specific encoders, partial aggregation, distillation, or missingness-aware evaluation.
+- Use one deliberate toggle only; the message is that missingness is a design input, not a cleanup step.
 
 #### Skip If Late
 
@@ -485,15 +517,21 @@ A common but dangerous shorthand is to say that federated learning is private be
 
 #### Transition
 
-**EN:** The same system-level thinking applies to evaluation.
+**EN:** The same systems view matters for evaluation, because an average result can hide the hospital where the model fails.
 
-**中文:** 同样的系统思维也适用于模型评估。
+**中文:** 同样的系统视角也适用于评估，因为平均结果可能掩盖模型失败的那家医院。
 
 #### Delivery And Timing
 
 Target time: **1:42**.
 
 Toggle updates, counts, and model release. Emphasize no fake score.
+
+#### Interaction Notes
+
+- Model updates visible turns gradients or parameters into an information channel; counts and metrics visible adds small-cell and per-site disclosure risk.
+- Orchestration logs retained adds operational metadata; participant can be malicious introduces poisoning or inference by a participating site.
+- Model released externally changes downstream risk after training. The diagram and prompts change qualitatively; do not present the lab as a privacy score.
 
 #### Skip If Late
 
@@ -527,15 +565,21 @@ Evaluation is where the clinical promise either survives or fails. A good global
 
 #### Transition
 
-**EN:** If that sounds operational, it is, because the algorithm is only the top layer.
+**EN:** If evaluation, privacy, and heterogeneity sound operational, that is the point: the algorithm is only the visible top layer.
 
-**中文:** 如果这听起来很像运营问题，那是因为算法只是最上面的一层。
+**中文:** 如果评估、隐私和异质性听起来像运营问题，这正是重点：算法只是最可见的顶层。
 
 #### Delivery And Timing
 
 Target time: **1:48**.
 
 Increase unseen-site shift and point to the worst-site value.
+
+#### Interaction Notes
+
+- Increase unseen-site shift to show the weakest hospital separating from the average.
+- Move abstention to show a safety/coverage trade-off: deferring uncertain cases may improve risk control but leaves fewer automated decisions.
+- Use calibration or subgroup controls if time allows; the audience should leave with the rule that global performance is never the whole evaluation.
 
 #### Skip If Late
 
@@ -569,9 +613,9 @@ The algorithm is the part that fits neatly on a slide: model, optimizer, aggrega
 
 #### Transition
 
-**EN:** With that stack in mind, we can map the research frontier.
+**EN:** With that full stack in mind, we can read the 2026 research frontier as a set of practical gaps, not just method names.
 
-**中文:** 带着这个分层结构，我们再看 2026 年的研究前沿。
+**中文:** 带着这个完整分层，我们可以把 2026 年研究前沿理解为一组实际缺口，而不只是方法名称。
 
 #### Delivery And Timing
 
@@ -611,9 +655,9 @@ By 2026, the interesting questions are no longer only whether federated learning
 
 #### Transition
 
-**EN:** Finally, let us translate all of this into habits a clinical PhD can use tomorrow.
+**EN:** The frontier is broad, so let us compress it into takeaways that are useful in a clinical protocol meeting.
 
-**中文:** 最后，我们把这些内容转化为临床博士明天就能使用的研究习惯。
+**中文:** 前沿很宽，所以我们把它压缩成在临床方案会议中真正有用的 takeaway。
 
 #### Delivery And Timing
 
@@ -625,49 +669,101 @@ Read one mature area and one emerging area. Mention preprints carefully.
 
 Use only personalization, multimodal, and governance.
 
-### Slide 14: What Clinical PhDs Can Borrow Tomorrow
+### Slide 14: Practical Takeaways for Clinical AI
 
 #### Key Points
 
-- The transferable lesson is research discipline.
-- Make collaboration design, site heterogeneity, evaluation, and privacy explicit.
-- Publish what could not be measured or harmonized.
+- The takeaway is a clinical protocol habit, not a command to use FL.
+- Specify the clinical question, movement policy, heterogeneity audit, missing-modality plan, evaluation standard, and governance model.
+- These habits are useful for multicentre clinical AI even when FL is not the final design.
 
 #### 中文要点
 
-- 最可迁移的内容是研究设计纪律。
-- 把合作设计、中心异质性、评估和隐私都明确写出来。
-- 也要报告哪些内容无法测量或统一。
+- Takeaway 是一种临床方案设计习惯，而不是要求一定使用 FL。
+- 需要明确临床问题、信息移动政策、异质性审计、缺失模态计划、评估标准和治理模型。
+- 即使最后不采用 FL，这些习惯也适用于多中心临床 AI。
 
 #### English Script
 
-Even if you never run a federated-learning system, you can borrow the habits. Start with the collaboration design, not the model name. Write the data-movement policy as a scientific method. Model institution as a variable, not as an inconvenience. Predefine worst-site, subgroup, calibration, and drift criteria. Treat privacy as information flow plus governance. And publish the negative space: what could not be measured, moved, or harmonized. These habits make multicentre clinical AI more honest. They also make a grant proposal or study protocol easier to evaluate, because the collaboration assumptions are visible rather than hidden inside the algorithm.
+So what can a clinical PhD actually use after this lecture? Not a slogan that says use federated learning, but a practical protocol habit. First, write the clinical question and the target setting before naming the model. Second, decide what is allowed to move: raw data, model updates, metrics, finished models, or only conclusions. Third, treat hospital, scanner, workflow, and label definition as variables, because they shape the meaning of the data. Fourth, plan for missing modalities and local calibration from day one. Fifth, evaluate worst-site performance, uncertainty, drift, and abstention, not only the global average. Sixth, document privacy flows, roles, failure response, and maintenance. These are the pieces that make a multicentre AI study inspectable.
 
 #### 中文讲稿
 
 <div lang="zh-Hans">
 
-即使你永远不运行真正的联邦学习系统，也可以借鉴这些习惯。先从合作设计开始，而不是从模型名称开始。把数据移动政策写成科学方法的一部分。把机构作为变量，而不是麻烦。预先定义最差中心、亚组、校准和漂移标准。把隐私看作信息流加治理。还要报告“负空间”：哪些东西不能测量、不能移动、不能统一。这些习惯会让多中心临床 AI 更诚实，也让基金申请和研究方案更容易评估，因为合作假设被明确写出来，而不是藏在算法里。
+那么，临床博士在这节课之后真正能用什么？不是一句“应该使用联邦学习”的口号，而是一套实用的方案设计习惯。第一，在说模型名称之前，先写清楚临床问题和目标应用场景。第二，决定什么可以移动：原始数据、模型更新、指标、完成后的模型，还是只有结论。第三，把医院、扫描设备、工作流和标签定义都当作变量，因为它们会改变数据的临床含义。第四，从第一天就计划缺失模态和本地校准。第五，评估最差中心、不确定性、漂移和拒绝预测，而不只是全局平均值。第六，记录隐私信息流、角色分工、失败响应和维护责任。这些部分会让多中心 AI 研究变得可检查、可讨论。
 
 </div>
 
 #### Transition
 
-**EN:** I will close with three messages and the course resources.
+**EN:** Let us pause for questions before I put the final QR and resource link on screen.
 
-**中文:** 最后用三句话和课程资源作结。
+**中文:** 在最后二维码和资源链接之前，我们先留出时间提问。
 
 #### Delivery And Timing
 
-Target time: **1:24**.
+Target time: **1:30**.
 
-Point to the handout link. Do not read every habit slowly.
+Use this as a synthesis slide. Do not read every item mechanically; group them as design, data, evaluation, and governance.
+
+#### Interaction Notes
+
+- This is a synthesis slide, not a lab. Ask which takeaway would change an audience member's next protocol meeting.
+- If discussion is quiet, invite them to pick one: data movement, heterogeneity audit, missing-modality plan, or worst-site evaluation.
 
 #### Skip If Late
 
-Read habits 1, 3, and 4 only.
+Read takeaways 1, 2, and 5, then move to Q&A.
 
-### Slide 15: Final Synthesis and Resources
+### Slide 15: Q&A
+
+#### Key Points
+
+- Questions should be routed through design, evidence, or governance.
+- Project-specific questions are most useful when we map what moves and what must be evaluated locally.
+- A good Q&A can turn the lecture into a protocol critique.
+
+#### 中文要点
+
+- 提问可以围绕设计、证据或治理三条线展开。
+- 项目相关问题最好先画清楚什么会移动，以及什么必须在本地评估。
+- 好的 Q&A 可以把整节课转化为对研究方案的讨论。
+
+#### English Script
+
+I want to leave space for questions, but I will frame them in the same way as the lecture. Bring a clinical AI project, and we can map what moves, what stays local, and what evidence would change practice. If the question is about design, we can ask whether federated training is really needed, or whether federated evaluation or federated analytics would answer the question more cleanly. If the question is about evidence, we can ask which hospital, subgroup, or drift scenario could fail even when the average looks good. If the question is about governance, we can ask who sees updates, metrics, logs, and released models, and who responds when assumptions break.
+
+#### 中文讲稿
+
+<div lang="zh-Hans">
+
+我想留一点时间给大家提问，但会沿用这节课的框架来回答。可以带着一个具体的临床 AI 项目来问：什么会移动，什么留在本地，什么证据会改变临床实践。如果问题属于设计，我们可以讨论是否真的需要联邦训练，还是联邦评估或联邦分析更干净地回答问题。如果问题属于证据，我们可以问哪家医院、哪个亚组或哪种漂移场景可能在平均结果很好时失败。如果问题属于治理，我们可以问谁能看到更新、指标、日志和发布后的模型，以及假设破裂时谁负责响应。
+
+</div>
+
+#### Transition
+
+**EN:** I will finish by leaving the QR code and the resource page on screen.
+
+**中文:** 最后我会把二维码和资源页留在屏幕上。
+
+#### Delivery And Timing
+
+Target time: **2:18**.
+
+Invite one project-specific question first. If the room is quiet, seed the question: when would federated evaluation be better than federated training?
+
+#### Interaction Notes
+
+- Use the three prompt cards as routing buttons for discussion: design, evidence, governance.
+- For a project-specific question, first map what moves; second map who could fail; third map who is responsible for visibility and response.
+
+#### Skip If Late
+
+If time has almost run out, say that questions can continue after the session and go directly to the QR slide.
+
+### Slide 16: Final Synthesis and Resources
 
 #### Key Points
 
@@ -683,27 +779,27 @@ Read habits 1, 3, and 4 only.
 
 #### English Script
 
-To close, I want to leave three messages. Federated learning helps when the clinical question is shared, but patient-level data cannot or should not be pooled. It fails when heterogeneity, privacy, evaluation, and governance are treated as afterthoughts. And the transferable habit is to make the collaboration visible: what moves, what stays local, who is represented, who is failed by the average, and who is responsible. The QR code links to the slides, labs, handouts, and references. Thank you, and I am happy to take questions.
+To close, I want to leave three messages. Federated learning helps when the clinical question is shared, but patient-level data cannot or should not be pooled. It fails when heterogeneity, privacy, evaluation, and governance are treated as afterthoughts. And the transferable habit is to make the collaboration visible: what moves, what stays local, who is represented, who is failed by the average, and who is responsible. The QR code links to the slides, interactive labs, reading path, and references. Thank you.
 
 #### 中文讲稿
 
 <div lang="zh-Hans">
 
-最后我想留下三句话。第一，当临床问题是共同的，但患者级数据不能或不应集中时，联邦学习可能有帮助。第二，如果异质性、隐私、评估和治理只是事后补充，联邦学习会失败。第三，最可迁移的习惯是让合作结构变得可见：什么会移动，什么留在本地，谁被代表，谁被平均值掩盖，以及谁负责。二维码链接到幻灯片、实验、讲义和参考文献。谢谢大家，欢迎提问。
+最后我想留下三句话。第一，当临床问题是共同的，但患者级数据不能或不应集中时，联邦学习可能有帮助。第二，如果异质性、隐私、评估和治理只是事后补充，联邦学习会失败。第三，最可迁移的习惯是让合作结构变得可见：什么会移动，什么留在本地，谁被代表，谁被平均值掩盖，以及谁负责。二维码链接到幻灯片、交互实验、阅读路径和参考文献。谢谢大家。
 
 </div>
 
 #### Transition
 
-**EN:** End of talk.
+**EN:** End of lesson.
 
-**中文:** 报告结束。
+**中文:** 课程结束。
 
 #### Delivery And Timing
 
 Target time: **0:54**.
 
-Leave the QR code on screen during questions.
+Leave the QR code on screen after Q&A or during the last minute of the session.
 
 #### Skip If Late
 

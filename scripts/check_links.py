@@ -29,7 +29,7 @@ REQUIRED = [
     "assets/practice/slide-scripts.json",
     "assets/practice/rehearsal.js",
     "assets/brand/au-logo-uk-blue.png",
-    "assets/brand/cercare-wordmark.svg",
+    "assets/brand/cercare-icon.png",
     "assets/mri/brain_mri_glioma_00.jpg",
 ]
 
@@ -50,7 +50,7 @@ LAB_REQUIRED = [
 
 PROVENANCE_REQUIRED = [
     "au-logo-uk-blue.png",
-    "cercare-wordmark.svg",
+    "cercare-icon.png",
     "brain_mri_glioma_00.jpg",
     "multicentre-clinical-ai-research-lens.pdf",
 ]
@@ -76,7 +76,8 @@ MAIN_SLIDE_IDS = [
     "lesson-4-evaluate-the-hospital",
     "the-real-world-federation-stack",
     "research-frontier-map-2026",
-    "what-clinical-phds-can-borrow-tomorrow",
+    "practical-takeaways-for-clinical-ai",
+    "qa",
     "final-synthesis-and-resources",
 ]
 
@@ -186,8 +187,12 @@ def check_practice_assets(project: Path, errors: list[str]) -> None:
             errors.append(f"rehearsal slide {slide.get('id', index)} needs bilingual key points")
         if len(slide.get("scriptEn", "")) < 180 or len(slide.get("scriptZh", "")) < 80:
             errors.append(f"rehearsal slide {slide.get('id', index)} has too-short speaking script")
-    if not (26 * 60 <= total_seconds <= 27 * 60):
-        errors.append(f"rehearsal target time should be 26-27 minutes, found {total_seconds} seconds")
+        if "interactionNotes" in slide:
+            notes = slide.get("interactionNotes")
+            if not isinstance(notes, list) or not notes or any(not isinstance(item, str) or not item.strip() for item in notes):
+                errors.append(f"rehearsal slide {slide.get('id', index)} has invalid interaction notes")
+    if not (26 * 60 <= total_seconds <= 30 * 60):
+        errors.append(f"rehearsal target time should be 26-30 minutes, found {total_seconds} seconds")
     js = (project / "assets/practice/rehearsal.js").read_text(encoding="utf-8", errors="replace")
     for needle in ['practice") === "1"', "Alt+R", "Escape", "slidechanged", "fragmentshown", "Exit rehearsal"]:
         if needle not in js:

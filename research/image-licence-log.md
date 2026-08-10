@@ -7,7 +7,7 @@ Most schematic assets listed here were created specifically for this course and 
 | Asset | Type | Provenance | Licence |
 |---|---|---|---|
 | `assets/brand/au-logo-uk-blue.png` | Official brand PNG | Official AU logo package downloaded from the Aarhus University staff logo guidelines page: https://medarbejdere.au.dk/en/administration/communication/guidelines/guidelinesforlogo. The mark and logotype are used together and unchanged. | Trademark-controlled official AU logo; use according to AU guidelines. |
-| `assets/brand/cercare-wordmark.svg` | Plain text wordmark | Created locally as text because no official redistributable Cercare Medical logo asset was found in the repository or via official-source search. | Text identification only; not an official Cercare logo. Replace with approved asset if available. |
+| `assets/brand/cercare-icon.png` | Official brand PNG icon | User-provided official Cercare Medical data-URI PNG, decoded unchanged into the repository on 2026-08-10. | Trademark-controlled official Cercare Medical icon; use according to owner approval. |
 | `assets/mri/brain_mri_glioma_00.jpg` | Public MRI JPEG | Wikimedia Commons `File:Brain MRI glioma 00.jpg`, https://commons.wikimedia.org/wiki/File:Brain_MRI_glioma_00.jpg. Author/attribution: Nevit Dilmen. | CC BY-SA 3.0 Unported or GFDL 1.2-or-later as offered by the source page. Used for educational visual transformations only. |
 | `assets/diagrams/opening-dilemma.svg` | SVG diagram | Original schematic of a fictional multicentre medical AI dilemma. | MIT |
 | `assets/diagrams/workflows.svg` | SVG diagram | Original schematic comparing centralized, local-only, FL, federated evaluation, and federated analytics workflows. | MIT |

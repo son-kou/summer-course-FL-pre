@@ -4,31 +4,26 @@ pagetitle: "Course Resources"
 ---
 
 <div class="page-header">
-<p>Entry points for the slides, rehearsal material, interactive laboratories, and a compact reading path for clinically oriented PhD students.</p>
+<p>Clean entry points for the lecture deck, interactive laboratories, and a compact reading path for clinically oriented PhD students.</p>
 </div>
 
 ## Course Materials {#course-materials}
 
-<div class="resource-grid compact">
-<div class="resource-card"><h3>Lecture Slides</h3><p>Main Reveal.js deck with optional vertical backup slides.</p><p><a href="index.html">Open slides</a></p></div>
-<div class="resource-card"><h3>Rehearsal Mode</h3><p>The same deck with bilingual English-Chinese delivery notes exposed in a private drawer.</p><p><a href="index.html?practice=1">Open rehearsal deck</a></p></div>
-<div class="resource-card"><h3>Printable Bilingual Notes</h3><p>English and Chinese scripts, key points, timing, transitions, and late-running notes.</p><p><a href="rehearsal-notes.html">Open notes</a></p></div>
-<div class="resource-card"><h3>Clinical AI Research Lens</h3><p>One-page handout on what multicentre clinical AI projects can borrow from FL.</p><p><a href="multicentre-research-lens.html">HTML</a> · <a href="downloads/multicentre-clinical-ai-research-lens.pdf">PDF</a></p></div>
-<div class="resource-card"><h3>Readiness Checklist</h3><p>Operational checklist for clinical question, data movement, evaluation, privacy, and governance.</p><p><a href="checklist.html">HTML checklist</a> · <a href="downloads/federated-study-readiness-checklist.pdf">PDF</a></p></div>
-<div class="resource-card"><h3>Design Decision Guide</h3><p>Interactive guide for choosing pooling, local-only, FL, federated evaluation, or federated analytics.</p><p><a href="decision-guide.html">Use guide</a></p></div>
-<div class="resource-card subtle"><h3>Complete Bibliography</h3><p>The full annotated bibliography is kept separate from this resources page.</p><p><a href="references.html">Open full references</a></p></div>
+<div class="resource-strip">
+<a class="resource-link primary" href="index.html"><strong>Lecture Slides</strong><span>Main Reveal.js deck with optional vertical backup slides.</span></a>
+<a class="resource-link" href="references.html"><strong>Complete Bibliography</strong><span>Searchable annotated references for the lecture and labs.</span></a>
 </div>
 
 ## Interactive Labs {#interactive-labs}
 
-<div class="resource-grid compact">
-<div class="resource-card"><h3>Aggregation Sandbox</h3><p>Compare sample-size, equal-site, quality-aware, and fairness weighting assumptions.</p><p><a href="labs/aggregation/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>MRI Domain Shift</h3><p>Use one public MRI image to explore apparent intensity, contrast, noise, blur, bias-field, prevalence, and label-noise shifts.</p><p><a href="labs/mri-domain-shift/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>Shared Versus Local</h3><p>Explore partial-pooling intuition and the tension between mean-site and worst-site performance.</p><p><a href="labs/personalization/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>Missing Modality</h3><p>Toggle MRI, CT, EHR, pathology, and genomics availability across hospitals.</p><p><a href="labs/missing-modality/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>Privacy Threat Surface</h3><p>Map what can leak through model updates, counts, logs, participants, and model release.</p><p><a href="labs/privacy-threat-model/index.html">Launch lab</a></p></div>
-<div class="resource-card"><h3>Hospital-Level Evaluation</h3><p>Stress-test per-site performance, calibration, unseen-site shift, uncertainty, and abstention thinking.</p><p><a href="labs/evaluation-shift/index.html">Launch lab</a></p></div>
-<div class="resource-card subtle"><h3>Heterogeneity Demo</h3><p>Standalone simulation showing why global averages can hide site-level failure.</p><p><a href="demo/heterogeneity.html">Launch demo</a></p></div>
+<div class="lab-list">
+<a href="labs/aggregation/index.html"><strong>Aggregation Sandbox</strong><span>Compare sample-size, equal-site, quality-aware, and fairness weighting assumptions.</span></a>
+<a href="labs/mri-domain-shift/index.html"><strong>MRI Domain Shift</strong><span>Explore intensity, contrast, noise, blur, bias-field, threshold, prevalence, and label-noise shifts.</span></a>
+<a href="labs/personalization/index.html"><strong>Shared Versus Local</strong><span>Test partial-pooling intuition against mean-site and worst-site performance.</span></a>
+<a href="labs/missing-modality/index.html"><strong>Missing Modality</strong><span>Toggle MRI, CT, EHR, pathology, and genomics availability across hospitals.</span></a>
+<a href="labs/privacy-threat-model/index.html"><strong>Privacy Threat Surface</strong><span>Map information flow through updates, counts, logs, participants, and released models.</span></a>
+<a href="labs/evaluation-shift/index.html"><strong>Hospital-Level Evaluation</strong><span>Stress-test per-site performance, calibration, unseen-site shift, uncertainty, and abstention.</span></a>
+<a href="demo/heterogeneity.html"><strong>Heterogeneity Demo</strong><span>Standalone simulation showing why global averages can hide site-level failure.</span></a>
 </div>
 
 ## Further Reading, Articles, Courses, and Lectures {#further-reading}
