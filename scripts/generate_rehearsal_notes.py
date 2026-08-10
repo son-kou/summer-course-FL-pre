@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "assets/practice/slide-scripts.json"
 SPEAKER_NOTES = ROOT / "speaker-notes.md"
+ENGLISH_SPEAKER_NOTES = ROOT / "speaker-notes-en.md"
 PRINTABLE_QMD = ROOT / "rehearsal-notes.qmd"
 EXPECTED_MAIN_SLIDES = 17
 COURSE_SECONDS = 30 * 60
@@ -100,6 +101,34 @@ def slide_block(slide: dict, printable: bool) -> str:
     return "\n\n".join(parts)
 
 
+def slide_block_en(slide: dict) -> str:
+    parts = [
+        f"## Slide {slide['slideNumber']}: {slide['title']}",
+        "### Key Points",
+        bullets(slide["keyPointsEn"]),
+        "### English Script",
+        slide["scriptEn"],
+        "### Transition",
+        slide["transitionEn"],
+        "### Delivery And Timing",
+        f"Target time: **{mmss(int(slide['targetSeconds']))}**.\n\n{slide['delivery']}",
+    ]
+    if slide.get("interactionNotes"):
+        parts.extend(
+            [
+                "### Interaction Notes",
+                bullets(slide["interactionNotes"]),
+            ]
+        )
+    parts.extend(
+        [
+            "### Skip If Late",
+            slide["skipIfLate"],
+        ]
+    )
+    return "\n\n".join(parts)
+
+
 def build_speaker_notes(slides: list[dict]) -> str:
     blocks = [
         "# Speaker Notes And Timing",
@@ -119,6 +148,28 @@ def build_speaker_notes(slides: list[dict]) -> str:
         "## Slide-By-Slide Bilingual Script",
     ]
     blocks.extend(slide_block(slide, printable=False) for slide in slides)
+    return "\n\n".join(blocks) + "\n"
+
+
+def build_english_speaker_notes(slides: list[dict]) -> str:
+    blocks = [
+        "# Speaker Notes For Mentor Review",
+        "This English-only file is generated from `assets/practice/slide-scripts.json`. It mirrors the bilingual rehearsal notes but omits the Chinese script so it can be sent for supervisor review.",
+        "## Thirty-Minute Run",
+        timing_table(slides),
+        "## Rehearsal Through-Line",
+        "\n".join(
+            [
+                "1. Start from multicentre clinical collaboration under constraints.",
+                "2. Treat FL as one design option among several.",
+                "3. Use brain cancer to show both scale and the need for distributed evaluation.",
+                "4. Make heterogeneity, missing modalities, privacy, site-level evaluation, and governance visible.",
+                "5. End with habits clinical PhD students can borrow even without deploying FL.",
+            ]
+        ),
+        "## Slide-By-Slide English Script",
+    ]
+    blocks.extend(slide_block_en(slide) for slide in slides)
     return "\n\n".join(blocks) + "\n"
 
 
@@ -147,8 +198,10 @@ def build_printable_qmd(slides: list[dict]) -> str:
 def main() -> int:
     slides = load_slides()
     SPEAKER_NOTES.write_text(build_speaker_notes(slides), encoding="utf-8")
+    ENGLISH_SPEAKER_NOTES.write_text(build_english_speaker_notes(slides), encoding="utf-8")
     PRINTABLE_QMD.write_text(build_printable_qmd(slides), encoding="utf-8")
     print(f"Wrote {SPEAKER_NOTES.relative_to(ROOT)}")
+    print(f"Wrote {ENGLISH_SPEAKER_NOTES.relative_to(ROOT)}")
     print(f"Wrote {PRINTABLE_QMD.relative_to(ROOT)}")
     return 0
 

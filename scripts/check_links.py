@@ -14,6 +14,7 @@ REQUIRED = [
     "multicentre-research-lens.html",
     "frontier.html",
     "references.html",
+    "speaker-notes-en.html",
     "rehearsal-notes.html",
     "resources.html",
     "demo/heterogeneity.html",
