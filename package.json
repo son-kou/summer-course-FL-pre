@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "qa:browser": "node scripts/browser_qa.mjs"
+    "qa:browser": "node scripts/browser_qa.mjs",
+    "qa:live": "node scripts/live_browser_qa.mjs",
+    "test": "node --test live/tests/"
   },
   "devDependencies": {
     "playwright": "^1.55.1",

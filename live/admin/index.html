@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Federation Dashboard — Instructor</title>
+<meta name="robots" content="noindex" />
+<link rel="stylesheet" href="../style.css" />
+<link rel="stylesheet" href="admin.css" />
+<script>if (new URLSearchParams(location.search).get("embed") === "1") document.documentElement.classList.add("embed");</script>
+</head>
+<body>
+<div id="qr-overlay" class="qr-overlay" hidden>
+  <div class="qr-overlay-inner">
+    <p class="qr-eyebrow">JOIN THE FEDERATION</p>
+    <div id="qr-target" class="qr-target"></div>
+    <p id="qr-code-text" class="qr-code-text">FL-0000</p>
+    <p class="qr-hint">No login · ~30 seconds</p>
+    <p id="qr-fallback-url" class="qr-fallback-url"></p>
+    <button type="button" class="button button-outline qr-close" id="qr-close">Close</button>
+  </div>
+</div>
+
+<div id="fatal-overlay" class="fatal-overlay" hidden>
+  <div class="fatal-inner">
+    <h2>Live backend unavailable</h2>
+    <p>Demo Mode is available — the lecture can continue without any student phones.</p>
+    <button type="button" class="button button-primary" id="fatal-demo-button">Switch to Demo Mode</button>
+  </div>
+</div>
+
+<header class="admin-topbar">
+  <div class="admin-topbar-left">
+    <span class="admin-kicker">Federation Dashboard</span>
+    <span id="phase-pill" class="phase-pill">lobby</span>
+  </div>
+  <div class="admin-topbar-mid">
+    <button type="button" class="stat-button" id="session-code-button">
+      <span class="stat-button-label">Session</span>
+      <span id="session-code-display" class="stat-button-value">— create session —</span>
+    </button>
+    <div class="stat-block">
+      <span class="stat-block-label">Joined</span>
+      <span id="joined-count" class="stat-block-value">0</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-block-label">Responded</span>
+      <span id="responded-count" class="stat-block-value">0</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-block-label">Aggregation</span>
+      <span id="aggregation-label" class="stat-block-value small">FedAvg</span>
+    </div>
+  </div>
+  <div class="admin-topbar-right">
+    <span id="connection-pill" class="connection-pill offline">● checking connection</span>
+  </div>
+</header>
+
+<main class="admin-stage">
+  <section class="stage-col stage-col-wide">
+    <div class="panel panel-map">
+      <div class="panel-head">
+        <h2>Federation map</h2>
+        <p class="panel-sub">Node size ≈ local sample size. Shape marks status — colour is never the only signal.</p>
+      </div>
+      <div id="federation-map" class="federation-map" role="img" aria-label="Map of federated client nodes"></div>
+      <ul class="legend" aria-hidden="false">
+        <li><span class="legend-swatch waiting"></span>Waiting</li>
+        <li><span class="legend-swatch participate"></span>Participate</li>
+        <li><span class="legend-swatch hold"></span>Hold</li>
+        <li><span class="legend-swatch flag"></span>Flagged ⚑</li>
+        <li><span class="legend-swatch straggler"></span>No response ⏱</li>
+        <li><span class="legend-swatch rare"></span>Rare population ★</li>
+      </ul>
+    </div>
+
+    <div class="panel panel-vectors">
+      <div class="panel-head">
+        <h2>Local update vectors → aggregated update</h2>
+        <p class="panel-sub">Each thin arrow is one client's Δw. The bold arrow is the aggregated global update.</p>
+      </div>
+      <div id="vector-field" class="vector-field" role="img" aria-label="Two-dimensional plot of client model-update vectors and the aggregated global update"></div>
+    </div>
+  </section>
+
+  <section class="stage-col stage-col-narrow">
+    <div class="panel panel-weights">
+      <div class="panel-head">
+        <h2>Aggregation weights</h2>
+      </div>
+      <div id="weights-equation" class="weights-equation"></div>
+      <div id="weights-bars" class="weights-bars"></div>
+      <p id="weights-headline" class="weights-headline">Largest client weight: —</p>
+    </div>
+
+    <div class="panel panel-eval">
+      <div class="panel-head">
+        <h2>Synthetic evaluation panel</h2>
+        <p class="panel-sub">Synthetic teaching simulation — not empirical research evidence.</p>
+      </div>
+      <div id="eval-cards" class="eval-cards"></div>
+      <div class="eval-summary">
+        <div><span class="eval-summary-label">Mean</span><span id="eval-mean" class="eval-summary-value">—</span></div>
+        <div><span class="eval-summary-label">Worst site</span><span id="eval-worst" class="eval-summary-value">—</span></div>
+        <div><span class="eval-summary-label">Range</span><span id="eval-range" class="eval-summary-value">—</span></div>
+      </div>
+    </div>
+
+    <div class="panel panel-dropout">
+      <div class="panel-head">
+        <h2>Systems heterogeneity</h2>
+      </div>
+      <p id="dropout-line" class="dropout-line">Selected: 0 · Responded before deadline: 0</p>
+      <p class="panel-sub">Federated learning has both statistical and systems heterogeneity.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="admin-controls" id="admin-controls">
+  <div class="control-group">
+    <span class="control-group-label">Session</span>
+    <button type="button" class="button button-secondary" id="btn-create-session">Create / reset session</button>
+    <button type="button" class="button button-secondary" id="btn-show-qr">Show JOIN QR</button>
+    <button type="button" class="button button-secondary" id="btn-toggle-join">Freeze enrollment</button>
+  </div>
+  <div class="control-group">
+    <span class="control-group-label">Round</span>
+    <button type="button" class="button button-secondary" id="btn-round1">Start Round 1</button>
+    <button type="button" class="button button-secondary" id="btn-round2">Start Round 2</button>
+    <button type="button" class="button button-outline" id="btn-reset">Reset simulation</button>
+  </div>
+  <div class="control-group" id="aggregation-controls">
+    <span class="control-group-label">Aggregation policy</span>
+    <button type="button" class="button button-outline" data-strategy="fedavg">FedAvg</button>
+    <button type="button" class="button button-outline" data-strategy="equal">Equal-client</button>
+    <button type="button" class="button button-outline" data-strategy="clipped">Clipped FedAvg</button>
+    <button type="button" class="button button-outline" data-strategy="median">Coordinate median</button>
+  </div>
+  <div class="control-group" id="event-controls">
+    <span class="control-group-label">Teaching events</span>
+    <button type="button" class="button button-outline" id="btn-event-giant">A · Giant hospital</button>
+    <button type="button" class="button button-outline" id="btn-event-rare">B · Rare hospital</button>
+    <button type="button" class="button button-outline" id="btn-event-suspicious">C · Suspicious update</button>
+  </div>
+  <div class="control-group">
+    <span class="control-group-label">No phones? No problem</span>
+    <button type="button" class="button button-primary" id="btn-demo-populate">Populate 60 demo clients</button>
+    <button type="button" class="button button-secondary" id="btn-demo-respond">Simulate responses</button>
+    <button type="button" class="button button-outline" id="btn-rehearsal">Rehearsal mode</button>
+  </div>
+</footer>
+
+<div id="rehearsal-strip" class="rehearsal-strip" hidden>
+  <span id="rehearsal-step-label">Rehearsal off</span>
+  <p id="rehearsal-spoken-line"></p>
+  <div class="rehearsal-strip-actions">
+    <button type="button" class="button button-secondary" id="btn-rehearsal-next">Next step ▶</button>
+    <button type="button" class="button button-outline" id="btn-rehearsal-exit">Exit rehearsal</button>
+  </div>
+</div>
+
+<script src="../vendor/qrcode.js"></script>
+<script type="module" src="admin.js"></script>
+</body>
+</html>

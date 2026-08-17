@@ -6,6 +6,12 @@ The central question is:
 
 > When clinical data cannot move, what are our options, what does federated learning actually solve, what does it not solve, and how can a medical researcher decide whether to use it?
 
+The lecture's narrative spine is a live activity: roughly 60 students scan a
+QR code and each becomes one simulated federated-learning client, then the
+instructor runs real (synthetic, deterministic) aggregation rounds live in
+front of the room. See `LIVE_LECTURE_RUNBOOK.md` for how to teach it and
+`LIVE_INTERACTION_ARCHITECTURE.md` for how it is built.
+
 ## Learning Objectives
 
 Participants should leave able to:
@@ -40,6 +46,21 @@ For the full reproducible local check used during development:
 ```
 
 That helper regenerates the QR code, bilingual rehearsal notes, and PDFs; renders the Quarto site; and checks required internal files, links, labs, iframes, rehearsal scripts, QR source, citation count, malformed Reveal attributes, local path leaks, and asset provenance. The small npm dev dependency pins a Sass CLI for local Quarto environments that do not expose their bundled Sass binary correctly; the GitHub Pages workflow uses the official Quarto setup action.
+
+## Live Federation Activity
+
+```bash
+npm test        # unit tests for the deterministic simulation math (live/lib/simulation.js)
+npm run qa:live  # Playwright smoke test: student flow, dashboard, cross-tab sync, fallback, mobile
+```
+
+`live/index.html` (student) and `live/admin/index.html` (instructor
+dashboard) implement "You Are Now a Federated Client" — see
+`LIVE_INTERACTION_ARCHITECTURE.md` for the full design and
+`LIVE_LECTURE_RUNBOOK.md` for how to run it in class. It works with **no
+backend configured** (same-machine rehearsal via `BroadcastChannel`, or fully
+offline with `?demo=1`); wiring up the optional Firebase Realtime Database
+backend upgrades it to a real ~60-phone classroom session over Wi-Fi.
 
 ## Rehearsal Mode
 
@@ -96,7 +117,8 @@ The workflow renders the Quarto project, uploads the `_site` artifact, and deplo
 - `multicentre-research-lens.qmd`: HTML version of the clinical AI research lens handout.
 - `frontier.qmd`: research frontier map.
 - `demo/`: standalone heterogeneity teaching simulation.
-- `labs/`: standalone interactive labs embedded in the deck and linked from resources.
+- `labs/`: standalone interactive labs embedded in the deck and linked from resources (full versions live in backup slides / resources; the live activity is now the main lecture's spine).
+- `live/`: the "You Are Now a Federated Client" live activity — student app, instructor dashboard, deterministic simulation engine, and its own unit tests. See `LIVE_INTERACTION_ARCHITECTURE.md`.
 - `assets/diagrams/`: original SVG diagrams.
 - `assets/mri/`: public MRI asset and provenance README.
 - `assets/brand/`: official AU logo PNG and user-provided official Cercare Medical PNG icon.

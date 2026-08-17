@@ -11,7 +11,7 @@ DATA = ROOT / "assets/practice/slide-scripts.json"
 SPEAKER_NOTES = ROOT / "speaker-notes.md"
 ENGLISH_SPEAKER_NOTES = ROOT / "speaker-notes-en.md"
 PRINTABLE_QMD = ROOT / "rehearsal-notes.qmd"
-EXPECTED_MAIN_SLIDES = 17
+EXPECTED_MAIN_SLIDES = 14
 COURSE_SECONDS = 30 * 60
 
 
@@ -139,10 +139,11 @@ def build_speaker_notes(slides: list[dict]) -> str:
         "\n".join(
             [
                 "1. Start from multicentre clinical collaboration under constraints.",
-                "2. Treat FL as one design option among several.",
-                "3. Use brain cancer to show both scale and the need for distributed evaluation.",
-                "4. Make heterogeneity, missing modalities, privacy, site-level evaluation, and governance visible.",
-                "5. End with habits clinical PhD students can borrow even without deploying FL.",
+                "2. Treat FL as one design option among several, then show one full round.",
+                "3. Turn the room into the federation: join, inspect a synthetic site, decide.",
+                "4. Run FedAvg live, then stress it with one heterogeneity or robustness event.",
+                "5. Show that a global average can hide local failure, then connect to privacy and real-world evidence.",
+                "6. End with four habits clinical PhD students can borrow even without deploying FL.",
             ]
         ),
         "## Slide-By-Slide Bilingual Script",
@@ -161,10 +162,11 @@ def build_english_speaker_notes(slides: list[dict]) -> str:
         "\n".join(
             [
                 "1. Start from multicentre clinical collaboration under constraints.",
-                "2. Treat FL as one design option among several.",
-                "3. Use brain cancer to show both scale and the need for distributed evaluation.",
-                "4. Make heterogeneity, missing modalities, privacy, site-level evaluation, and governance visible.",
-                "5. End with habits clinical PhD students can borrow even without deploying FL.",
+                "2. Treat FL as one design option among several, then show one full round.",
+                "3. Turn the room into the federation: join, inspect a synthetic site, decide.",
+                "4. Run FedAvg live, then stress it with one heterogeneity or robustness event.",
+                "5. Show that a global average can hide local failure, then connect to privacy and real-world evidence.",
+                "6. End with four habits clinical PhD students can borrow even without deploying FL.",
             ]
         ),
         "## Slide-By-Slide English Script",

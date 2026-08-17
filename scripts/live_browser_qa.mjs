@@ -1,0 +1,179 @@
+#!/usr/bin/env node
+// End-to-end smoke test for the live federation activity (student app +
+// instructor dashboard). Complements live/tests/simulation.test.mjs, which
+// covers the pure math; this covers the browser wiring: demo mode, the
+// student decision flow, cross-tab rehearsal sync with no backend, graceful
+// fallback when Firebase is not configured, and mobile viewports.
+import { chromium } from "playwright";
+
+const baseUrl = process.argv[2] || "http://127.0.0.1:4173";
+const errors = [];
+
+function urlFor(relative) {
+  return new URL(relative, baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`).toString();
+}
+
+function trackErrors(page, label) {
+  page.on("pageerror", (e) => errors.push(`[${label}] pageerror: ${e.message}`));
+  page.on("console", (msg) => {
+    if (msg.type() === "error") errors.push(`[${label}] console.error: ${msg.text()}`);
+  });
+}
+
+async function main() {
+  const browser = await chromium.launch();
+
+  // --- Student flow in demo mode: join -> site card -> flag a concern -> waiting ---
+  {
+    const page = await browser.newPage({ viewport: { width: 375, height: 667 } });
+    trackErrors(page, "student-demo");
+    await page.goto(urlFor("live/index.html?demo=1"));
+    await page.waitForSelector("text=Reveal my site", { timeout: 10000 });
+    await page.click("text=Reveal my site");
+    await page.waitForSelector("text=Continue to my decision", { timeout: 5000 });
+    await page.click("text=Continue to my decision");
+    await page.waitForSelector(".button-flag", { timeout: 5000 });
+    await page.click(".button-flag");
+    await page.waitForSelector("text=Distribution shift", { timeout: 5000 });
+    await page.click("text=Distribution shift");
+    await page.click("text=Send update with this concern");
+    await page.waitForSelector("text=Look at the main screen", { timeout: 5000 });
+    await page.close();
+  }
+
+  // --- Student flow with no ?code=: manual entry fallback ---
+  {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    trackErrors(page, "student-nocode");
+    await page.goto(urlFor("live/index.html"));
+    await page.waitForSelector("text=Enter your session code", { timeout: 10000 });
+    await page.close();
+  }
+
+  // --- Admin dashboard: demo populate, respond, aggregation switch, events, session controls, QR, rehearsal ---
+  {
+    const page = await browser.newPage({ viewport: { width: 1600, height: 900 } });
+    trackErrors(page, "admin-demo");
+    await page.goto(urlFor("live/admin/index.html?demo=1"));
+    await page.waitForSelector("#session-code-display", { timeout: 10000 });
+
+    await page.click("#btn-demo-populate");
+    await page.waitForFunction(() => document.getElementById("joined-count").textContent === "60", { timeout: 10000 });
+
+    await page.click("#btn-demo-respond");
+    await page.waitForTimeout(1500);
+    const responded = Number(await page.textContent("#responded-count"));
+    if (!(responded > 0)) errors.push(`admin-demo: expected responded > 0 after simulate, got ${responded}`);
+
+    await page.click('[data-strategy="fedavg"]');
+    await page.waitForTimeout(200);
+    const before = await page.textContent("#weights-headline");
+    await page.click("#btn-event-giant");
+    await page.waitForTimeout(300);
+    const after = await page.textContent("#weights-headline");
+    if (before === after) errors.push("admin-demo: giant-hospital event did not change the largest client weight");
+
+    await page.click("#btn-event-rare");
+    await page.waitForTimeout(200);
+    await page.click("#btn-event-suspicious");
+    await page.waitForTimeout(200);
+
+    await page.click("#btn-toggle-join");
+    await page.waitForTimeout(150);
+    await page.click("#btn-round1");
+    await page.waitForTimeout(150);
+    if ((await page.textContent("#phase-pill")) !== "round1") errors.push("admin-demo: phase did not advance to round1");
+    await page.click("#btn-round2");
+    await page.waitForTimeout(150);
+    if ((await page.textContent("#phase-pill")) !== "stress") errors.push("admin-demo: phase did not advance to stress");
+
+    await page.click("#btn-show-qr");
+    const qrBox = await page.locator("#qr-target svg").boundingBox({ timeout: 5000 }).catch(() => null);
+    if (!qrBox || qrBox.width < 50) errors.push("admin-demo: JOIN QR did not render");
+    await page.click("#qr-close");
+
+    await page.click("#btn-rehearsal");
+    await page.waitForSelector("#rehearsal-strip:not([hidden])", { timeout: 5000 });
+    const step1 = await page.textContent("#rehearsal-step-label");
+    await page.click("#btn-rehearsal-next");
+    const step2 = await page.textContent("#rehearsal-step-label");
+    if (step1 === step2) errors.push("admin-demo: rehearsal step did not advance");
+    await page.click("#btn-rehearsal-exit");
+
+    await page.close();
+  }
+
+  // --- Cross-tab rehearsal (no backend): admin + student sharing one browser context via BroadcastChannel ---
+  {
+    const context = await browser.newContext();
+    const adminPage = await context.newPage();
+    const studentPage = await context.newPage();
+    trackErrors(adminPage, "crosstab-admin");
+    trackErrors(studentPage, "crosstab-student");
+
+    await adminPage.goto(urlFor("live/admin/index.html?local=1"));
+    await adminPage.waitForSelector("#session-code-display", { timeout: 10000 });
+    const code = await adminPage.textContent("#session-code-display");
+
+    await studentPage.goto(urlFor(`live/index.html?code=${encodeURIComponent(code)}&local=1`));
+    await studentPage.waitForSelector("text=Reveal my site", { timeout: 10000 });
+    await studentPage.click("text=Reveal my site");
+    await adminPage
+      .waitForFunction(() => document.getElementById("joined-count").textContent === "1", { timeout: 5000 })
+      .catch(() => errors.push("crosstab: join did not propagate to admin via BroadcastChannel/localStorage"));
+
+    await studentPage.click("text=Continue to my decision");
+    await studentPage.click(".button-participate");
+    await adminPage
+      .waitForFunction(() => document.getElementById("responded-count").textContent === "1", { timeout: 5000 })
+      .catch(() => errors.push("crosstab: decision did not propagate to admin via BroadcastChannel/localStorage"));
+
+    await context.close();
+  }
+
+  // --- No backend configured (placeholder firebase-config.js) must fall back silently, never throw ---
+  {
+    const page = await browser.newPage();
+    trackErrors(page, "no-backend-fallback");
+    await page.goto(urlFor("live/admin/index.html"));
+    await page.waitForSelector("#session-code-display", { timeout: 10000 });
+    const pill = await page.textContent("#connection-pill");
+    if (!/local rehearsal|demo mode|live backend connected/.test(pill)) {
+      errors.push(`no-backend-fallback: unexpected connection pill text: ${pill}`);
+    }
+    await page.close();
+  }
+
+  // --- Mobile viewports: no horizontal overflow on the student app ---
+  for (const [name, width, height] of [
+    ["iphone-se", 375, 667],
+    ["iphone-modern", 390, 844],
+    ["android-ish", 412, 915],
+  ]) {
+    const page = await browser.newPage({ viewport: { width, height } });
+    trackErrors(page, `mobile-${name}`);
+    await page.goto(urlFor("live/index.html?demo=1"));
+    await page.waitForSelector("text=Reveal my site", { timeout: 10000 });
+    await page.click("text=Reveal my site");
+    const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+    if (scrollWidth > clientWidth + 3) {
+      errors.push(`mobile-${name}: horizontal overflow, scrollWidth=${scrollWidth} clientWidth=${clientWidth}`);
+    }
+    await page.close();
+  }
+
+  await browser.close();
+
+  if (errors.length) {
+    console.error("Live activity QA failed:");
+    for (const error of errors) console.error(`- ${error}`);
+    process.exit(1);
+  }
+  console.log("Live activity QA passed (student flow, admin dashboard, cross-tab rehearsal, fallback, mobile).");
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

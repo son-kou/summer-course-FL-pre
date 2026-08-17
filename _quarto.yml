@@ -5,6 +5,7 @@ project:
     - assets/**
     - demo/**
     - labs/**
+    - live/**
     - downloads/**
     - references.bib
 

@@ -145,8 +145,8 @@ async function main() {
   await page.goto(urlFor("index.html"), { waitUntil: "networkidle" });
   await waitForReveal(page);
   const count = await horizontalCount(page);
-  if (count !== 17) {
-    errors.push(`expected 17 horizontal main slides, found ${count}`);
+  if (count !== 14) {
+    errors.push(`expected 14 horizontal main slides, found ${count}`);
   }
   const normalPracticeUi = await page.locator("#rehearsal-toggle, #rehearsal-drawer").count();
   if (normalPracticeUi !== 0) {
@@ -154,7 +154,7 @@ async function main() {
   }
 
   const finalQrOk = await page.evaluate(async () => {
-    window.Reveal.slide(16, 0);
+    window.Reveal.slide(13, 0);
     await new Promise((resolve) => setTimeout(resolve, 350));
     const img = document.querySelector('img[src*="site-qr.svg"]');
     if (!img) return false;
@@ -210,13 +210,13 @@ async function main() {
   await page.waitForTimeout(350);
   await page.locator('[data-tab="interaction"]').click();
   const interactionText = await page.locator(".rehearsal-content").innerText();
-  if (!/Sample-size weighting|aggregate update|交互参数|聚合/.test(interactionText)) {
+  if (!/Fragments 1-7|FedAvg formula|动画片段|聚合/.test(interactionText)) {
     errors.push("practice drawer Interactions tab did not render parameter notes");
   }
   await page.evaluate(() => window.Reveal.slide(4, 0));
   await page.waitForTimeout(350);
   const updatedTitle = await page.locator("#rehearsal-title").innerText();
-  if (!updatedTitle.includes("Achievement Versus Evidence Gap")) {
+  if (!updatedTitle.includes("You Are Now a Federated Client")) {
     errors.push(`practice drawer did not update on slidechanged: ${updatedTitle}`);
   }
   await page.keyboard.press("Escape");

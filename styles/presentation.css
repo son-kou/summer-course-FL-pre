@@ -684,6 +684,14 @@
   min-height: 420px;
 }
 
+.shift-taxonomy.compact {
+  min-height: 0;
+}
+
+.shift-taxonomy.compact .shift-glyph {
+  height: 64px;
+}
+
 .shift-card {
   display: grid;
   align-content: start;
@@ -1336,5 +1344,196 @@
   .reveal .slides section,
   .reveal .fragment {
     transition: none !important;
+  }
+}
+
+/* --- Live federation activity: slide-side components --------------------
+   The dashboard and student app live entirely under /live/ as separate
+   static pages (see live/README and LIVE_INTERACTION_ARCHITECTURE.md).
+   These classes only style the small in-deck signposts and previews. */
+
+.live-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.live-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--navy) !important;
+  color: var(--white) !important;
+  font-weight: 700 !important;
+  font-size: 0.58em;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  text-decoration: none !important;
+}
+
+.live-cta.secondary {
+  background-color: transparent !important;
+  color: var(--navy) !important;
+  border: 1.5px solid var(--navy);
+}
+
+.live-status-note {
+  font-size: 0.46em;
+  color: var(--grey);
+}
+
+.round-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.round-steps .step {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.5rem 0.6rem;
+  font-size: 0.56em;
+  line-height: 1.25;
+}
+
+.round-steps .step span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 0.9em;
+  margin-right: 6px;
+}
+
+.theory-block {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 0.7rem 0.9rem;
+  margin-top: 10px;
+}
+
+.theory-formula {
+  font-family: "Cambria Math", Cambria, "Times New Roman", serif;
+  font-size: 0.85em;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.theory-legend {
+  font-size: 0.56em;
+  color: var(--grey);
+  line-height: 1.35;
+}
+
+.iid-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.iid-compare > div {
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.iid-compare .arrows {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.iid-compare .arrows span {
+  display: inline-block;
+  width: 3px;
+  height: 34px;
+  background: var(--teal);
+  border-radius: 2px;
+}
+
+.iid-compare.agree .arrows span {
+  transform: rotate(-8deg);
+}
+
+.iid-compare .disagree-set span:nth-child(1) {
+  transform: rotate(-32deg);
+  background: var(--coral);
+}
+.iid-compare .disagree-set span:nth-child(2) {
+  transform: rotate(6deg);
+  background: var(--amber);
+}
+.iid-compare .disagree-set span:nth-child(3) {
+  transform: rotate(38deg);
+  background: var(--teal);
+}
+
+.iid-compare figcaption {
+  font-size: 0.6em;
+  font-weight: 650;
+  color: var(--navy);
+}
+
+.mean-worst-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.mean-worst-compare .stat-tile {
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.92);
+  text-align: center;
+}
+
+.mean-worst-compare .stat-tile .figure {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5em;
+  color: var(--navy);
+  display: block;
+}
+
+.mean-worst-compare .stat-tile.worst .figure {
+  color: var(--coral);
+}
+
+.mean-worst-compare .stat-tile .caption {
+  font-size: 0.56em;
+  color: var(--grey);
+}
+
+.dual-qr-caption {
+  font-size: 0.5em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--teal);
+  display: block;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 900px) {
+  .round-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .iid-compare,
+  .mean-worst-compare {
+    grid-template-columns: 1fr;
   }
 }

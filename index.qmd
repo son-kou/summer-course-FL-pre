@@ -21,7 +21,7 @@ format:
     overview: false
     menu: true
     auto-stretch: false
-    default-timing: 98
+    default-timing: 116
     html-math-method: katex
     include-after-body:
       - assets/practice/rehearsal-include.html
@@ -39,9 +39,9 @@ format:
 
 <h1>Federated Learning in Medical AI:<br>When Data Cannot Move</h1>
 
-<p class="subtitle">How it works, when it helps, and what can still go wrong</p>
+<p class="subtitle">How it works, when it helps, and what can still go wrong &mdash; and for 20 minutes, you are part of the federation</p>
 
-<p class="presenter"><strong>Geng Sun</strong><br>Industrial PhD · Cercare Medical / Aarhus University<br>18 August 2026</p>
+<p class="presenter"><strong>Geng Sun</strong><br>Industrial PhD &middot; Cercare Medical / Aarhus University<br>18 August 2026</p>
 
 <p class="thesis">Federation does not replace multicentre science.<br>It is one way to make multicentre science possible when data cannot move.</p>
 :::
@@ -53,11 +53,11 @@ format:
 ::::
 
 ::: {.notes}
-Timing: 1.1 minutes.
+Timing: 0:40. Target 0:40 &middot; skip-if-late: cut the presenter line, keep name/date only.
 
 Thesis: The course is about medical collaboration under constraints, not about selling an algorithm.
 
-Opening sentence: "Federated learning becomes interesting at exactly the point where the clinical question is multicentre but the data cannot become multicentre in the usual way."
+Opening sentence: "Federated learning becomes interesting at exactly the point where the clinical question is multicentre but the data cannot become multicentre in the usual way. Today you will not just watch that story — for about twenty minutes in the middle of this lecture, you will be part of it."
 
 Main evidence: The title and affiliations frame the applied research context; the public MRI is a visual anchor only.
 
@@ -79,12 +79,12 @@ Exact citation reminders: Public MRI attribution is recorded in `assets/mri/READ
 :::: {.clinical-network}
 ::: {.site-card}
 <span class="site-dot"></span><strong>Aarhus</strong>
-<p>rare outcome · careful MRI protocol · small cohort</p>
+<p>rare outcome &middot; careful MRI protocol &middot; small cohort</p>
 <div class="mini-dist low"></div>
 :::
 ::: {.site-card}
 <span class="site-dot"></span><strong>Copenhagen</strong>
-<p>large cohort · different scanner fleet · different workflow</p>
+<p>large cohort &middot; different scanner fleet &middot; different workflow</p>
 <div class="mini-dist high"></div>
 :::
 ::: {.network-question}
@@ -93,12 +93,12 @@ Which evidence can be learned together when data cannot simply be pooled?
 :::
 ::: {.site-card}
 <span class="site-dot"></span><strong>Odense</strong>
-<p>good labels · outcome definition changed mid-study</p>
+<p>good labels &middot; outcome definition changed mid-study</p>
 <div class="mini-dist shifted"></div>
 :::
 ::: {.site-card}
 <span class="site-dot"></span><strong>Aalborg</strong>
-<p>rural referral mix · missing modalities · strict governance</p>
+<p>rural referral mix &middot; missing modalities &middot; strict governance</p>
 <div class="mini-dist sparse"></div>
 :::
 ::::
@@ -108,7 +108,7 @@ We want one clinically useful AI system. Which part should move: patients, data,
 :::
 
 ::: {.notes}
-Timing: 1.4 minutes.
+Timing: 1:30. Target 1:30 &middot; skip-if-late: drop the raise-of-hands wait to 5 seconds.
 
 Thesis: The hard part is choosing the collaboration design before choosing the algorithm.
 
@@ -118,18 +118,61 @@ Main evidence: Use the fictional hospital constraints as a teaching case; do not
 
 Clinical translation: This mirrors grant planning, ethics applications, data-processing agreements, and cohort definitions.
 
-Transition: Introduce the menu of five collaboration designs.
+Transition: "In about five minutes, you will each get one of these hospitals yourselves."
 
 Optional skip: If short on time, read only the question band.
 
-Interaction instructions: Ask the audience to silently pick the first design they would propose.
+Interaction instructions: Ask for a show of hands: who has worked with data that could not leave its institution? Then ask the audience to silently pick the first design they would propose.
 
 Exact citation reminders: No citation needed; this is an original fictional scenario.
 :::
 
-# 2. Five Collaboration Designs {.focus-workflows #five-collaboration-designs}
+# 2. Why Not Simply Pool the Data? {.focus-workflows #why-not-simply-pool}
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.compact-evidence}
+::: {}
+<span class="kicker">Centralized</span>
+Pool all patient data in one place. Strongest statistical control; highest legal and logistical movement burden.
+:::
+::: {}
+<span class="kicker">Local-only</span>
+Each hospital trains and keeps its own model. Easiest governance; weakest generalization beyond one hospital.
+:::
+::: {}
+<span class="kicker">Federated</span>
+Data stay local; a shared model is built by exchanging model updates instead of records.
+:::
+::::
+
+::: {.center-statement .compact}
+Federated learning is one collaboration design among several &mdash; not automatically the right one.
+:::
+
+::: {.notes}
+Timing: 2:10. Target 2:10 &middot; skip-if-late: show only the three kickers, skip the center statement.
+
+Thesis: FL is one design in a larger design space, chosen for a reason, not by default.
+
+Opening sentence: "Before touching any algorithm, a study has to decide what actually moves: patients, data, models, or only conclusions."
+
+Main evidence: Rieke et al. and Kairouz et al. provide broad FL framing; the fuller five-design taxonomy (including federated evaluation and federated analytics) is in the backup slide if the audience wants the complete map.
+
+Clinical translation: A PhD protocol should justify why model updates need to move, not merely assert that raw data stay local.
+
+Transition: "So what does federation actually look like as a mechanism? One round, start to finish."
+
+Optional skip: Skip to the center statement only if very short on time.
+
+Interaction instructions: Ask which of the three they would propose for their own project, and why.
+
+Exact citation reminders: Rieke et al. 2020; Kairouz et al. 2021; Karargyris et al. 2023.
+:::
+
+## Backup: Five Collaboration Designs
+
+<div class="backup">
 
 :::: {.editorial-two-col .visual-led .workflow-focus}
 ::: {}
@@ -146,25 +189,9 @@ Exact citation reminders: No citation needed; this is an original fictional scen
 :::
 ::::
 
-::: {.notes}
-Timing: 1.5 minutes.
+The full five-design vocabulary distinguishes federated *training* from federated *evaluation* (test a model where data live, without training) and federated *analytics* (estimate simple statistics before ever fitting a model). Use this slide if the audience asks "isn't there something short of full FL?"
 
-Thesis: FL is one design in a larger design space.
-
-Opening sentence: "The first mistake is to make federated learning the answer before the collaboration question has been specified."
-
-Main evidence: Rieke et al. and Kairouz et al. provide broad FL framing; MedPerf and federated analytics separate training from evaluation and analysis.
-
-Clinical translation: A PhD protocol should justify why model updates need to move, not merely say that raw data stay local.
-
-Transition: The menu tells us the options; now zoom in on the one option this lesson is mainly about and ask what actually moves.
-
-Optional skip: Skip local-only detail if the audience already knows the menu.
-
-Interaction instructions: Ask which design they picked on the previous slide; compare with this menu. Emphasize that the cards are not buttons here, but a decision vocabulary: changing the design changes whether the unit of movement is raw data, local models, model updates, test results, or only aggregate statistics.
-
-Exact citation reminders: Rieke et al. 2020; Kairouz et al. 2021; Karargyris et al. 2023.
-:::
+</div>
 
 # 3. One Federated-Learning Round {#one-federated-learning-round}
 
@@ -176,27 +203,34 @@ Exact citation reminders: Rieke et al. 2020; Kairouz et al. 2021; Karargyris et 
 <p class="callout">Raw patient data stay local. Information still moves.</p>
 :::
 ::: {}
-<iframe class="lab-frame" src="labs/aggregation/index.html?embed=1" title="Interactive aggregation sandbox" scrolling="no"></iframe>
-<a class="lab-open" href="labs/aggregation/index.html" target="_blank" rel="noopener">Open full lab</a>
+<div class="round-steps">
+<div class="step fragment"><span>1</span>Global model exists at the server.</div>
+<div class="step fragment"><span>2</span>Server broadcasts it to hospitals.</div>
+<div class="step fragment"><span>3</span>Patient data never leave any hospital.</div>
+<div class="step fragment"><span>4</span>Each hospital trains locally.</div>
+<div class="step fragment"><span>5</span>Only model updates travel back.</div>
+<div class="step fragment"><span>6</span>The server aggregates the updates.</div>
+<div class="step fragment"><span>7</span>A new shared model is broadcast again.</div>
+</div>
 :::
 ::::
 
 ::: {.notes}
-Timing: 2.0 minutes.
+Timing: 1:40. Target 1:40 &middot; skip-if-late: click through all 7 steps in silence, skip narration of steps 2-3.
 
-Thesis: Aggregation is an assumption, not a neutral accounting step.
+Thesis: One round looks simple; the trouble is hidden inside the word "aggregate."
 
-Opening sentence: "One round looks simple: train locally, send an update, aggregate, repeat. The trouble is hidden inside the word aggregate."
+Opening sentence: "Train locally, send an update, aggregate, repeat. Watch step 6 closely — that is where today's activity lives."
 
-Main evidence: FedAvg is the baseline idea, but site size, label quality, prevalence, and fairness goals can point in different directions.
+Main evidence: FedAvg is the baseline aggregation idea, but site size, label quality, prevalence, and fairness goals can point in different directions. The mechanics here are covered by McMahan et al. 2017.
 
-Clinical translation: If a small hospital serves the population you most care about, sample-size weighting can make it nearly silent.
+Clinical translation: If a small hospital serves the population you most care about, sample-size weighting can make it nearly silent — this is exactly what the live activity will let you see happen.
 
-Transition: Step from the mechanism to the state of medical FL evidence.
+Transition: "So let's stop watching a diagram of a federation and become one. Everyone, phones out."
 
-Optional skip: If the lab fails, describe the three buttons: sample-size, equal site, quality-aware.
+Optional skip: If short on time, narrate steps 1, 4, 5, 6, 7 only and skip 2-3.
 
-Interaction instructions: Use the right-hand sandbox slowly. Click **Sample-size** to show that the largest cohort dominates the aggregate update; click **Equal site** to show that smaller hospitals gain voice but the estimate may become noisier; click **Quality-aware** to include the quality signal. Tick **include quality signal** to let the quality field influence weights; tick **upweight under-represented prevalence** to make the rare-prevalence site more visible. Point to the left bars as site weights and the right bars as local update values; when a control changes, the aggregate update and "largest site weight" readouts change.
+Interaction instructions: Click through the fragments one at a time, pointing at the diagram for each step.
 
 Exact citation reminders: McMahan et al. 2017; Kairouz et al. 2021.
 :::
@@ -215,9 +249,352 @@ Where \(n_k\) is the number of local training examples at site \(k\). The formul
 
 </div>
 
-# 4. Achievement Versus Evidence Gap {#achievement-versus-evidence-gap}
+## Backup: Aggregation Sandbox (Non-Live Fallback)
+
+<div class="backup">
+
+<div class="lab-layout round-lab">
+<div class="round-panel">
+<p class="callout">Use only if the live federation activity cannot run at all (e.g. no devices in the room).</p>
+</div>
+<div>
+<iframe class="lab-frame" src="labs/aggregation/index.html?embed=1" title="Interactive aggregation sandbox" scrolling="no"></iframe>
+<a class="lab-open" href="labs/aggregation/index.html" target="_blank" rel="noopener">Open full lab</a>
+</div>
+</div>
+
+A pre-built four-hospital sandbox with sample-size, equal-site, and quality-aware weighting toggles. Kept working as a manual fallback and as post-lecture practice material.
+
+</div>
+
+# 4. You Are Now a Federated Client {#you-are-now-a-federated-client}
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.lab-layout .round-lab}
+::: {.round-panel}
+<p class="callout">Your hospital cannot send patient data to the central server.</p>
+<p style="font-size:0.55em;color:var(--grey);margin-top:10px">For teaching, your phone represents a federated client. The local training outcome has been simulated so we can inspect a full federation in a few minutes &mdash; a real update has thousands to millions of numbers, not two.</p>
+<div class="live-cta-row">
+<a class="live-cta" href="../live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+<a class="live-cta secondary" href="../live/index.html?demo=1" target="_blank" rel="noopener">Preview student view</a>
+</div>
+<p class="live-status-note">Dashboard shows the JOIN QR full-screen. No backend? Click "Populate 60 demo clients" instead.</p>
+:::
+::: {}
+<iframe class="lab-frame" src="../live/admin/index.html?embed=1&demo=1" title="Federation dashboard preview" scrolling="no"></iframe>
+:::
+::::
+
+::: {.notes}
+Timing: 2:20. Target 2:20 &middot; skip-if-late: skip to ~60% joined instead of 70-80%.
+
+Thesis: The class becomes the federation instead of watching a picture of one.
+
+Opening sentence: "You are now a federated client. Scan the code on the main screen — no login, no name, about 30 seconds."
+
+Main evidence: This is a precomputed, deterministic synthetic simulation, not real distributed training; say this explicitly so no one leaves believing 60 phones just trained a neural network.
+
+Clinical translation: None yet — this slide is entirely mechanical (join + explain the caveat) so the pedagogy lands on the next two slides.
+
+Transition: "While you're scanning, here is exactly what your phone is about to show you."
+
+Optional skip: Do not wait for 60/60. Proceed once roughly 70-80% have joined, or after about 90 seconds, whichever comes first.
+
+Interaction instructions: Switch the projector to the Federation Dashboard (or open it full-screen), click "Create / reset session," then "Show JOIN QR." If Wi-Fi is unreliable, click "Populate 60 demo clients" immediately and narrate as if the room just joined — the resulting federation is identical either way.
+
+Exact citation reminders: No new citation; this slide is the activity's mechanical on-ramp.
+:::
+
+# 5. Meet Our Federation {#meet-our-federation}
+
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.lab-layout .round-lab}
+::: {.round-panel}
+<p class="question-band">Would you trust all these hospitals equally?</p>
+<p class="question-band">Would you <em>weight</em> all these hospitals equally?</p>
+<p style="font-size:0.5em;color:var(--grey)">These are deliberately different questions.</p>
+<div class="live-cta-row">
+<a class="live-cta" href="../live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+</div>
+:::
+::: {}
+<iframe class="lab-frame full" src="../live/admin/index.html?embed=1&demo=1" title="Federation map preview" scrolling="no"></iframe>
+:::
+::::
+
+::: {.notes}
+Timing: 2:30. Target 2:30 &middot; skip-if-late: ask only the trust question, skip the weight question until Round 1.
+
+Thesis: Trust and influence are different axes; the room usually conflates them.
+
+Opening sentence: "Freeze enrollment. Look at the map — every dot is one of you, sized by how many patients your hospital has."
+
+Main evidence: Node size encodes local sample size; shape/glyph encodes participation status and rare-population sites, never colour alone.
+
+Clinical translation: A hospital being small does not make it untrustworthy; it changes how much statistical weight its evidence should carry, which is a different judgement.
+
+Transition: "Let's answer the weighting question for real. Round 1."
+
+Optional skip: Skip the archetype explanation; just point at the size variation.
+
+Interaction instructions: On the dashboard, click "Freeze enrollment." Point at 2-3 clearly different node sizes on the projector. Ask the trust question, take one or two verbal answers, then ask the weight question and let it hang unanswered into Round 1.
+
+Exact citation reminders: No new citation.
+:::
+
+# 6. Round 1: Federated Averaging {#round-1-federated-averaging}
+
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.lab-layout .round-lab}
+::: {.round-panel}
+<div class="theory-block">
+<p class="theory-formula">F(w) = &sum;<sub>k=1</sub><sup>K</sup> p<sub>k</sub> F<sub>k</sub>(w) &nbsp;&nbsp;with&nbsp;&nbsp; p<sub>k</sub> = n<sub>k</sub> / &sum;<sub>j</sub> n<sub>j</sub></p>
+<p class="theory-legend">F<sub>k</sub>(w): what hospital k wants the model to optimize locally. p<sub>k</sub>: how much influence that hospital receives. Aggregation is partly a statement about whose objective matters &mdash; and partly a statistical/optimization choice, not purely a fairness decision.</p>
+</div>
+<div class="live-cta-row">
+<a class="live-cta" href="../live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+</div>
+:::
+::: {}
+<iframe class="lab-frame full" src="../live/admin/index.html?embed=1&demo=1" title="Aggregation weights and vectors preview" scrolling="no"></iframe>
+:::
+::::
+
+::: {.notes}
+Timing: 2:40. Target 2:40 &middot; skip-if-late: show the resultant arrow only, skip clicking through per-client weights.
+
+Thesis: FedAvg makes every training example count equally — which means hospitals do not count equally.
+
+Opening sentence: "Run FedAvg. Watch the arrows on the right: each one is somebody's simulated update. The white arrow is what the server actually keeps."
+
+Main evidence: p_k = n_k / sum(n_j) is exactly the weight shown in the bar chart; the largest bar is the largest hospital in the room. Formula and picture must correspond exactly. McMahan et al. 2017 is the primary citation.
+
+Clinical translation: A rare-population hospital's clinically important signal can visually shrink to a thin, low-opacity line the moment sample-size weighting is applied.
+
+Transition: "Notice something — not everyone's arrow points the same way. Why not?"
+
+Optional skip: Skip deriving the formula symbol-by-symbol; just point at the correspondence between a bar and an arrow's opacity.
+
+Interaction instructions: On the dashboard, click "Start Round 1," confirm aggregation policy is "FedAvg," and narrate the weights panel: "largest client weight: X%." Point at one specific large node's bar and its thick, opaque arrow, then a small node's thin, faint arrow.
+
+Exact citation reminders: McMahan et al. 2017; Kairouz et al. 2021.
+:::
+
+# 7. The Data Are Not IID {#the-data-are-not-iid}
+
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.editorial-two-col}
+::: {}
+<figure class="iid-compare agree">
+<div>
+<div class="arrows"><span></span><span></span><span></span></div>
+<figcaption>IID-ish: different data, similar learning direction.</figcaption>
+</div>
+</figure>
+<div class="shift-taxonomy compact" style="margin-top:14px">
+<div class="shift-card"><div class="shift-glyph feature"></div><strong>Feature shift</strong><p>scanner &middot; protocol</p></div>
+<div class="shift-card"><div class="shift-glyph label"></div><strong>Label shift</strong><p>prevalence differs</p></div>
+<div class="shift-card"><div class="shift-glyph concept"></div><strong>Concept shift</strong><p>outcome means differently</p></div>
+<div class="shift-card"><div class="shift-glyph workflow"></div><strong>Workflow shift</strong><p>referral &middot; annotation</p></div>
+</div>
+:::
+::: {}
+<figure class="iid-compare">
+<div>
+<div class="arrows disagree-set"><span></span><span></span><span></span></div>
+<figcaption>Non-IID: local objectives disagree.</figcaption>
+</div>
+</figure>
+<p class="center-statement compact" style="margin-top:14px">Institution is a latent variable. Federation makes that fact harder to ignore.</p>
+:::
+::::
+
+::: {.notes}
+Timing: 2:30. Target 2:30 &middot; skip-if-late: skip the four shift-type cards, keep only the two arrow figures and the center statement.
+
+Thesis: Heterogeneity is not noise to average away; it is a clinical clue, and you already saw it in your own federation.
+
+Opening sentence: "Go back to your own site card. Some of your arrows agreed with your neighbours'; some clearly did not. That disagreement has a name: non-IID."
+
+Main evidence: Zech et al. showed site-level generalization failures in chest radiograph models; FedBN and related work target feature shift by keeping selected normalization local.
+
+Clinical translation: The same habit applies to any multicentre study: stratify, visualize, and document why sites differ before blaming "noise."
+
+Transition: "Now let's stress the federation on purpose and see what happens to these disagreements."
+
+Optional skip: Skip method names (FedBN) if the audience is clinically mixed; keep only the four shift labels.
+
+Interaction instructions: Ask 2-3 students with visibly different archetypes (read from their own phone) to shout out one line from their site card. Use one short element from the MRI domain-shift lab only if time allows — do not run the entire lab live.
+
+Exact citation reminders: Zech et al. 2018; Li et al. 2021 FedBN.
+:::
+
+# 8. Round 2: Federation Under Stress {#round-2-federation-under-stress}
+
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.lab-layout .round-lab}
+::: {.round-panel}
+<p class="question-band">Predict first: what will happen to the aggregate when one hospital looks very different?</p>
+<div class="design-list compact" style="margin-top:10px">
+<p><strong>B &middot; Rare hospital:</strong> a small, clinically distinctive site.</p>
+<p><strong>C &middot; Suspicious update:</strong> one extreme, unexplained update.</p>
+</div>
+<div class="live-cta-row">
+<a class="live-cta" href="../live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+</div>
+:::
+::: {}
+<iframe class="lab-frame full" src="../live/admin/index.html?embed=1&demo=1" title="Teaching event and aggregation policy preview" scrolling="no"></iframe>
+:::
+::::
+
+::: {.notes}
+Timing: 2:50. Target 2:50 &middot; skip-if-late: run only ONE event (rare hospital), skip the strategy comparison.
+
+Thesis: Robust aggregation bounds an outlier's influence; it cannot diagnose why the outlier happened.
+
+Opening sentence: "Predict before I click: if I make one hospital's population rare and clinically important, what happens to its voice under FedAvg?"
+
+Main evidence: Under FedAvg a small hospital's contribution shrinks toward its sample-size weight regardless of clinical importance; clipping and coordinate-median bound an extreme update's magnitude but do not explain it. Possible real-world causes of an unusual update — label error, preprocessing error, domain shift, corrupted training, a malicious client — are observationally similar from the server's side.
+
+Clinical translation: "If this is the population we most care about, did federation solve our problem?" Robust statistics manage influence, not clinical meaning.
+
+Transition: "So a global number just changed. Did it change for everyone the same way?"
+
+Optional skip: Trigger only Event B (rare hospital) or only Event C (suspicious update) — not both. Skip the median/clipped comparison if late.
+
+Interaction instructions: Ask the room to predict out loud, THEN click "B · Rare hospital" (or "C · Suspicious update") on the dashboard. Show FedAvg's result, then click one alternative aggregation policy (Clipped FedAvg or Coordinate median) to compare. Do not reveal which real-world cause the suspicious update represents — ask the room to list candidate explanations instead.
+
+Exact citation reminders: Kairouz et al. 2021 (robust aggregation framing); no single paper is cited for the synthetic event itself.
+:::
+
+# 9. Did It Help Every Hospital? {#did-it-help-every-hospital}
+
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.editorial-two-col}
+::: {}
+<figure class="mean-worst-compare">
+<div class="stat-tile"><span class="figure">↑ mean</span><span class="caption">Global average performance</span></div>
+<div class="stat-tile worst"><span class="figure">↓ worst site</span><span class="caption">Rare / shifted hospital</span></div>
+</figure>
+<p style="font-size:0.5em;color:var(--grey);margin-top:8px">Numbers come from the live dashboard's synthetic evaluation panel &mdash; a coherent deterministic teaching simulation, not empirical research evidence.</p>
+:::
+::: {}
+<p class="center-statement">The average model does not treat the average hospital.</p>
+<p class="callout" style="margin-top:14px">"The average is not the deployment site."</p>
+:::
+::::
+
+::: {.notes}
+Timing: 1:50. Target 1:50 &middot; skip-if-late: read the two boxed statements only, skip re-opening the dashboard.
+
+Thesis: A clinically acceptable global average can still hide an unacceptable hospital.
+
+Opening sentence: "Look back at the evaluation panel: the mean can go up while the rarest or most shifted hospital goes down at the same time."
+
+Main evidence: This mirrors what FeTS reports in real distributed multi-site evaluation — average performance can hide institutional outlier weaknesses; the synthetic panel here is a teaching projection of that same finding, not a claim about a specific method.
+
+Clinical translation: A study should predefine minimum acceptable performance at the site and subgroup level, not only global AUROC.
+
+Transition: "So the model changed. What actually moved to make that happen — and what didn't?"
+
+Optional skip: If very short, skip straight to the callout line and move on.
+
+Interaction instructions: Point at the dashboard's evaluation panel (still visible from the previous slide) and read the mean and worst-site numbers aloud.
+
+Exact citation reminders: Zenk et al. 2025 FeTS; Karargyris et al. 2023.
+:::
+
+# 10. Privacy: What Moves, What Stays {#privacy-what-moves-what-stays}
+
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.lab-layout .privacy-lab}
+::: {.privacy-map}
+<div class="flow-summary">
+<p><strong>Stays local:</strong> raw records, direct identifiers, local preprocessing.</p>
+<p><strong>Still moves:</strong> model updates, metrics, counts, logs, released models.</p>
+</div>
+<p class="callout">Federated learning changes the privacy problem. It does not delete it.</p>
+:::
+::: {}
+<p style="font-size:0.6em;color:var(--grey);padding:0 8px">The full interactive threat-surface explorer (gradient leakage, membership inference, poisoning, secure aggregation, differential privacy) is in the course resources.</p>
+<a class="live-cta secondary" href="labs/privacy-threat-model/index.html" target="_blank" rel="noopener">Open Privacy Threat-Surface Explorer →</a>
+:::
+::::
+
+::: {.notes}
+Timing: 1:40. Target 1:40 &middot; skip-if-late: read only the callout line and the two-column list.
+
+Thesis: Privacy depends on flows, actors, logs, releases, and attack models, not only on where raw data sit.
+
+Opening sentence: "Your phone never sent us a single patient record. It sent a two-number summary of an update — and in a real system, that update itself is an information channel."
+
+Main evidence: Gradient leakage, membership inference, poisoning, secure aggregation, and differential privacy each address different parts of the threat surface; none of them is "solved" simply because raw data stayed put.
+
+Clinical translation: Ask for a threat model in plain language: who can see what, what could they infer, and who responds if the assumption breaks.
+
+Transition: "This is exactly the kind of problem real medical federations are already living with. Let's look at scale."
+
+Optional skip: Skip the "open full explorer" pointer if time is tight; it is resource material, not live content.
+
+Interaction instructions: Do not open the full lab live. State the caveat sentence exactly as written — it is the single most important sentence in this section.
+
+Exact citation reminders: Shokri et al. 2017; Zhu et al. 2019; Bonawitz et al. 2017.
+:::
+
+# 11. Medical FL in the Real World {#medical-fl-in-the-real-world}
+
+<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+
+:::: {.compact-evidence}
+::: {}
+<span class="kicker">Scale</span>
+Pati et al.: 71 sites, six continents, 6,314 glioblastoma patients trained together.
+:::
+::: {}
+<span class="kicker">Distributed evaluation</span>
+FeTS: 41 models evaluated across 32 institutions &mdash; average performance hid site-level failure, exactly like your dashboard just showed.
+:::
+::: {}
+<span class="kicker">Evidence gap</span>
+612 healthcare-FL articles reviewed; only 32 (5.2%) were real-life clinical applications (Teo et al. 2024).
+:::
+::::
+
+::: {.center-statement .compact}
+Everything you just simulated becomes harder in real hospitals: more heterogeneity, more governance, less control.
+:::
+
+::: {.notes}
+Timing: 1:50. Target 1:50 &middot; skip-if-late: keep only the scale and evidence-gap stats, drop FeTS detail.
+
+Thesis: Medical FL has real scale and real evidence-of-failure-modes, but limited clinically mature evidence overall.
+
+Opening sentence: "Everything you just did with 60 phones has a real analogue at 71 hospitals across six continents."
+
+Main evidence: Pati et al. 2022 (scale); Zenk et al. 2025 FeTS (distributed evaluation, site-level failure); Teo et al. 2024 (612 articles, 32 real-life applications, 5.2%).
+
+Clinical translation: A clinical PhD should separate technical feasibility, external validation, and routine clinical value when reading this literature.
+
+Transition: "So what should actually stick with you from the last twenty minutes?"
+
+Optional skip: Skip the Teo et al. evidence-gap statistic first if very short on time; keep scale and FeTS.
+
+Interaction instructions: Ask the audience what kind of evidence would change their local practice. The full frontier map and real-world governance stack are in backup slides if there is time for questions.
+
+Exact citation reminders: Pati et al. 2022; Karargyris et al. 2023; Zenk et al. 2025; Teo et al. 2024; Li et al. 2025; Bujotzek et al. 2025.
+:::
+
+## Backup: Achievement Versus Evidence Gap
+
+<div class="backup">
 
 :::: {.evidence-funnel}
 ::: {.funnel-step}
@@ -240,70 +617,17 @@ Where \(n_k\) is the number of local training examples at site \(k\). The formul
 :::
 ::::
 
-:::: {.compact-evidence}
-::: {}
-<span class="kicker">Supporting context</span>
-64 regions represented; imaging and clinical/EHR data dominate the review.
-:::
-::: {}
-<span class="kicker">Interpretation</span>
-The literature is large and creative; real clinical implementation remains uncommon.
-:::
-::: {}
-<span class="kicker">Takeaway</span>
-Evaluate FL like clinical infrastructure, not like a demo.
-:::
-::::
+**Search and inclusion:** 24,060 individual records identified; 778 screened after title/abstract; 612 included in final analysis.
 
-::: {.notes}
-Timing: 1.8 minutes.
+**Application maturity:** 65.0% technical FL framework with prototype; 17.0% framework without prototype; 5.2% real-life application.
 
-Thesis: Medical FL has impressive research volume but limited clinically mature evidence.
+**Data types:** 41.7% medical imaging; 23.7% clinical data or EHR; remainder spans IoT, histology, genomics, and combinations.
 
-Opening sentence: "If you search the literature, FL looks huge. If you ask how much of it is real-life clinical use, the picture is much smaller."
+</div>
 
-Main evidence: Teo et al. reviewed 612 healthcare FL articles from 24,060 records; 32 of 612, or 5.2 percent, were real-life FL applications. Li et al. 2025 and Bujotzek et al. 2025 emphasize implementation hurdles.
+## Backup: Brain Cancer Case Detail
 
-Clinical translation: A clinical PhD should separate technical feasibility, external validation, and routine clinical value.
-
-Transition: Use brain cancer as the strongest example where scale and evaluation both matter.
-
-Optional skip: Skip the 64-region metric if time is tight.
-
-Interaction instructions: Ask the audience what kind of evidence would change their local practice.
-
-Exact citation reminders: Teo et al. 2024; Li et al. 2025; Bujotzek et al. 2025.
-:::
-
-## Backup: What Teo Et Al. Counted
-
-:::: {.backup-grid}
-::: {}
-**Search and inclusion**
-
-- 24,060 individual records identified.
-- 778 screened after title and abstract screening.
-- 612 included in final analysis.
-:::
-::: {}
-**Application maturity**
-
-- 65.0% technical FL framework with prototype.
-- 17.0% framework without prototype.
-- 5.2% real-life application.
-:::
-::: {}
-**Data types**
-
-- 41.7% medical imaging.
-- 23.7% clinical data or EHR.
-- Remaining work spans IoT, histology, genomics, and combinations.
-:::
-::::
-
-# 5. Brain Cancer: Scale, Benchmarking, Evaluation {#brain-cancer-scale-benchmarking-evaluation}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+<div class="backup">
 
 :::: {.brain-grid .visual-led}
 ::: {.mri-card}
@@ -312,7 +636,7 @@ Exact citation reminders: Teo et al. 2024; Li et al. 2025; Bujotzek et al. 2025.
 :::
 ::: {}
 <div class="research-progression">
-<p><span>1</span><strong>Distributed training</strong><br>71 sites · six continents · 6,314 glioblastoma patients</p>
+<p><span>1</span><strong>Distributed training</strong><br>71 sites &middot; six continents &middot; 6,314 glioblastoma patients</p>
 <p><span>2</span><strong>Distributed benchmarking</strong><br>MedPerf evaluates models without moving test data</p>
 <p><span>3</span><strong>Federated external evaluation</strong><br>FeTS: 41 models across 32 institutions</p>
 <p><span>4</span><strong>Site-specific failures</strong><br>good average performance can hide weak sites</p>
@@ -320,296 +644,27 @@ Exact citation reminders: Teo et al. 2024; Li et al. 2025; Bujotzek et al. 2025.
 :::
 ::::
 
-::: {.notes}
-Timing: 2.1 minutes.
-
-Thesis: The brain-cancer story moved from large-scale training to distributed benchmarking and then to site-level failure analysis.
-
-Opening sentence: "Brain tumor segmentation is one of the clearest medical examples because the clinical question is rare, imaging-heavy, and multicentre by necessity."
-
-Main evidence: Pati et al. used 71 geographically distinct sites across six continents and 6,314 glioblastoma patients. FeTS 2025 evaluated 41 models across 32 institutions on six continents and showed that average performance can hide institutional and outlier weaknesses.
-
-Clinical translation: Rare-disease AI needs both more sites and more honest reporting of which sites fail.
-
-Transition: Name the first transferable lesson: heterogeneity is signal.
-
-Optional skip: If short, keep the four-step timeline and omit MedPerf detail.
-
-Interaction instructions: Ask why a rare-cancer federation is not automatically a deployable clinical product.
-
-Exact citation reminders: Pati et al. 2022; Karargyris et al. 2023; Zenk et al. 2025.
-:::
-
-# 6. Lesson 1: Treat Heterogeneity as Signal {#lesson-1-treat-heterogeneity-as-signal}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
-
-:::: {.shift-taxonomy}
-::: {.shift-card}
-<div class="shift-glyph feature"></div>
-<strong>Feature shift</strong>
-<p>population · scanner · assay · workflow</p>
-:::
-::: {.shift-card}
-<div class="shift-glyph label"></div>
-<strong>Label shift</strong>
-<p>prevalence and event frequency differ</p>
-:::
-::: {.shift-card}
-<div class="shift-glyph concept"></div>
-<strong>Concept shift</strong>
-<p>the outcome means something different</p>
-:::
-::: {.shift-card}
-<div class="shift-glyph workflow"></div>
-<strong>Workflow shift</strong>
-<p>referral, annotation, and treatment pathways change</p>
-:::
-::::
-
-::: {.center-statement}
-Institution is a latent variable. FL makes that fact harder to ignore.
-:::
-
-::: {.notes}
-Timing: 1.5 minutes.
-
-Thesis: Heterogeneity is not a nuisance term to average away; it is a clinical clue.
-
-Opening sentence: "When hospitals disagree statistically, the first question is not how to smooth them together. It is what the disagreement is telling us."
-
-Main evidence: Zech et al. showed site-level generalization failures in chest radiograph models; FedBN and related work target feature shift by keeping selected normalization local.
-
-Clinical translation: The same habit applies to any multicentre study: stratify, visualize, and document why sites differ.
-
-Transition: Heterogeneity sounds abstract on a taxonomy slide; the next lab makes one common kind of shift visible on the same MRI image.
-
-Optional skip: Skip method names if the audience is clinically mixed.
-
-Interaction instructions: Ask which of the four shifts they most often see in their own projects.
-
-Exact citation reminders: Zech et al. 2018; Li et al. 2021 FedBN.
-:::
-
-# 7. Interactive MRI Domain-Shift Lab {#interactive-mri-domain-shift-lab}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
-
-<div class="lab-slide">
-<iframe class="lab-frame full" src="labs/mri-domain-shift/index.html?embed=1" title="Interactive MRI domain-shift lab" scrolling="no"></iframe>
-<a class="lab-open" href="labs/mri-domain-shift/index.html" target="_blank" rel="noopener">Open full lab</a>
 </div>
 
-::: {.notes}
-Timing: 1.9 minutes.
+## Backup: The Real-World Federation Stack
 
-Thesis: Domain shift can be visually obvious, but the evaluation consequence is statistical and clinical.
-
-Opening sentence: "This is the same public MRI image; only the appearance has been changed in the browser."
-
-Main evidence: The lab uses controlled display transformations for intensity, contrast, noise, blur, and bias field, plus illustrative threshold, prevalence, and label-noise controls.
-
-Clinical translation: Before federating, ask whether sites are measuring the same phenomenon in the same way.
-
-Transition: Once sites differ, we need a vocabulary for what should be shared and what should stay local.
-
-Optional skip: Use the reset button and one contrast change only.
-
-Interaction instructions: Move **Intensity** to brighten or darken the image; **Contrast** expands or compresses the tissue separation; **Noise** adds grain; **Blur** reduces edge detail; **Bias field** creates a smooth intensity gradient. Tick **compare baseline split** to split the image against the reset state. In the threshold panel, increasing **Decision threshold** usually lowers apparent positives; **Prevalence shift** changes the simulated positive-rate context; **Label noise** makes the readout less reliable. Say explicitly that these are educational approximations, not scanner physics.
-
-Exact citation reminders: Public MRI provenance in `assets/mri/README.md`; heterogeneity motivation from Zech et al. 2018.
-:::
-
-# 8. Shared and Local Models {#shared-and-local-models}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
-
-:::: {.lab-layout .personalization-lab}
-::: {.solution-spectrum}
-<div class="spectrum-axis"><span>global</span><span>shared + local</span><span>local</span></div>
-<p><strong>Robust global:</strong> harmonize and validate broadly.</p>
-<p><strong>Target-aware:</strong> reweight when one institution is the clinical target.</p>
-<p><strong>Partial pooling:</strong> shared backbone with local calibration.</p>
-<p><strong>Local fine-tune:</strong> useful only when local data are sufficient.</p>
-:::
-::: {}
-<iframe class="lab-frame" src="labs/personalization/index.html?embed=1" title="Interactive shared versus local model lab" scrolling="no"></iframe>
-<a class="lab-open" href="labs/personalization/index.html" target="_blank" rel="noopener">Open full lab</a>
-:::
-::::
-
-::: {.notes}
-Timing: 1.8 minutes.
-
-Thesis: There is no universal optimum on the shared-local spectrum.
-
-Opening sentence: "Personalization is not a defeat of federation. It is often the honest form of federation."
-
-Main evidence: FedBN keeps normalization local for feature shift; FedWeight reweights patients to mitigate covariate shift in EHR; personalized FL work in multiple sclerosis shows gains can depend on local data sufficiency.
-
-Clinical translation: Shared models need local calibration plans, especially when a hospital is sparse or clinically distinctive.
-
-Transition: The next clinical complication is that sites may not even share the same modalities.
-
-Optional skip: If short, say "partial pooling" and show one slider move.
-
-Interaction instructions: Move **Shared-local mix** toward local-only and shared-only; the curve shows the trade-off between borrowing strength and over-sharing. Increase **Heterogeneity** to widen the gap between mean-site and worst-site performance. Increase **Local data per site** to show when local calibration becomes more plausible. The key readout is not only the mean-site number; point to the worst-site value and the clinical interpretation tile.
-
-Exact citation reminders: Li et al. 2021; Zhu et al. 2025 FedWeight; Pirmani et al. 2025 personalized MS.
-:::
-
-# 9. Lesson 2: Missing Modalities Are Design Inputs {#lesson-2-missing-modalities-are-design-inputs}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
-
-:::: {.lab-layout .missing-lab}
-::: {}
-<iframe class="lab-frame" src="labs/missing-modality/index.html?embed=1" title="Interactive missing-modality matrix lab" scrolling="no"></iframe>
-<a class="lab-open" href="labs/missing-modality/index.html" target="_blank" rel="noopener">Open full lab</a>
-:::
-::: {.method-stack}
-<p><strong>Common clinical core:</strong> define what every site can measure.</p>
-<p><strong>Modality-specific branches:</strong> aggregate compatible representations only.</p>
-<p><strong>Partial aggregation or distillation:</strong> share what can be shared.</p>
-<p><strong>Missingness-aware evaluation:</strong> report who lacks what and why.</p>
-:::
-::::
-
-::: {.notes}
-Timing: 1.8 minutes.
-
-Thesis: Missing modality is not a nuisance afterthought; it defines what learning problem is possible.
-
-Opening sentence: "A federation may contain MRI, CT, EHR, pathology, and genomics, but no hospital has the full row."
-
-Main evidence: Recent peer-reviewed multimodal FL work and missing-modality methods are emerging; FHBench 2025 and Med-MMFL 2026 are useful benchmarks but must be labelled as preprints.
-
-Clinical translation: The project protocol should say whether missingness reflects workflow, access, disease severity, or random absence.
-
-Transition: Even when raw data stay local, information still moves and privacy needs system-level thinking.
-
-Optional skip: Show the matrix, then read the reconstruction warning.
-
-Interaction instructions: Toggle the modality checkboxes in the matrix. Removing **EHR** or **Pathology** at one hospital changes whether a common-core model is realistic. Sparse rows push the design toward modality-specific branches, partial aggregation, distillation, or missingness-aware evaluation. The audience should see that each tick is not a data-cleaning detail; it changes the feasible scientific question.
-
-Exact citation reminders: Thrasher et al. 2025; Saha et al. 2025; Wang et al. 2025 FHBench preprint; Chhetri et al. 2026 Med-MMFL preprint.
-:::
-
-# 10. Lesson 3: Privacy is a Systems Property {#lesson-3-privacy-is-a-systems-property}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
-
-:::: {.lab-layout .privacy-lab}
-::: {.privacy-map}
-<div class="flow-summary">
-<p><strong>Stays local:</strong> raw records, direct identifiers, local preprocessing.</p>
-<p><strong>May move:</strong> updates, metrics, counts, logs, released models.</p>
-</div>
-<p class="callout">"Data stay local" is a starting claim, not a complete privacy argument.</p>
-:::
-::: {}
-<iframe class="lab-frame" src="labs/privacy-threat-model/index.html?embed=1" title="Interactive privacy threat-surface explorer" scrolling="no"></iframe>
-<a class="lab-open" href="labs/privacy-threat-model/index.html" target="_blank" rel="noopener">Open full lab</a>
-:::
-::::
-
-::: {.notes}
-Timing: 1.7 minutes.
-
-Thesis: Privacy depends on flows, actors, logs, releases, and attack models, not only on where raw data sit.
-
-Opening sentence: "Federated learning changes the privacy problem; it does not delete the privacy problem."
-
-Main evidence: Gradient leakage, membership inference, poisoning, secure aggregation, differential privacy, and governance each address different parts of the threat surface.
-
-Clinical translation: Clinical researchers should ask for a threat model in plain language: who can see what, what could they infer, and who responds if the assumption breaks.
-
-Transition: The same systems thinking applies to evaluation.
-
-Optional skip: Read only the callout and toggle "model released externally."
-
-Interaction instructions: Tick **model updates visible** to show gradients or parameters as an information channel; tick **counts and metrics visible** to expose small-cell and per-site disclosure risk; tick **orchestration logs retained** to add operational metadata; tick **participant can be malicious** to introduce poisoning or inference by a site; tick **model released externally** to add downstream membership and misuse risk. The arrows and prompts change qualitatively; do not turn this into a fake privacy score.
-
-Exact citation reminders: Pati et al. privacy review; Shokri et al. 2017; Zhu et al. 2019; Bonawitz et al. 2017.
-:::
-
-# 11. Lesson 4: Evaluate the Hospital {#lesson-4-evaluate-the-hospital}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
-
-:::: {.lab-layout .evaluation-lab}
-::: {.eval-protocol}
-<p><span>Report</span> global + per-site</p>
-<p><span>Stress-test</span> unseen site + temporal drift</p>
-<p><span>Calibrate</span> site + subgroup reliability</p>
-<p><span>Quantify uncertainty</span> confidence + drift signals</p>
-<p><span>Escalate / abstain</span> handoff rules</p>
-:::
-::: {}
-<iframe class="lab-frame" src="labs/evaluation-shift/index.html?embed=1" title="Interactive hospital-level evaluation lab" scrolling="no"></iframe>
-<a class="lab-open" href="labs/evaluation-shift/index.html" target="_blank" rel="noopener">Open full lab</a>
-:::
-::::
-
-::: {.notes}
-Timing: 1.8 minutes.
-
-Thesis: A clinically acceptable average can still hide an unacceptable hospital.
-
-Opening sentence: "The model that is good on average may be exactly the model that is bad for the hospital you are standing in."
-
-Main evidence: FeTS reports distributed multi-site evaluation; MedPerf formalizes federated benchmarking; recent radiology AI uncertainty work emphasizes postdeployment monitoring and UQ under heterogeneity.
-
-Clinical translation: A study should predefine minimum acceptable performance at the site and subgroup level, not only global AUROC or Dice.
-
-Transition: Now reveal why the algorithm is only the visible top of the federation.
-
-Optional skip: If short, show worst-site and abstention only.
-
-Interaction instructions: Increase **unseen-site shift** to show the weakest hospital falling away from the average. Move the **abstention** control to show how deferring uncertain cases can improve safety at the cost of coverage. If the lab exposes calibration or subgroup controls, use one of them to underline that "good mean performance" is not enough. Ask when the protocol should require local calibration or stop deployment.
-
-Exact citation reminders: Zenk et al. 2025 FeTS; Karargyris et al. 2023; Koutsoubis et al. 2025; TRIPOD+AI.
-:::
-
-# 12. The Real-World Federation Stack {#the-real-world-federation-stack}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+<div class="backup">
 
 ::: {.layered-stack}
-<div class="model-layer"><strong>Visible top:</strong> model · optimizer · aggregation · schedule</div>
-<div><strong>Clinical</strong><span>intended use · population · labels · decision workflow</span></div>
-<div><strong>Data</strong><span>harmonization · missingness · provenance · quality control</span></div>
-<div><strong>Infrastructure</strong><span>identity · compute · networking · monitoring · incident response</span></div>
-<div><strong>Governance</strong><span>ethics · contracts · roles · authorship · withdrawal · maintenance</span></div>
+<div class="model-layer"><strong>Visible top:</strong> model &middot; optimizer &middot; aggregation &middot; schedule</div>
+<div><strong>Clinical</strong><span>intended use &middot; population &middot; labels &middot; decision workflow</span></div>
+<div><strong>Data</strong><span>harmonization &middot; missingness &middot; provenance &middot; quality control</span></div>
+<div><strong>Infrastructure</strong><span>identity &middot; compute &middot; networking &middot; monitoring &middot; incident response</span></div>
+<div><strong>Governance</strong><span>ethics &middot; contracts &middot; roles &middot; authorship &middot; withdrawal &middot; maintenance</span></div>
 :::
 
-::: {.center-statement .compact}
-A federation is a collaboration before it is an algorithm.
-:::
+A federation is a collaboration before it is an algorithm. Eden et al. 2025 map procedural, relational, and structural governance mechanisms; Li et al. 2025 and Bujotzek et al. 2025 emphasize real implementation barriers.
 
-::: {.notes}
-Timing: 1.5 minutes.
+</div>
 
-Thesis: The durable work of FL is mostly clinical, organizational, and infrastructural.
+## Backup: Research Frontier Map, 2026
 
-Opening sentence: "The algorithm is what fits on the slide. The federation is what survives contact with real hospitals."
-
-Main evidence: Eden et al. map procedural, relational, and structural governance mechanisms; Li et al. and Bujotzek et al. emphasize real implementation barriers in healthcare and radiology.
-
-Clinical translation: Budget for site coordinators, data stewards, IT, security review, and monitoring, not only GPU time.
-
-Transition: With that stack in mind, map the research frontier for 2026.
-
-Optional skip: Keep only the quote and four below-water groups.
-
-Interaction instructions: Ask which below-water layer usually receives too little budget in their projects.
-
-Exact citation reminders: Eden et al. 2025; Li et al. 2025; Bujotzek et al. 2025.
-:::
-
-# 13. Research Frontier Map, 2026 {#research-frontier-map-2026}
-
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+<div class="backup">
 
 :::: {.frontier-grid}
 ::: {.frontier-card}
@@ -644,53 +699,17 @@ Who is responsible when it breaks?<br>
 :::
 ::::
 
-::: {.notes}
-Timing: 2.0 minutes.
+**More mature:** FedAvg, FedProx, FedBN, SCAFFOLD, FedOpt; secure aggregation, differential privacy, membership-inference vocabulary; medical FL reviews and case studies.
 
-Thesis: The frontier is not one topic; it is six coupled research programs.
+**Clinically urgent:** site-level external evaluation; calibration, subgroup performance, abstention; governance and accountability.
 
-Opening sentence: "By 2026, the interesting FL questions are less about whether federation can train a model and more about what kind of federation deserves clinical trust."
+**Emerging:** multimodal missing-modality benchmarks; federated foundation models and PEFT; federated causal inference and analytics at scale.
 
-Main evidence: Personalized, multimodal, foundation-model, federated-evaluation, uncertainty, and governance literatures are all advancing, but not with the same maturity.
+**A note on algorithm taxonomy** &mdash; these are not interchangeable "aggregation options": FedAvg is the server-aggregation baseline; FedProx modifies the *local* optimization objective with a proximal term; FedBN keeps selected normalization parameters local for feature-shift settings; SCAFFOLD uses control variates to reduce client drift; FedOpt is a server-side optimization family. None of these is simply "another averaging formula."
 
-Clinical translation: A PhD student can position a project by naming the maturity level of the method, not by presenting every preprint as established.
+</div>
 
-Transition: The frontier map is broad; now compress it into the few practical habits a clinical researcher can use in the next protocol meeting.
-
-Optional skip: Read one mature area and one emerging area only.
-
-Interaction instructions: Ask the audience which frontier fits their current project and whether the evidence is peer-reviewed or preprint.
-
-Exact citation reminders: FedWeight; Thrasher et al.; Li et al. federated foundation models; MedPerf; Eden.
-:::
-
-## Backup: Frontier Reading Map
-
-:::: {.backup-grid}
-::: {}
-**More mature**
-
-- FedAvg, FedProx, FedBN, SCAFFOLD, FedOpt.
-- Secure aggregation, differential privacy, membership inference vocabulary.
-- Medical FL reviews and case studies.
-:::
-::: {}
-**Clinically urgent**
-
-- Site-level external evaluation.
-- Calibration, subgroup performance, abstention.
-- Governance and accountability.
-:::
-::: {}
-**Emerging**
-
-- Multimodal missing-modality benchmarks.
-- Federated foundation models and PEFT.
-- Federated causal inference and analytics at scale.
-:::
-::::
-
-# 14. Practical Takeaways for Clinical AI {#practical-takeaways-for-clinical-ai}
+# 12. What Should You Remember? {#what-should-you-remember}
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
@@ -698,86 +717,66 @@ Exact citation reminders: FedWeight; Thrasher et al.; Li et al. federated founda
 ::: {.borrow-card}
 <span>1</span>
 <div>
-<strong>FL is a study design, not a model choice.</strong>
-Name the clinical question, target setting, and movement contract first.
+<strong>Data stay local; information does not.</strong>
+Updates, metrics, and released models are still a channel.
 </div>
 :::
 ::: {.borrow-card}
 <span>2</span>
 <div>
-<strong>Hospital is a variable.</strong>
-Scanner, referral, workflow, and labels encode care pathways, not noise only.
+<strong>A federation optimizes across different local worlds.</strong>
+Non-IID is not a bug in the room — it is the room.
 </div>
 :::
 ::: {.borrow-card}
 <span>3</span>
 <div>
-<strong>The average is not the deployment site.</strong>
-Worst-site, calibration, drift, and abstention are primary safety endpoints.
+<strong>Aggregation embeds assumptions about influence.</strong>
+Sample-size weighting is a choice, not a neutral default.
 </div>
 :::
 ::: {.borrow-card}
 <span>4</span>
 <div>
-<strong>Missingness is evidence.</strong>
-A missing modality says who was measured and what the model cannot know.
-</div>
-:::
-::: {.borrow-card}
-<span>5</span>
-<div>
-<strong>Personalization is accountability.</strong>
-Local adaptation is justified when a shared model hides local risk.
-</div>
-:::
-::: {.borrow-card}
-<span>6</span>
-<div>
-<strong>Privacy is a chain of flows.</strong>
-Updates, metrics, logs, and released models need owners and stop rules.
+<strong>Global performance can hide local failure.</strong>
+The average is not the deployment site.
 </div>
 :::
 ::::
 
-<div class="download-band">
-Use the resources page for the full reading path and interactive labs.
-</div>
-
-::: {.notes}
-Timing: 1.4 minutes.
-
-Thesis: The most useful takeaway is not "use FL"; it is a protocol habit for constrained multicentre clinical AI.
-
-Opening sentence: "So what can a clinical PhD actually use after this lecture? Not a slogan, but a checklist for the next protocol meeting."
-
-Main evidence: The six points come directly from the course: collaboration design, data movement, heterogeneity, missing modalities, evaluation, and governance.
-
-Clinical translation: These are practical questions for grant writing, ethics review, data-processing agreements, analysis plans, and deployment discussions.
-
-Transition: Pause here for questions before the final QR/resource slide.
-
-Optional skip: Read only takeaways 1, 2, and 5.
-
-Interaction instructions: Ask the audience which takeaway would change one of their current projects. Do not open a lab here; this slide is for synthesis and discussion.
-
-Exact citation reminders: TRIPOD+AI; DECIDE-AI; Eden et al.
+::: {.center-statement .compact}
+For medical AI specifically: heterogeneity &middot; privacy &middot; evaluation &middot; governance.
 :::
 
-# 15. Q&A {#qa}
+::: {.notes}
+Timing: 1:50. Target 1:50 &middot; skip-if-late: read the four numbered cards only, skip the second-layer line.
 
-<div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
+Thesis: The most useful takeaway is a protocol habit, not a slogan.
+
+Opening sentence: "Four things to keep. You have already seen every one of them happen on your own phone in the last twenty minutes."
+
+Main evidence: The four points come directly from what the live federation demonstrated: data movement, non-IID disagreement, aggregation-as-assumption, and worst-site failure.
+
+Clinical translation: These map directly onto grant writing, ethics review, data-processing agreements, analysis plans, and deployment discussions.
+
+Transition: "One more thing before you go — how to keep exploring this after class."
+
+Optional skip: If very short, read cards 3 and 4 only — they are the ones most often missed.
+
+Interaction instructions: Ask the audience which of the four would change one of their current projects.
+
+Exact citation reminders: TRIPOD+AI; DECIDE-AI; Eden et al. 2025.
+:::
+
+## Backup: Q&A Prompts
+
+<div class="backup">
 
 :::: {.qa-board}
 ::: {.qa-anchor}
 <div class="qa-label">Q&A</div>
 <p class="qa-lead">Bring one real clinical AI project.</p>
-<p class="qa-sublead">We will map the federation before the method.</p>
-
-<div class="qa-flow">
-<p>Clinical question</p>
-<p>What moves?</p>
-<p>Evidence that changes care</p>
-</div>
+<p class="qa-sublead">Map the federation before the method.</p>
 :::
 ::: {.qa-prompt-grid}
 <p><strong>Use FL at all?</strong><span>Training, evaluation, analytics, pooling, or local-only?</span></p>
@@ -787,27 +786,11 @@ Exact citation reminders: TRIPOD+AI; DECIDE-AI; Eden et al.
 :::
 ::::
 
-::: {.notes}
-Timing: 2.3 minutes.
+Use if discussion is slow after the final slide, within the operational buffer.
 
-Thesis: Questions should be anchored in concrete study design, not abstract FL enthusiasm.
+</div>
 
-Opening sentence: "I want to leave space for questions, but I will frame them in the same way as the lecture: bring a project, and we can map what moves and what must be evaluated locally."
-
-Main evidence: Use the three prompts to route questions toward design choice, evidence standards, and governance.
-
-Clinical translation: Encourage students to translate their own project into a movement map and an evaluation map.
-
-Transition: After discussion, return to the final QR slide so people can access labs and references.
-
-Optional skip: If there are no questions, ask one seeded question: "When would you choose federated evaluation instead of federated training?"
-
-Interaction instructions: Invite one project-specific question first. If discussion is quiet, ask the room to pick one of the three prompt cards and answer it in relation to their own data.
-
-Exact citation reminders: No new citations; this is a discussion slide.
-:::
-
-# 16. Final Synthesis and Resources {#final-synthesis-and-resources}
+# 13. Course Resources {#course-resources}
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
@@ -818,6 +801,7 @@ Exact citation reminders: No new citations; this is a discussion slide.
 <div class="closing-line">The transferable habit is to make the collaboration visible.</div>
 :::
 ::: {.qr-panel}
+<span class="dual-qr-caption">Course Resources QR &mdash; not the federation join code</span>
 ![](assets/qr/site-qr.svg){fig-alt="QR code for the course website."}
 <p><a href="resources.html">Slides, labs, reading path, and references</a></p>
 <p class="source-note">Course site: https://son-kou.github.io/summer-course-FL-pre/</p>
@@ -825,21 +809,21 @@ Exact citation reminders: No new citations; this is a discussion slide.
 ::::
 
 ::: {.notes}
-Timing: 0.9 minutes.
+Timing: 1:00. Target 1:00 &middot; skip-if-late: show the QR and read only the first closing line.
 
 Thesis: FL is useful when it makes the real collaboration legible and testable.
 
-Opening sentence: "If you remember one thing, make it this: federation does not remove the multicentre problem; it gives you a way to do it explicitly."
+Opening sentence: "One thing to remember: federation does not remove the multicentre problem; it gives you a way to do it explicitly. This QR is different from the one you scanned earlier — it goes to the permanent course site, labs, and references."
 
-Main evidence: Recap the four lessons: heterogeneity, shared/local modeling, privacy, and hospital-level evaluation.
+Main evidence: Recap the four principles and the medical-AI layer from the previous slide.
 
 Clinical translation: Direct the audience to the labs, reading path, and references rather than adding new content.
 
-Transition: End and invite questions.
+Transition: End and invite questions (use the Q&A backup prompts if discussion needs a seed).
 
-Optional skip: Skip the second closing line if already over time.
+Optional skip: Skip the second and third closing lines if already over time; keep the QR up regardless.
 
-Interaction instructions: Leave the QR slide up for questions.
+Interaction instructions: Leave this QR slide up for the whole Q&A period. Explicitly say "this is the resources QR, not the federation join code" once, since the room saw a different QR twenty minutes ago.
 
 Exact citation reminders: No new citations; all reference links are on `references.html`.
 :::
