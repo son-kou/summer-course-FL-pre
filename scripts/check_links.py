@@ -69,18 +69,20 @@ SMART_ATTR_RE = re.compile(r"\{[^}\n]*[“”‘’][^}\n]*\}")
 
 MAIN_SLIDE_IDS = [
     "title",
-    "four-hospitals-one-question",
+    "you-already-trained-different-models",
     "why-not-simply-pool",
     "one-federated-learning-round",
-    "you-are-now-a-federated-client",
+    "reveal-your-simulated-hospital",
     "meet-our-federation",
     "round-1-federated-averaging",
     "the-data-are-not-iid",
+    "fl-classics-and-the-2026-frontier",
     "round-2-federation-under-stress",
     "did-it-help-every-hospital",
-    "privacy-what-moves-what-stays",
+    "privacy-and-security-what-moves-what-stays",
     "medical-fl-in-the-real-world",
-    "what-should-you-remember",
+    "four-lenses-to-borrow",
+    "explore-the-node-vs-center-playground",
     "course-resources",
 ]
 
@@ -208,17 +210,20 @@ def check_practice_assets(project: Path, errors: list[str]) -> None:
 
 def check_qr_source(project: Path, errors: list[str]) -> None:
     generator = project / "scripts/generate_qr.py"
-    qr = project / "assets/qr/site-qr.svg"
     if not generator.exists():
         errors.append("missing QR generator script")
         return
     text = generator.read_text(encoding="utf-8", errors="replace")
-    if 'URL = "https://son-kou.github.io/summer-course-FL-pre/"' not in text:
-        errors.append("QR generator target URL is not the GitHub Pages course URL")
-    if not qr.exists() or qr.stat().st_size < 500:
-        errors.append("QR SVG is missing or unexpectedly small")
-    elif "<svg" not in qr.read_text(encoding="utf-8", errors="replace")[:500]:
-        errors.append("QR asset is not an SVG file")
+    if '"assets/qr/site-qr.svg": "https://son-kou.github.io/summer-course-FL-pre/"' not in text:
+        errors.append("QR generator's site-qr target URL is not the GitHub Pages course URL")
+    if '"assets/qr/playground-qr.svg"' not in text:
+        errors.append("QR generator no longer produces the playground QR target")
+    for qr_name in ("site-qr.svg", "playground-qr.svg"):
+        qr = project / "assets/qr" / qr_name
+        if not qr.exists() or qr.stat().st_size < 500:
+            errors.append(f"QR SVG {qr_name} is missing or unexpectedly small")
+        elif "<svg" not in qr.read_text(encoding="utf-8", errors="replace")[:500]:
+            errors.append(f"QR asset {qr_name} is not an SVG file")
 
 
 def main() -> int:

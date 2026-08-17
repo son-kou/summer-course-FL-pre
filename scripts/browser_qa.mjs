@@ -145,8 +145,8 @@ async function main() {
   await page.goto(urlFor("index.html"), { waitUntil: "networkidle" });
   await waitForReveal(page);
   const count = await horizontalCount(page);
-  if (count !== 14) {
-    errors.push(`expected 14 horizontal main slides, found ${count}`);
+  if (count !== 16) {
+    errors.push(`expected 16 horizontal main slides, found ${count}`);
   }
   const normalPracticeUi = await page.locator("#rehearsal-toggle, #rehearsal-drawer").count();
   if (normalPracticeUi !== 0) {
@@ -216,7 +216,7 @@ async function main() {
   await page.evaluate(() => window.Reveal.slide(4, 0));
   await page.waitForTimeout(350);
   const updatedTitle = await page.locator("#rehearsal-title").innerText();
-  if (!updatedTitle.includes("You Are Now a Federated Client")) {
+  if (!updatedTitle.includes("Reveal Your Simulated Hospital")) {
     errors.push(`practice drawer did not update on slidechanged: ${updatedTitle}`);
   }
   await page.keyboard.press("Escape");

@@ -1,4 +1,4 @@
-import { generateClient } from "./lib/simulation.js";
+import { generateClient, PREDICT_OPTIONS } from "./lib/simulation.js";
 import { createBackend } from "./lib/backend.js";
 import { getSessionCodeFromUrl, getOrCreateClientId, clientDisplayNumber } from "./lib/identity.js";
 import { firebaseConfig } from "./firebase-config.js";
@@ -76,6 +76,32 @@ function renderArrowSvg(delta, { color = "#0c6b6f", maxDrawLength = 42 } = {}) {
   `;
 }
 
+function screenPredict() {
+  root.replaceChildren(
+    el("div", { class: "screen" }, [
+      el("p", { class: "kicker", text: "Opening question" }),
+      el("h1", { class: "headline", text: "You already trained different models on this dataset." }),
+      el("p", { class: "subhead" }, [
+        "Now imagine combining all 60 of your models into one best model — without anyone sending their training data anywhere. How would you do it?",
+      ]),
+      el(
+        "div",
+        { class: "decision-stack" },
+        PREDICT_OPTIONS.map((option) =>
+          el(
+            "button",
+            {
+              class: "button button-secondary",
+              onclick: () => submitPredictVote(option.key),
+            },
+            option.label,
+          ),
+        ),
+      ),
+    ]),
+  );
+}
+
 function screenWelcome() {
   root.replaceChildren(
     el("div", { class: "screen" }, [
@@ -83,7 +109,7 @@ function screenWelcome() {
       el("h1", { class: "headline", text: "You are now a federated client." }),
       el("p", { class: "subhead", text: "Your hospital cannot send patient data to the central server." }),
       el("div", { class: "caveat-box" }, [
-        "For teaching, your phone represents a federated client. The local training outcome has been simulated so we can inspect a full federation in a few minutes.",
+        "Yesterday, different training runs on the same data gave you different models. Today your phone represents one hospital in a federation like that — and the local training outcome has been simulated so we can inspect a full federation in a few minutes.",
       ]),
       el(
         "button",
@@ -235,11 +261,26 @@ function screenWaiting() {
 
 function setScreen(name) {
   state.screen = name;
-  if (name === "welcome") screenWelcome();
+  if (name === "predict") screenPredict();
+  else if (name === "welcome") screenWelcome();
   else if (name === "site") screenSite();
   else if (name === "decide") screenDecide();
   else if (name === "concern") screenConcern();
   else if (name === "waiting") screenWaiting();
+}
+
+async function submitPredictVote(optionKey) {
+  try {
+    await state.backend.upsertClient(state.sessionCode, state.clientId, {
+      predictVote: optionKey,
+      joinedAt: Date.now(),
+    });
+    hideBanner();
+  } catch (error) {
+    console.error(error);
+    showBanner("Live connection unavailable. Your answer is saved on this device only.");
+  }
+  setScreen("welcome");
 }
 
 async function joinSession() {
@@ -304,7 +345,7 @@ async function boot() {
     state.backend = provider;
     state.backendKind = kind;
 
-    setScreen("welcome");
+    setScreen("predict");
   } catch (error) {
     console.error(error);
     renderFatalFallback();

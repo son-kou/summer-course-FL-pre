@@ -7,19 +7,21 @@ This English-only file is generated from `assets/practice/slide-scripts.json`. I
 | Slide | Topic | Target |
 |---:|---|---:|
 | 0 | Federated Learning in Medical AI: When Data Cannot Move | 0:40 |
-| 1 | Four Hospitals, One Question | 1:30 |
-| 2 | Why Not Simply Pool the Data? | 2:10 |
-| 3 | One Federated-Learning Round | 1:40 |
-| 4 | You Are Now a Federated Client | 2:20 |
-| 5 | Meet Our Federation | 2:30 |
-| 6 | Round 1: Federated Averaging | 2:40 |
-| 7 | The Data Are Not IID | 2:30 |
-| 8 | Round 2: Federation Under Stress | 2:50 |
-| 9 | Did It Help Every Hospital? | 1:50 |
-| 10 | Privacy: What Moves, What Stays | 1:40 |
-| 11 | Medical FL in the Real World | 1:50 |
-| 12 | What Should You Remember? | 1:50 |
-| 13 | Course Resources | 1:00 |
+| 1 | You Already Trained Different Models | 2:30 |
+| 2 | Why Not Simply Pool the Data? | 1:50 |
+| 3 | One Federated-Learning Round | 1:30 |
+| 4 | Reveal Your Simulated Hospital | 1:20 |
+| 5 | Meet Our Federation | 2:10 |
+| 6 | Round 1: Federated Averaging | 2:20 |
+| 7 | The Data Are Not IID | 2:10 |
+| 8 | FL Classics and the 2026 Frontier | 1:40 |
+| 9 | Round 2: Federation Under Stress | 2:00 |
+| 10 | Did It Help Every Hospital? | 1:30 |
+| 11 | Security: What Moves, What Stays | 1:30 |
+| 12 | Medical FL in the Real World | 1:30 |
+| 13 | Four Lenses to Borrow, With or Without FL | 2:00 |
+| 14 | Explore the Node vs Center Playground | 1:20 |
+| 15 | Course Resources | 1:00 |
 |  | **Planned spoken content** | **27:00** |
 |  | Buffer for questions and transitions | 3:00 |
 |  | **Course slot** | **30:00** |
@@ -40,52 +42,52 @@ This English-only file is generated from `assets/practice/slide-scripts.json`. I
 ### Key Points
 
 - Federated learning is framed as a multicentre collaboration design, not an algorithm to sell.
-- For about twenty minutes in the middle of this lecture, the audience becomes the federation.
+- This is the closing lecture of the two-day course, and it starts from yesterday's exercise.
 - The goal is careful clinical AI reasoning that survives even without ever running FL.
 
 ### English Script
 
-Today I will talk about federated learning in medical AI from a clinical research perspective. The title is deliberately about data that cannot move, because that is where the method becomes interesting. Federation does not replace multicentre science; it is one way to make multicentre science possible under legal, technical, and institutional constraints. This time the lecture is different: for about twenty minutes you will not just watch a federation, you will be one client inside it, on your own phone.
+Today I will talk about federated learning in medical AI from a clinical research perspective. The title is deliberately about data that cannot move, because that is where the method becomes interesting. This is also the closing lecture of the whole two-day course: yesterday you trained agentic MRI segmentation models on a shared dataset, and today asks what happens when the data genuinely cannot be pooled at all. Federation does not replace multicentre science; it is one way to make multicentre science possible under legal, technical, and institutional constraints.
 
 ### Transition
 
-We will turn that framing into a concrete four-hospital dilemma.
+Move straight into the callback to yesterday's exercise.
 
 ### Delivery And Timing
 
 Target time: **0:40**.
 
-Keep this short and warm. State the interactive twist explicitly so the room is primed to have phones ready later.
+Keep this short and warm. Name the two-day-course callback explicitly so the room connects the dots.
 
 ### Skip If Late
 
-Cut the presenter/date line and the image attribution; keep the title and the one interactive-twist sentence.
+Cut the presenter/date line and the image attribution; keep the title and the course-callback sentence.
 
-## Slide 1: Four Hospitals, One Question
+## Slide 1: You Already Trained Different Models
 
 ### Key Points
 
-- Four fictional hospitals agree on the clinical question but differ in what can leave the building.
-- The hard part is choosing the collaboration design before choosing the algorithm.
-- In a few minutes, everyone gets their own version of one of these hospitals.
+- Everyone in the room trained a segmentation model on the same dataset yesterday, with different results.
+- The opening question is a cold-take prediction poll, asked before any FL vocabulary is introduced.
+- One QR scan covers the whole activity — no second scan needed later.
 
 ### English Script
 
-Imagine four hospitals that agree on the clinical question but disagree, for legitimate reasons, on what can leave the building. Aarhus has a rare outcome and a small cohort; Copenhagen has a large cohort on different scanners; Odense changed its outcome definition mid-study; Aalborg has a rural referral mix and missing modalities. None of this is about real AU or Cercare projects — it is a teaching scenario. The question that matters is which part should move: patients, data, models, metrics, or only conclusions. Hold that question, because in a few minutes you will each be assigned a hospital like one of these.
+Show of hands first — who got a Dice score they were happy with yesterday, and who didn't? Good. Different data exposure, different runs, different models. Now: if I wanted to combine all sixty of your models into one best model, and nobody is allowed to send me their training data, how would you do it? Scan the code and answer honestly — there is no wrong answer yet. This is a genuine cold-take prediction: we ask before naming any mechanism, so your real intuition is on the record.
 
 ### Transition
 
-So let's name the menu of collaboration designs before picking one.
+Let's look at what you actually voted for — and then ask why pooling the data, which some of you picked, usually isn't on the table in medicine.
 
 ### Delivery And Timing
 
-Target time: **1:30**.
+Target time: **2:30**.
 
-Ask for a show of hands on who has worked with data that could not leave its institution before reading the cards.
+Project the Federation Dashboard full-screen, click Create / reset session, then Show JOIN QR. The big poll chart fills in live. If Wi-Fi is unreliable, click Populate 60 demo clients and narrate as if the room just voted. Once most votes are in, read the leading option aloud, then click Reveal federation map to switch the dashboard into map view for the rest of the lecture.
 
 ### Skip If Late
 
-Read only the question band; skip narrating all four site cards individually.
+Do not wait for 60/60 votes. Proceed once roughly 70-80% have answered, or after about 45-60 seconds.
 
 ## Slide 2: Why Not Simply Pool the Data?
 
@@ -97,7 +99,7 @@ Read only the question band; skip narrating all four site cards individually.
 
 ### English Script
 
-Before touching any algorithm, a study has to decide what actually moves. Pooling all data centrally gives the strongest statistical control but the highest legal and logistical burden. Staying local is the easiest to govern but generalizes worst. Federated learning keeps data local and exchanges model updates instead — which sounds like a free lunch, but is not: it trades data movement for new statistical and systems complexity. Federated learning is one collaboration design among several, chosen for a reason, not by default.
+A few of you picked 'send everyone's data to one place and retrain' — that's centralized pooling, and it's a completely reasonable answer in a classroom. In medicine, it's usually the option that's off the table first. Pooling gives the strongest statistical control but the highest legal and logistical burden. Staying local is easiest to govern but generalizes worst. Federated learning keeps data local and exchanges model updates instead — which trades data movement for new statistical and systems complexity, not a free lunch.
 
 ### Transition
 
@@ -105,9 +107,9 @@ So what does federation actually look like as a mechanism? One round, start to f
 
 ### Delivery And Timing
 
-Target time: **2:10**.
+Target time: **1:50**.
 
-Keep the three-way comparison crisp; do not read the backup five-design diagram unless directly asked.
+Ask who voted to pool the data, and ask what would have to be true institutionally for that to actually work.
 
 ### Skip If Late
 
@@ -123,15 +125,15 @@ Show only the three kickers and skip the center statement entirely.
 
 ### English Script
 
-Train locally, send an update, aggregate, repeat. Watch step six closely, because that is exactly where today's activity lives. The global model starts at the server, gets broadcast to hospitals, each hospital trains without its data ever leaving, only the update travels back, the server aggregates those updates, and a new shared model goes out again. The mechanics here trace back to McMahan and colleagues' original FedAvg paper. Notice that the sentence sounds simple, but the word aggregate is hiding a lot of decisions — decisions you are about to make yourselves.
+This is the mechanism behind the question I just asked you. Train locally, send an update, aggregate, repeat. Watch step six closely — that is exactly where today's activity lives. The global model starts at the server, gets broadcast to hospitals, each hospital trains without its data ever leaving, only the update travels back, the server aggregates, and a new shared model goes out again. The word aggregate is hiding a lot of decisions — decisions you are about to make.
 
 ### Transition
 
-So let's stop watching a diagram of a federation and become one. Everyone, phones out.
+Check your phone — still on the welcome screen? Good, hold there one more slide.
 
 ### Delivery And Timing
 
-Target time: **1:40**.
+Target time: **1:30**.
 
 Click through the seven fragments one at a time, pointing at the diagram for each step. Do not rush step 6.
 
@@ -144,31 +146,31 @@ Click through the seven fragments one at a time, pointing at the diagram for eac
 
 Narrate steps 1, 4, 5, 6, 7 only; click through 2-3 in silence.
 
-## Slide 4: You Are Now a Federated Client
+## Slide 4: Reveal Your Simulated Hospital
 
 ### Key Points
 
-- No login, no name, no email — a session code is enough to join as one simulated hospital.
-- The simulation is precomputed and deterministic; it does not pretend 60 phones train a real network.
-- Do not wait for 100% joined — proceed at roughly 70-80% or after about 90 seconds.
+- No new scan needed — everyone already joined during the opening prediction poll.
+- The simulation is precomputed and deterministic; it does not pretend a phone trains a real network.
+- This slide is mechanical: reveal the card, state the caveat, move on.
 
 ### English Script
 
-You are now a federated client. Scan the code on the main screen — no login, no name, about thirty seconds. For teaching, your phone represents a federated client; the local training outcome has been simulated so we can inspect a full federation in a few minutes. Be explicit here: this is not sixty phones secretly training a neural network. A real model update has thousands to millions of numbers; what you will see is a two-number, two-dimensional projection built for visualization. Do not wait for everyone — once most of the room has joined, we move on.
+You are now a federated client. Tap 'Reveal my site.' No new scan needed — you already joined during the prediction question. For teaching, your phone represents a federated client; the local training outcome has been simulated so we can inspect a full federation in a few minutes. Be explicit: this is not sixty phones secretly training a neural network. A real model update has thousands to millions of numbers; what you see is a two-number projection built for visualization.
 
 ### Transition
 
-While you're scanning, here is exactly what your phone is about to show you.
+Look at your card for a second, then look up — let's meet the federation as a whole.
 
 ### Delivery And Timing
 
-Target time: **2:20**.
+Target time: **1:20**.
 
-Switch the projector to the Federation Dashboard, create/reset a session, click Show JOIN QR. If Wi-Fi is unreliable, click Populate 60 demo clients immediately instead and keep teaching — the resulting federation looks identical either way.
+Ask one or two students to read their hospital name and one stat aloud. Do not wait for every phone.
 
 ### Skip If Late
 
-Do not wait for 60/60. Proceed once roughly 70-80% have joined, or after about 90 seconds, whichever comes first.
+Skip straight to reading one site card aloud.
 
 ## Slide 5: Meet Our Federation
 
@@ -180,7 +182,7 @@ Do not wait for 60/60. Proceed once roughly 70-80% have joined, or after about 9
 
 ### English Script
 
-Freeze enrollment. Look at the map — every dot is one of you, sized by how many patients your hospital has. Would you trust all these hospitals equally? Would you weight all these hospitals equally? These are deliberately different questions. A hospital being small does not make it untrustworthy; it changes how much statistical weight its evidence should carry, which is a separate judgement entirely. Let the second question hang unanswered — Round 1 will answer it for us, whether we like the answer or not.
+Freeze enrollment. Look at the map — every dot is one of you, sized by how many patients your hospital has. Would you trust all these hospitals equally? Would you weight all these hospitals equally? These are deliberately different questions. A hospital being small does not make it untrustworthy; it changes how much statistical weight its evidence should carry. Let the second question hang unanswered — Round 1 will answer it for us.
 
 ### Transition
 
@@ -188,9 +190,9 @@ Let's answer the weighting question for real. Round 1.
 
 ### Delivery And Timing
 
-Target time: **2:30**.
+Target time: **2:10**.
 
-Click Freeze enrollment on the dashboard. Point at 2-3 clearly different node sizes on the projector before asking either question.
+Click Freeze enrollment on the dashboard. Point at 2-3 clearly different node sizes before asking either question.
 
 ### Skip If Late
 
@@ -206,7 +208,7 @@ Ask only the trust question aloud; skip straight to Round 1 for the weight quest
 
 ### English Script
 
-Run FedAvg. Watch the arrows on the right: each one is somebody's simulated update. The white arrow is what the server actually keeps. F sub k of w is what hospital k wants the model to optimize locally; p sub k is how much influence that hospital receives. For classical sample-weighted FedAvg, p_k equals n_k over the sum of n_j — so every training example counts roughly equally, which means hospitals do not count equally. That is not purely a fairness decision; it is also a statistical and optimization choice. Watch the largest bar in the weights panel: that is the largest hospital in this room.
+Remember your prediction earlier? Run FedAvg now and let's see how close 'weight by how much data it was trained on' actually gets. Watch the arrows on the right: each one is somebody's simulated update. The white arrow is what the server actually keeps. For classical sample-weighted FedAvg, p_k equals n_k over the sum of n_j — every training example counts roughly equally, which means hospitals do not count equally. Watch the largest bar in the weights panel: the largest hospital in this room.
 
 ### Transition
 
@@ -214,9 +216,9 @@ Notice something — not everyone's arrow points the same way. Why not?
 
 ### Delivery And Timing
 
-Target time: **2:40**.
+Target time: **2:20**.
 
-On the dashboard, Start Round 1, confirm aggregation policy is FedAvg. Point at one large node's thick opaque arrow and one small node's thin faint arrow.
+On the dashboard, Start Round 1, confirm aggregation policy is FedAvg. Point at one large node's thick opaque arrow and one small node's thin faint arrow. Connect back to the opening poll explicitly.
 
 ### Interaction Notes
 
@@ -237,37 +239,59 @@ Show the resultant white arrow and the largest-weight number only; skip deriving
 
 ### English Script
 
-Go back to your own site card. Some of your arrows agreed with your neighbours'; some clearly did not. That disagreement has a name: non-IID. Feature shift comes from scanners and protocols; label shift from different prevalence; concept shift when the outcome means something different at another site; workflow shift from referral and annotation practice. Zech and colleagues showed exactly this kind of site-level generalization failure in chest radiograph models. Institution is a latent variable, and federation makes that fact much harder to ignore.
+Go back to your own site card. Some of your arrows agreed with your neighbours'; some clearly did not. That disagreement has a name: non-IID. Feature shift comes from scanners and protocols; label shift from different prevalence; concept shift when the outcome means something different at another site; workflow shift from referral and annotation practice. Institution is a latent variable, and federation makes that fact much harder to ignore.
 
 ### Transition
 
-Now let's stress the federation on purpose and see what happens to these disagreements.
+Before we stress-test the federation, a quick map of where these methods sit — the classics and the frontier.
 
 ### Delivery And Timing
 
-Target time: **2:30**.
+Target time: **2:10**.
 
-Ask 2-3 students with visibly different archetypes to read one line from their own site card aloud before naming the four shift types.
-
-### Interaction Notes
-
-- Optional: show ONE short element from the MRI domain-shift lab (e.g. one contrast slider move) if time allows — do not run the entire lab live; the full lab is in resources.
+Ask 2-3 students with visibly different archetypes to read one line from their own site card aloud.
 
 ### Skip If Late
 
 Skip the four shift-type cards entirely; keep only the two arrow figures and the center statement.
 
-## Slide 8: Round 2: Federation Under Stress
+## Slide 8: FL Classics and the 2026 Frontier
+
+### Key Points
+
+- FedProx, FedBN, SCAFFOLD, and FedOpt are not interchangeable "averaging options".
+- FedProx changes the local objective; FedBN and SCAFFOLD target feature shift and client drift differently.
+- The full six-area frontier map is in backup; naming mechanisms correctly matters more than naming many.
+
+### English Script
+
+You've now run the one method almost everyone starts with. Two sentences on where the rest of the field sits, because these get misclassified constantly. FedProx changes local optimization, not the aggregation weighting; FedBN and SCAFFOLD address feature shift and client drift through different mechanisms; FedOpt generalizes the server update rule. None of these is simply 'another averaging formula.'
+
+### Transition
+
+Let's put one of these ideas under real pressure. Round 2.
+
+### Delivery And Timing
+
+Target time: **1:40**.
+
+Name the classics list quickly; point to backup for the full frontier grid if asked.
+
+### Skip If Late
+
+Name FedProx, FedBN, and SCAFFOLD only, skip FedOpt and the frontier grid.
+
+## Slide 9: Round 2: Federation Under Stress
 
 ### Key Points
 
 - Predict before revealing: what happens to the aggregate when one hospital looks very different?
 - Robust aggregation (clipping, coordinate median) bounds an outlier's influence but cannot explain it.
-- Label error, preprocessing error, domain shift, corrupted training, and a malicious client all look alike from the server's side.
+- Pick ONE event as the default live path — running both is a backup option, not the plan.
 
 ### English Script
 
-Predict before I click: if I make one hospital's population rare and clinically important, what happens to its voice under FedAvg? Under FedAvg, a small hospital's contribution shrinks toward its sample-size weight regardless of clinical importance. Now the second event: one extreme, unexplained update appears. It could be a label error, a preprocessing error, domain shift, corrupted training, or a malicious client — from the server's side these look observationally similar. Clipping and coordinate-median bound the update's magnitude, but they do not tell us which of those five stories is true.
+Predict before I click: if I make one hospital's population rare and clinically important, what happens to its voice under FedAvg? Under FedAvg, a small hospital's contribution shrinks toward its sample-size weight regardless of clinical importance. Clipping and coordinate-median bound an extreme update's magnitude, but they do not tell us why it was extreme in the first place.
 
 ### Transition
 
@@ -275,20 +299,19 @@ So a global number just changed. Did it change for everyone the same way?
 
 ### Delivery And Timing
 
-Target time: **2:50**.
+Target time: **2:00**.
 
-Ask the room to predict out loud, THEN click the event button. Show FedAvg's result, then click one alternative aggregation policy to compare. Do not reveal which real cause the suspicious update represents.
+Ask the room to predict out loud, THEN click 'B · Rare hospital' — the stronger default because it connects to the next two slides. Show FedAvg's result, then click one alternative policy to compare in under 30 seconds.
 
 ### Interaction Notes
 
-- Event B (rare hospital) and Event C (suspicious update) are independent — running both is the full version; running one is the skip-if-late version.
-- When comparing strategies, only change one variable at a time: same event, different aggregation policy.
+- Event C (suspicious update) is available as an alternative if the room specifically wants a data-integrity discussion instead.
 
 ### Skip If Late
 
-Trigger only ONE event (prefer the rare hospital) and skip the strategy comparison entirely.
+Trigger only Event B (rare hospital) and skip the strategy comparison entirely.
 
-## Slide 9: Did It Help Every Hospital?
+## Slide 10: Did It Help Every Hospital?
 
 ### Key Points
 
@@ -298,7 +321,7 @@ Trigger only ONE event (prefer the rare hospital) and skip the strategy comparis
 
 ### English Script
 
-Look back at the evaluation panel: the mean can go up while the rarest or most shifted hospital goes down at the same time. This mirrors what FeTS reports in real distributed multi-site evaluation — average performance can hide institutional outlier weaknesses; our synthetic panel is a teaching projection of that same finding, not a claim about a specific method. A study should predefine minimum acceptable performance at the site and subgroup level, not only global AUROC. The average model does not treat the average hospital.
+Look back at the evaluation panel: the mean can go up while the rarest or most shifted hospital goes down at the same time. This mirrors what FeTS reports in real distributed multi-site evaluation. A study should predefine minimum acceptable performance at the site and subgroup level, not only global AUROC. The average model does not treat the average hospital.
 
 ### Transition
 
@@ -306,25 +329,25 @@ So the model changed. What actually moved to make that happen — and what didn'
 
 ### Delivery And Timing
 
-Target time: **1:50**.
+Target time: **1:30**.
 
-Point at the dashboard's evaluation panel, still visible from the previous slide, and read the mean and worst-site numbers aloud.
+Point at the dashboard's evaluation panel, still visible from the previous slide, and read the numbers aloud.
 
 ### Skip If Late
 
 Read only the two boxed statements; skip re-opening the dashboard.
 
-## Slide 10: Privacy: What Moves, What Stays
+## Slide 11: Security: What Moves, What Stays
 
 ### Key Points
 
 - Raw records, identifiers, and local preprocessing stay local; updates, metrics, counts, and logs still move.
 - Federated learning changes the privacy problem. It does not delete it.
-- The full threat-surface explorer (leakage, inference, poisoning, secure aggregation, DP) is a resource, not live content.
+- The full threat-surface explorer is a resource, not live content.
 
 ### English Script
 
-Your phone never sent us a single patient record. It sent a two-number summary of an update — and in a real system, that update itself is an information channel. Gradient leakage, membership inference, poisoning, secure aggregation, and differential privacy each address a different part of the threat surface; none of them is solved simply because raw data stayed put. Ask for a threat model in plain language: who can see what, what could they infer, and who responds if the assumption breaks.
+Your phone never sent us a single patient record. It sent a two-number summary of an update — and in a real system, that update itself is an information channel. Gradient leakage, membership inference, poisoning, secure aggregation, and differential privacy each address a different part of the threat surface; none of them is solved simply because raw data stayed put.
 
 ### Transition
 
@@ -332,15 +355,15 @@ This is exactly the kind of problem real medical federations are already living 
 
 ### Delivery And Timing
 
-Target time: **1:40**.
+Target time: **1:30**.
 
-State the caveat sentence exactly as written — it is the single most important sentence in this section. Do not open the full lab live.
+State the caveat sentence exactly as written. Do not open the full lab live.
 
 ### Skip If Late
 
-Read only the callout line and the two-column list; skip pointing to the full explorer link.
+Read only the callout line and the two-column list.
 
-## Slide 11: Medical FL in the Real World
+## Slide 12: Medical FL in the Real World
 
 ### Key Points
 
@@ -350,59 +373,85 @@ Read only the callout line and the two-column list; skip pointing to the full ex
 
 ### English Script
 
-Everything you just did with sixty phones has a real analogue at seventy-one hospitals across six continents. Pati and colleagues trained together at that scale on 6,314 glioblastoma patients. FeTS then evaluated 41 models across 32 institutions and found exactly what your dashboard just showed: average performance can hide site-level failure. And yet Teo and colleagues found that of 612 reviewed healthcare-FL articles, only 32 — 5.2 percent — were real-life clinical applications. Everything you just simulated becomes harder in real hospitals: more heterogeneity, more governance, less control.
+Everything you just did with sixty phones has a real analogue at seventy-one hospitals across six continents. Pati and colleagues trained together at that scale on 6,314 glioblastoma patients. FeTS then found exactly what your dashboard just showed: average performance can hide site-level failure. Yet only 32 of 612 reviewed healthcare-FL articles — 5.2 percent — were real-life clinical applications.
 
 ### Transition
 
-So what should actually stick with you from the last twenty minutes?
+So what should actually stick with you — not just from FL, but from the whole course?
 
 ### Delivery And Timing
 
-Target time: **1:50**.
+Target time: **1:30**.
 
-Keep this tight — three stat cards and one closing line. The frontier map and governance stack are backup only.
+Keep this tight — three stat cards and one closing line. The governance stack and case detail are backup only.
 
 ### Skip If Late
 
 Keep the scale and FeTS stats; drop the Teo et al. evidence-gap statistic first if very short on time.
 
-## Slide 12: What Should You Remember?
+## Slide 13: Four Lenses to Borrow, With or Without FL
 
 ### Key Points
 
-- Data stay local, but information — updates, metrics, released models — still moves.
-- Non-IID hospital data, aggregation-as-assumption, and worst-site failure are not edge cases; they are the norm.
-- For medical AI specifically: heterogeneity, privacy, evaluation, governance.
+- Bias (who shapes the model) and fairness (who the result fails) are deliberately distinct lenses.
+- Security and heterogeneity map directly onto what the room just watched happen live.
+- None of the four require ever running federated learning to be useful.
 
 ### English Script
 
-Four things to keep, and you have already seen every one of them happen on your own phone in the last twenty minutes. Data stay local; information does not. A federation optimizes across different local worlds — non-IID is not a bug in the room, it is the room. Aggregation embeds assumptions about influence; sample-size weighting is a choice, not a neutral default. And global performance can hide local failure — the average is not the deployment site. For medical AI specifically, add heterogeneity, privacy, evaluation, and governance as a second layer.
+Four lenses. You have already watched every one of them happen on your own phone in the last twenty-some minutes — and every one applies even if you never touch FL again. Bias: sample-size weighting gives the biggest contributor the most influence by default; that is a policy choice, and it can silence small, clinically important populations. Security: data staying local is a start, not an ending. Heterogeneity: disagreement is signal, not noise. Fairness: a rising average can hide a falling site. Bias and fairness are deliberately distinct — bias is about who shapes the model, fairness is about who the result then fails.
 
 ### Transition
 
-One more thing before you go — how to keep exploring this after class.
+One more thing before questions — a small tool to keep exploring these four lenses on your own.
 
 ### Delivery And Timing
 
-Target time: **1:50**.
+Target time: **2:00**.
 
-Ask the audience which of the four would change one of their current projects before moving to resources.
+Ask the audience which of the four would change one of their current projects, federated or not.
 
 ### Skip If Late
 
-Read cards 3 and 4 only — they are the ones most often missed — and skip the second-layer line.
+Read cards 1 and 4 only — they are the pair most often conflated.
 
-## Slide 13: Course Resources
+## Slide 14: Explore the Node vs Center Playground
 
 ### Key Points
 
-- This QR is the permanent course-resources code — deliberately different from the federation join code.
+- A second, independent QR — not the join code, not the resources QR.
+- Three tabs, one or two controls each: Security, Heterogeneity, Fairness.
+- No session, no login — explore now or after class, at your own pace.
+
+### English Script
+
+This QR is new — it is not the code you scanned earlier, and it is not the resources QR coming up next. It opens a small playground: three tabs, one or two controls each. The heterogeneity tab reuses the same 2D update-vector idea from Round 1; the fairness tab reuses the same FedAvg weighting and evaluation math from the live activity. Try dragging one hospital's sample size up and watching the rare-population site's performance fall — the fastest way to re-experience today's core lesson alone.
+
+### Transition
+
+Bring your own project to questions, using the same four lenses.
+
+### Delivery And Timing
+
+Target time: **1:20**.
+
+Optionally demonstrate the fairness slider once on the projector, then leave the QR up.
+
+### Skip If Late
+
+Show the QR and name the three tabs only, skip demonstrating a slider live.
+
+## Slide 15: Course Resources
+
+### Key Points
+
+- This is a third, distinct QR — the room has now seen join/predict, playground, and resources.
 - FL helps when the clinical question is shared but patient-level data cannot or should not be pooled.
 - The transferable habit is to make the collaboration visible.
 
 ### English Script
 
-One thing to remember: federation does not remove the multicentre problem; it gives you a way to do it explicitly. This QR is different from the one you scanned earlier — it goes to the permanent course site, labs, and references, not to a live session. FL helps when the clinical question is shared but patient-level data cannot or should not be pooled; it fails when heterogeneity, privacy, evaluation, and governance are treated as afterthoughts.
+One thing to remember: federation does not remove the multicentre problem; it gives you a way to do it explicitly. This is a third, different QR — the permanent course site, labs, and references. FL helps when the clinical question is shared but patient-level data cannot or should not be pooled; it fails when heterogeneity, privacy, evaluation, and governance are treated as afterthoughts.
 
 ### Transition
 
@@ -412,8 +461,8 @@ End and invite questions; use the Q&A backup prompts if discussion needs a seed.
 
 Target time: **1:00**.
 
-Leave this QR slide up for the whole Q&A period. Explicitly say this is the resources QR, not the federation join code, once.
+Leave this QR slide up for the whole Q&A period. Name all three QR codes the room has now seen.
 
 ### Skip If Late
 
-Show the QR and read only the first closing line; skip the second and third.
+Show the QR and read only the first closing line.

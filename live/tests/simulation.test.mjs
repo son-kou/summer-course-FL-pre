@@ -17,6 +17,8 @@ import {
   injectSuspiciousUpdate,
   summarizeParticipation,
   AGGREGATION_STRATEGIES,
+  PREDICT_OPTIONS,
+  summarizePoll,
 } from "../lib/simulation.js";
 
 test("mulberry32 is deterministic for a given seed", () => {
@@ -212,4 +214,37 @@ test("summarizeParticipation counts decisions correctly", () => {
   assert.equal(summary.participate, 2);
   assert.equal(summary.hold, 2);
   assert.equal(summary.flag, 2);
+});
+
+test("summarizePoll tallies only clients who voted, across all five options", () => {
+  const roster = generateRoster("FL-2011", 10);
+  const keys = PREDICT_OPTIONS.map((o) => o.key);
+  const voted = roster.map((c, i) => (i < 7 ? { ...c, predictVote: keys[i % keys.length] } : c));
+  const summary = summarizePoll(voted);
+  assert.equal(summary.total, 7);
+  const totalCounted = Object.values(summary.counts).reduce((s, v) => s + v, 0);
+  assert.equal(totalCounted, 7);
+  Object.keys(summary.counts).forEach((key) => assert.ok(keys.includes(key)));
+});
+
+test("summarizePoll returns all-zero counts when nobody has voted yet", () => {
+  const roster = generateRoster("FL-2012", 5);
+  const summary = summarizePoll(roster);
+  assert.equal(summary.total, 0);
+  assert.deepEqual(
+    Object.values(summary.counts),
+    PREDICT_OPTIONS.map(() => 0),
+  );
+});
+
+test("aggregation does not crash on a client that has voted in the opening poll but has no delta yet", () => {
+  // Regression: a client can exist in this partial state (predictVote set,
+  // decision/delta not set) between answering the poll and reaching the
+  // site-reveal screen. It must be weighted 0 and skipped, not crash.
+  const roster = generateRoster("FL-2013", 4);
+  const partial = { id: "client-mid-flow", predictVote: "average", decision: null };
+  const clients = [...roster.map((c) => ({ ...c, decision: "participate" })), partial];
+  Object.keys(AGGREGATION_STRATEGIES).forEach((key) => {
+    assert.doesNotThrow(() => runAggregation(key, clients));
+  });
 });

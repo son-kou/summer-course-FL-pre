@@ -20,6 +20,21 @@ function trackErrors(page, label) {
   });
 }
 
+// The opening prediction poll is screen 0, shown before "Reveal my site" on
+// every student visit that has a session code.
+async function answerPredictPoll(page) {
+  await page.waitForSelector("text=You already trained different models", { timeout: 10000 });
+  await page.click("text=Weight each model by how much data it was trained on");
+}
+
+async function checkNoOverflow(page, label) {
+  const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+  const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
+  if (scrollWidth > clientWidth + 3) {
+    errors.push(`${label}: horizontal overflow, scrollWidth=${scrollWidth} clientWidth=${clientWidth}`);
+  }
+}
+
 async function main() {
   const browser = await chromium.launch();
 
@@ -28,6 +43,7 @@ async function main() {
     const page = await browser.newPage({ viewport: { width: 375, height: 667 } });
     trackErrors(page, "student-demo");
     await page.goto(urlFor("live/index.html?demo=1"));
+    await answerPredictPoll(page);
     await page.waitForSelector("text=Reveal my site", { timeout: 10000 });
     await page.click("text=Reveal my site");
     await page.waitForSelector("text=Continue to my decision", { timeout: 5000 });
@@ -116,12 +132,18 @@ async function main() {
     const code = await adminPage.textContent("#session-code-display");
 
     await studentPage.goto(urlFor(`live/index.html?code=${encodeURIComponent(code)}&local=1`));
-    await studentPage.waitForSelector("text=Reveal my site", { timeout: 10000 });
-    await studentPage.click("text=Reveal my site");
+    await answerPredictPoll(studentPage);
     await adminPage
       .waitForFunction(() => document.getElementById("joined-count").textContent === "1", { timeout: 5000 })
-      .catch(() => errors.push("crosstab: join did not propagate to admin via BroadcastChannel/localStorage"));
+      .catch(() => errors.push("crosstab: poll vote did not propagate to admin via BroadcastChannel/localStorage"));
 
+    // Move the admin off the predict-only view so responded-count reflects
+    // decisions (not poll votes) for the rest of this test.
+    await adminPage.click("#btn-reveal-federation");
+    await adminPage.waitForSelector("#admin-stage:not([hidden])", { timeout: 5000 });
+
+    await studentPage.waitForSelector("text=Reveal my site", { timeout: 10000 });
+    await studentPage.click("text=Reveal my site");
     await studentPage.click("text=Continue to my decision");
     await studentPage.click(".button-participate");
     await adminPage
@@ -166,13 +188,44 @@ async function main() {
     const page = await browser.newPage({ viewport: { width, height } });
     trackErrors(page, `mobile-${name}`);
     await page.goto(urlFor("live/index.html?demo=1"));
+    await page.waitForSelector("text=You already trained different models", { timeout: 10000 });
+    await checkNoOverflow(page, `mobile-${name}-predict`);
+    await page.click("text=Weight each model by how much data it was trained on");
     await page.waitForSelector("text=Reveal my site", { timeout: 10000 });
     await page.click("text=Reveal my site");
-    const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
-    const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
-    if (scrollWidth > clientWidth + 3) {
-      errors.push(`mobile-${name}: horizontal overflow, scrollWidth=${scrollWidth} clientWidth=${clientWidth}`);
-    }
+    await checkNoOverflow(page, `mobile-${name}-site`);
+    await page.close();
+  }
+
+  // --- Playground: no session needed, all three tabs interactive, no errors, no overflow ---
+  {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    trackErrors(page, "playground");
+    await page.goto(urlFor("live/playground/index.html"));
+    await page.waitForSelector("text=Node vs Center", { timeout: 10000 });
+    await checkNoOverflow(page, "playground-security");
+
+    await page.click("#tg-logs");
+    await page.click("#tg-release");
+    await page.waitForSelector("text=membership inference", { timeout: 5000 });
+
+    await page.click('[data-tab="heterogeneity"]');
+    await page.$eval("#sl-heterogeneity", (input) => {
+      input.value = "90";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    await page.waitForSelector("text=strongly disagree", { timeout: 5000 });
+    await checkNoOverflow(page, "playground-heterogeneity");
+
+    await page.click('[data-tab="fairness"]');
+    await page.$eval("#sl-fairness", (input) => {
+      input.value = "2000";
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    });
+    const rareWeightText = await page.textContent("#fair-node-weight");
+    if (!/%/.test(rareWeightText)) errors.push(`playground-fairness: unexpected weight readout "${rareWeightText}"`);
+    await checkNoOverflow(page, "playground-fairness");
+
     await page.close();
   }
 

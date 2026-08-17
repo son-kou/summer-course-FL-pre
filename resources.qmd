@@ -17,6 +17,7 @@ pagetitle: "Course Resources"
 ## Interactive Labs {#interactive-labs}
 
 <div class="lab-list">
+<a href="live/playground/index.html"><strong>Node vs Center Playground</strong><span>No login, no session — adjust security, heterogeneity, and fairness settings and compare what one node sees to what the center sees.</span></a>
 <a href="labs/aggregation/index.html"><strong>Aggregation Sandbox</strong><span>Compare sample-size, equal-site, quality-aware, and fairness weighting assumptions.</span></a>
 <a href="labs/mri-domain-shift/index.html"><strong>MRI Domain Shift</strong><span>Explore intensity, contrast, noise, blur, bias-field, threshold, prevalence, and label-noise shifts.</span></a>
 <a href="labs/personalization/index.html"><strong>Shared Versus Local</strong><span>Test partial-pooling intuition against mean-site and worst-site performance.</span></a>

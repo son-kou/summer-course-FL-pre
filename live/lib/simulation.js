@@ -347,6 +347,11 @@ function weightedGlobalDelta(clients, weights) {
   let dy = 0;
   clients.forEach((c) => {
     const w = weights.get(c.id) || 0;
+    // A client can exist in a partial state — e.g. it has answered the
+    // opening poll but hasn't reached local-training reveal yet, so it has
+    // no delta. Its weight is 0 in that case (eligible() requires a
+    // decision), but skip explicitly rather than relying on 0 * undefined.
+    if (w === 0 || !c.delta) return;
     dx += w * c.delta[0];
     dy += w * c.delta[1];
   });
@@ -490,4 +495,28 @@ export function summarizeParticipation(clients) {
   const hold = responded.filter((c) => c.decision === "hold").length;
   const flag = responded.filter((c) => c.decision === "flag").length;
   return { joined: clients.length, responded: responded.length, participate, hold, flag };
+}
+
+// --- Opening prediction poll -------------------------------------------------
+// Before any FL vocabulary is introduced, students are asked how they would
+// combine everyone's already-trained models without moving training data.
+// This is deliberately answered "cold" — the point is to surface intuition
+// (including wrong intuition) before FedAvg is named, not to test recall.
+
+export const PREDICT_OPTIONS = [
+  { key: "average", label: "Average everyone's model weights equally" },
+  { key: "best-only", label: "Keep only the best-performing model, discard the rest" },
+  { key: "weight-by-data", label: "Weight each model by how much data it was trained on" },
+  { key: "vote", label: "Have every model vote on each prediction (ensemble)" },
+  { key: "pool-retrain", label: "Send everyone's training data to one place and retrain" },
+];
+
+/** Tally opening-poll votes. Never includes clients who haven't voted. */
+export function summarizePoll(clients) {
+  const voted = clients.filter((c) => c.predictVote != null);
+  const counts = Object.fromEntries(PREDICT_OPTIONS.map((o) => [o.key, 0]));
+  voted.forEach((c) => {
+    if (counts[c.predictVote] != null) counts[c.predictVote] += 1;
+  });
+  return { total: voted.length, counts };
 }

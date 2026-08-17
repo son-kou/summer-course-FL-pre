@@ -1,6 +1,6 @@
 # Live Interaction Architecture
 
-This document describes `live/` — the "You Are Now a Federated Client" activity —
+This document describes `live/` — the "You Already Trained Different Models" federation activity —
 for whoever next has to configure, extend, or debug it. It assumes the reader
 has read `README.md` but not necessarily this repository's history.
 
@@ -31,8 +31,12 @@ live/
     index.html         instructor dashboard           → /live/admin/
     admin.js            dashboard controller + visualizations
     admin.css
+  playground/
+    index.html         no-session, no-login exploration tool → /live/playground/
+    playground.js        tab logic + node-vs-center comparisons (reuses lib/simulation.js)
+    playground.css
   lib/
-    simulation.js       pure math: archetypes, aggregation, evaluation (unit tested)
+    simulation.js       pure math: archetypes, aggregation, evaluation, poll (unit tested)
     backend.js           provider abstraction: Demo / Local / Firebase
     identity.js           anonymous per-session client id (localStorage)
     dom.js                 tiny DOM-building helper shared by student.js/admin.js
@@ -68,12 +72,17 @@ root-relative local server. `_quarto.yml` lists `live/**` under
 (it contains no `.qmd`/`.py`/executable-notebook files for Quarto to render).
 
 The main slide deck embeds small **read-only previews** of the dashboard via
-`<iframe src="../live/admin/index.html?embed=1&demo=1">`, following the exact
-pattern already used for `labs/*/index.html?embed=1`. `?embed=1` adds a
-`.embed` class to `<html>` that hides admin controls and compacts spacing —
-the embedded preview is for rehearsal/visual continuity only. **The activity
-is always operated from the full-size page**, opened in a new tab via the
-"Open Federation Dashboard →" buttons on the relevant slides.
+`<iframe src="live/admin/index.html?embed=1&demo=1">` (note: **not**
+`../live/...` — `index.qmd` lives at the site root, so a leading `../` would
+escape the Pages subpath entirely and 404; this exact bug shipped once and
+was caught by clicking through the deployed site, not by the build), following
+the same pattern already used for `labs/*/index.html?embed=1`. `?embed=1`
+adds a `.embed` class to `<html>` that hides admin controls and compacts
+spacing — the embedded preview is for rehearsal/visual continuity only, and
+each embed boots its own isolated demo session (it does not reflect the
+instructor's real session state). **The activity is always operated from the
+full-size page**, opened in a new tab via the "Open Federation Dashboard →"
+buttons on the relevant slides.
 
 ## 3. Backend choice and the provider abstraction
 
@@ -86,7 +95,7 @@ watchMeta(code, cb)   → unsubscribe   // meta = {phase, joinOpen, aggregation,
 watchClients(code, cb) → unsubscribe  // cb receives {clientId: record, ...}
 setMeta(code, patch)
 upsertClient(code, clientId, patch)
-resetSession(code)
+resetSession(code, nextMeta?)         // nextMeta re-stamps creatorUid; omit to just null out meta
 ```
 
 | Provider | Transport | When used |
@@ -205,7 +214,9 @@ Realtime Database layout (identical shape is used in-memory by
 sessions/
   FL-4821/
     meta/
-      phase: "lobby" | "joining" | "round1" | "stress" | "closed"
+      phase: "predict" | "lobby" | "joining" | "round1" | "stress" | "closed"
+                                            // "predict": the opening poll; dashboard shows the
+                                            // poll chart instead of the federation map/vectors
       joinOpen: boolean
       aggregation: "fedavg" | "equal" | "clipped" | "median"
       event: null | "giant" | "rare" | "suspicious"
@@ -223,6 +234,8 @@ sessions/
         delta: [dx, dy]                                // the 2D projected model update
         updateNorm: number
         rarePopulation, suspicious, straggler: boolean
+        predictVote: null | "average" | "best-only" | "weight-by-data" | "vote" | "pool-retrain"
+                                                        // opening poll answer; set before delta exists
         decision: null | "participate" | "hold" | "flag"
         concern: null | "small-sample" | "unusual-population" | "label-quality" |
                  "distribution-shift" | "unusual-update" | "worse-performance" | "other"
@@ -360,7 +373,7 @@ npm test                       # node --test live/tests/
 
 # Whole main deck, including the embedded dashboard previews
 quarto preview                 # or: quarto render && python3 -m http.server -d _site
-npm run qa:browser              # scripts/browser_qa.mjs — Playwright smoke test of all 14 slides
+npm run qa:browser              # scripts/browser_qa.mjs — Playwright smoke test of all 16 slides
 
 # The live activity specifically: student flow, admin dashboard, cross-tab
 # rehearsal sync with no backend, graceful fallback, mobile viewports

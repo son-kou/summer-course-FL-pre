@@ -59,7 +59,16 @@
   </div>
 </header>
 
-<main class="admin-stage">
+<div id="predict-stage" class="predict-stage" hidden>
+  <div class="predict-inner">
+    <p class="predict-kicker">Opening question — answered before any FL vocabulary</p>
+    <h1 class="predict-question">If we combined everyone's models into one — without moving training data — how would you do it?</h1>
+    <div id="predict-bars" class="predict-bars"></div>
+    <p id="predict-total" class="predict-total">0 responses</p>
+  </div>
+</div>
+
+<main class="admin-stage" id="admin-stage">
   <section class="stage-col stage-col-wide">
     <div class="panel panel-map">
       <div class="panel-head">
@@ -124,6 +133,7 @@
     <span class="control-group-label">Session</span>
     <button type="button" class="button button-secondary" id="btn-create-session">Create / reset session</button>
     <button type="button" class="button button-secondary" id="btn-show-qr">Show JOIN QR</button>
+    <button type="button" class="button button-primary" id="btn-reveal-federation">Reveal federation map →</button>
     <button type="button" class="button button-secondary" id="btn-toggle-join">Freeze enrollment</button>
   </div>
   <div class="control-group">

@@ -7,19 +7,21 @@ This file is generated from `assets/practice/slide-scripts.json`. The live deck 
 | Slide | Topic | Target |
 |---:|---|---:|
 | 0 | Federated Learning in Medical AI: When Data Cannot Move | 0:40 |
-| 1 | Four Hospitals, One Question | 1:30 |
-| 2 | Why Not Simply Pool the Data? | 2:10 |
-| 3 | One Federated-Learning Round | 1:40 |
-| 4 | You Are Now a Federated Client | 2:20 |
-| 5 | Meet Our Federation | 2:30 |
-| 6 | Round 1: Federated Averaging | 2:40 |
-| 7 | The Data Are Not IID | 2:30 |
-| 8 | Round 2: Federation Under Stress | 2:50 |
-| 9 | Did It Help Every Hospital? | 1:50 |
-| 10 | Privacy: What Moves, What Stays | 1:40 |
-| 11 | Medical FL in the Real World | 1:50 |
-| 12 | What Should You Remember? | 1:50 |
-| 13 | Course Resources | 1:00 |
+| 1 | You Already Trained Different Models | 2:30 |
+| 2 | Why Not Simply Pool the Data? | 1:50 |
+| 3 | One Federated-Learning Round | 1:30 |
+| 4 | Reveal Your Simulated Hospital | 1:20 |
+| 5 | Meet Our Federation | 2:10 |
+| 6 | Round 1: Federated Averaging | 2:20 |
+| 7 | The Data Are Not IID | 2:10 |
+| 8 | FL Classics and the 2026 Frontier | 1:40 |
+| 9 | Round 2: Federation Under Stress | 2:00 |
+| 10 | Did It Help Every Hospital? | 1:30 |
+| 11 | Security: What Moves, What Stays | 1:30 |
+| 12 | Medical FL in the Real World | 1:30 |
+| 13 | Four Lenses to Borrow, With or Without FL | 2:00 |
+| 14 | Explore the Node vs Center Playground | 1:20 |
+| 15 | Course Resources | 1:00 |
 |  | **Planned spoken content** | **27:00** |
 |  | Buffer for questions and transitions | 3:00 |
 |  | **Course slot** | **30:00** |
@@ -40,84 +42,84 @@ This file is generated from `assets/practice/slide-scripts.json`. The live deck 
 ### Key Points
 
 - Federated learning is framed as a multicentre collaboration design, not an algorithm to sell.
-- For about twenty minutes in the middle of this lecture, the audience becomes the federation.
+- This is the closing lecture of the two-day course, and it starts from yesterday's exercise.
 - The goal is careful clinical AI reasoning that survives even without ever running FL.
 
 ### 中文要点
 
 - 联邦学习被放在多中心临床合作的框架里讲，而不是推销一种算法。
-- 本讲中间大约二十分钟，听众自己会变成这个联邦的一部分。
+- 这是两天课程的收尾讲座，直接从昨天的练习讲起。
 - 目标是培养严谨的临床 AI 判断力，即使以后从不使用联邦学习也用得上。
 
 ### English Script
 
-Today I will talk about federated learning in medical AI from a clinical research perspective. The title is deliberately about data that cannot move, because that is where the method becomes interesting. Federation does not replace multicentre science; it is one way to make multicentre science possible under legal, technical, and institutional constraints. This time the lecture is different: for about twenty minutes you will not just watch a federation, you will be one client inside it, on your own phone.
+Today I will talk about federated learning in medical AI from a clinical research perspective. The title is deliberately about data that cannot move, because that is where the method becomes interesting. This is also the closing lecture of the whole two-day course: yesterday you trained agentic MRI segmentation models on a shared dataset, and today asks what happens when the data genuinely cannot be pooled at all. Federation does not replace multicentre science; it is one way to make multicentre science possible under legal, technical, and institutional constraints.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-今天我会从临床研究的角度介绍医学 AI 中的联邦学习。题目强调“数据不能移动”，因为这正是联邦学习变得有意义的地方。联邦学习并不能替代多中心科学，它只是让多中心科学在法律、技术和机构限制下仍然可能的一种方式。这次不一样：大约二十分钟里，你们不只是旁观一个联邦，而是会在自己的手机上真正成为其中一个客户端。
+今天我会从临床研究的角度介绍医学 AI 中的联邦学习。题目强调“数据不能移动”，因为这正是联邦学习变得有意义的地方。这也是整个两天课程的收尾讲座：昨天你们在同一个数据集上训练了 agentic MRI 分割模型，今天要问的是，当数据真的完全不能汇总时会发生什么。联邦学习并不能替代多中心科学，它只是让多中心科学在法律、技术和机构限制下仍然可能的一种方式。
 
 </div>
 
 ### Transition
 
-**EN:** We will turn that framing into a concrete four-hospital dilemma.
+**EN:** Move straight into the callback to yesterday's exercise.
 
-**中文:** 接下来我们把这个框架落到一个具体的四家医院的两难问题上。
+**中文:** 直接从昨天练习的回顾讲起。
 
 ### Delivery And Timing
 
 Target time: **0:40**.
 
-Keep this short and warm. State the interactive twist explicitly so the room is primed to have phones ready later.
+Keep this short and warm. Name the two-day-course callback explicitly so the room connects the dots.
 
 ### Skip If Late
 
-Cut the presenter/date line and the image attribution; keep the title and the one interactive-twist sentence.
+Cut the presenter/date line and the image attribution; keep the title and the course-callback sentence.
 
-## Slide 1: Four Hospitals, One Question
+## Slide 1: You Already Trained Different Models
 
 ### Key Points
 
-- Four fictional hospitals agree on the clinical question but differ in what can leave the building.
-- The hard part is choosing the collaboration design before choosing the algorithm.
-- In a few minutes, everyone gets their own version of one of these hospitals.
+- Everyone in the room trained a segmentation model on the same dataset yesterday, with different results.
+- The opening question is a cold-take prediction poll, asked before any FL vocabulary is introduced.
+- One QR scan covers the whole activity — no second scan needed later.
 
 ### 中文要点
 
-- 四家虚构医院认同同一个临床问题，但在“什么可以离开本机构”上各不相同。
-- 真正难的是先选合作方式，再选算法，而不是反过来。
-- 几分钟后，每个人都会拿到这四类医院中的一个变体。
+- 教室里每个人昨天都在同一个数据集上训练过分割模型，结果各不相同。
+- 开场问题是一次“冷启动”预测投票，在引入任何联邦学习术语之前就问出来。
+- 一次扫码覆盖整个活动——后面不需要再扫第二次。
 
 ### English Script
 
-Imagine four hospitals that agree on the clinical question but disagree, for legitimate reasons, on what can leave the building. Aarhus has a rare outcome and a small cohort; Copenhagen has a large cohort on different scanners; Odense changed its outcome definition mid-study; Aalborg has a rural referral mix and missing modalities. None of this is about real AU or Cercare projects — it is a teaching scenario. The question that matters is which part should move: patients, data, models, metrics, or only conclusions. Hold that question, because in a few minutes you will each be assigned a hospital like one of these.
+Show of hands first — who got a Dice score they were happy with yesterday, and who didn't? Good. Different data exposure, different runs, different models. Now: if I wanted to combine all sixty of your models into one best model, and nobody is allowed to send me their training data, how would you do it? Scan the code and answer honestly — there is no wrong answer yet. This is a genuine cold-take prediction: we ask before naming any mechanism, so your real intuition is on the record.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-假设有四家医院认同同一个临床问题，但出于正当理由，在“什么可以离开本机构”上并不一致。Aarhus 罕见结局、队列小；Copenhagen 队列大但扫描仪不同；Odense 在研究中途改变了结局定义；Aalborg 是农村转诊、模态缺失。这些都不对应真实的 AU 或 Cercare 项目，只是教学场景。真正重要的问题是：应该移动的是患者、数据、模型、指标，还是只有结论？先记住这个问题，因为几分钟后，你们每个人都会被分配到类似这四类之一的医院。
+先举手问一下——昨天谁的 Dice 分数让自己满意，谁不满意？很好。不同的数据暴露、不同的训练过程，得到了不同的模型。现在问题来了：如果我想把你们六十个人的模型合并成一个最好的模型，而且不允许任何人把训练数据发给我，你会怎么做？扫码回答，诚实作答就好——现在还没有标准答案。这是一次真正的“冷启动”预测：在说出任何机制名字之前先问，这样记录下来的才是你们真实的直觉。
 
 </div>
 
 ### Transition
 
-**EN:** So let's name the menu of collaboration designs before picking one.
+**EN:** Let's look at what you actually voted for — and then ask why pooling the data, which some of you picked, usually isn't on the table in medicine.
 
-**中文:** 在选择之前，先把合作设计的几个选项摆清楚。
+**中文:** 来看看大家实际投了什么票——然后问问看，为什么有些人选的“汇总数据”，在医学场景里往往根本不可行。
 
 ### Delivery And Timing
 
-Target time: **1:30**.
+Target time: **2:30**.
 
-Ask for a show of hands on who has worked with data that could not leave its institution before reading the cards.
+Project the Federation Dashboard full-screen, click Create / reset session, then Show JOIN QR. The big poll chart fills in live. If Wi-Fi is unreliable, click Populate 60 demo clients and narrate as if the room just voted. Once most votes are in, read the leading option aloud, then click Reveal federation map to switch the dashboard into map view for the rest of the lecture.
 
 ### Skip If Late
 
-Read only the question band; skip narrating all four site cards individually.
+Do not wait for 60/60 votes. Proceed once roughly 70-80% have answered, or after about 45-60 seconds.
 
 ## Slide 2: Why Not Simply Pool the Data?
 
@@ -135,13 +137,13 @@ Read only the question band; skip narrating all four site cards individually.
 
 ### English Script
 
-Before touching any algorithm, a study has to decide what actually moves. Pooling all data centrally gives the strongest statistical control but the highest legal and logistical burden. Staying local is the easiest to govern but generalizes worst. Federated learning keeps data local and exchanges model updates instead — which sounds like a free lunch, but is not: it trades data movement for new statistical and systems complexity. Federated learning is one collaboration design among several, chosen for a reason, not by default.
+A few of you picked 'send everyone's data to one place and retrain' — that's centralized pooling, and it's a completely reasonable answer in a classroom. In medicine, it's usually the option that's off the table first. Pooling gives the strongest statistical control but the highest legal and logistical burden. Staying local is easiest to govern but generalizes worst. Federated learning keeps data local and exchanges model updates instead — which trades data movement for new statistical and systems complexity, not a free lunch.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-在碰任何算法之前，研究首先要决定到底该移动什么。集中式把所有数据汇总，统计控制力最强，但法律和物流负担最高。仅本地训练最容易通过治理审查，但泛化能力最差。联邦学习让数据留在本地，交换模型更新——这听起来像免费午餐，但其实不是：它用“数据不动”换来了新的统计和系统复杂性。联邦学习只是众多合作设计中的一种，是被选择出来的，不是默认项。
+有几位选了“把大家的数据集中到一起重新训练”——这就是集中式汇总，在课堂上是完全合理的答案。但在医学场景里，这通常是最先被排除的选项。汇总数据统计控制力最强，但法律和物流负担最高。仅本地训练最容易通过治理审查，但泛化能力最差。联邦学习让数据留在本地，改为交换模型更新——这是用“数据不动”换来新的统计与系统复杂性，不是免费午餐。
 
 </div>
 
@@ -153,9 +155,9 @@ Before touching any algorithm, a study has to decide what actually moves. Poolin
 
 ### Delivery And Timing
 
-Target time: **2:10**.
+Target time: **1:50**.
 
-Keep the three-way comparison crisp; do not read the backup five-design diagram unless directly asked.
+Ask who voted to pool the data, and ask what would have to be true institutionally for that to actually work.
 
 ### Skip If Late
 
@@ -177,25 +179,25 @@ Show only the three kickers and skip the center statement entirely.
 
 ### English Script
 
-Train locally, send an update, aggregate, repeat. Watch step six closely, because that is exactly where today's activity lives. The global model starts at the server, gets broadcast to hospitals, each hospital trains without its data ever leaving, only the update travels back, the server aggregates those updates, and a new shared model goes out again. The mechanics here trace back to McMahan and colleagues' original FedAvg paper. Notice that the sentence sounds simple, but the word aggregate is hiding a lot of decisions — decisions you are about to make yourselves.
+This is the mechanism behind the question I just asked you. Train locally, send an update, aggregate, repeat. Watch step six closely — that is exactly where today's activity lives. The global model starts at the server, gets broadcast to hospitals, each hospital trains without its data ever leaving, only the update travels back, the server aggregates, and a new shared model goes out again. The word aggregate is hiding a lot of decisions — decisions you are about to make.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-本地训练、发送更新、聚合、再重复。请特别留意第六步，因为这正是今天活动的核心所在。全局模型从服务器出发，广播给各家医院；每家医院在数据不出本地的前提下训练；只有更新会传回去；服务器把这些更新聚合起来；新的共享模型再次广播出去。这套机制可以追溯到 McMahan 等人最早的 FedAvg 论文。这句话听起来很简单，但“聚合”这个词背后藏着很多决定——马上就要由你们自己来做这些决定了。
+这就是我刚才问的那个问题背后的机制。本地训练、发送更新、聚合、再重复。请特别留意第六步，因为这正是今天活动的核心所在。全局模型从服务器出发，广播给各家医院；每家医院在数据不出本地的前提下训练；只有更新会传回去；服务器聚合这些更新；新的共享模型再次广播出去。“聚合”这个词背后藏着很多决定——马上就要由你们自己来做这些决定了。
 
 </div>
 
 ### Transition
 
-**EN:** So let's stop watching a diagram of a federation and become one. Everyone, phones out.
+**EN:** Check your phone — still on the welcome screen? Good, hold there one more slide.
 
-**中文:** 那我们不再只是看联邦的示意图了，现在就变成一个联邦——所有人，拿出手机。
+**中文:** 看看手机——是不是还停在欢迎页？好，再停一页。
 
 ### Delivery And Timing
 
-Target time: **1:40**.
+Target time: **1:30**.
 
 Click through the seven fragments one at a time, pointing at the diagram for each step. Do not rush step 6.
 
@@ -215,47 +217,47 @@ Click through the seven fragments one at a time, pointing at the diagram for eac
 
 Narrate steps 1, 4, 5, 6, 7 only; click through 2-3 in silence.
 
-## Slide 4: You Are Now a Federated Client
+## Slide 4: Reveal Your Simulated Hospital
 
 ### Key Points
 
-- No login, no name, no email — a session code is enough to join as one simulated hospital.
-- The simulation is precomputed and deterministic; it does not pretend 60 phones train a real network.
-- Do not wait for 100% joined — proceed at roughly 70-80% or after about 90 seconds.
+- No new scan needed — everyone already joined during the opening prediction poll.
+- The simulation is precomputed and deterministic; it does not pretend a phone trains a real network.
+- This slide is mechanical: reveal the card, state the caveat, move on.
 
 ### 中文要点
 
-- 不需要登录、姓名或邮箱——一个会话码就能作为一个模拟医院加入。
-- 这个模拟是预先计算好的确定性结果，并不是假装 60 部手机在真的训练神经网络。
-- 不要等到 100% 加入，大约 70-80% 或约 90 秒后就继续。
+- 不需要重新扫码——大家在开场的预测投票时已经加入了。
+- 这个模拟是预先计算好的确定性结果，并不是假装手机在真的训练神经网络。
+- 这一页是机制性的：揭晓卡片、说明说明事项、继续往下。
 
 ### English Script
 
-You are now a federated client. Scan the code on the main screen — no login, no name, about thirty seconds. For teaching, your phone represents a federated client; the local training outcome has been simulated so we can inspect a full federation in a few minutes. Be explicit here: this is not sixty phones secretly training a neural network. A real model update has thousands to millions of numbers; what you will see is a two-number, two-dimensional projection built for visualization. Do not wait for everyone — once most of the room has joined, we move on.
+You are now a federated client. Tap 'Reveal my site.' No new scan needed — you already joined during the prediction question. For teaching, your phone represents a federated client; the local training outcome has been simulated so we can inspect a full federation in a few minutes. Be explicit: this is not sixty phones secretly training a neural network. A real model update has thousands to millions of numbers; what you see is a two-number projection built for visualization.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-你们现在就是一个联邦客户端。扫描主屏幕上的二维码——不需要登录，不需要姓名，大约三十秒。教学场景里，你的手机代表一个联邦客户端；本地训练的结果是提前算好的模拟结果，这样我们才能在几分钟内看完整个联邦。这里要说清楚：这不是六十部手机在偷偷训练一个真正的神经网络。真正的模型更新有成千上万甚至上百万个数字；你们即将看到的是为了可视化而做的二维投影，只有两个数字。不用等所有人都加入，大部分人加入之后我们就继续。
+你们现在就是一个联邦客户端。点“揭晓我的站点”。不需要重新扫码——你们在预测问题时已经加入了。教学场景里，你的手机代表一个联邦客户端；本地训练的结果是提前算好的模拟结果，这样我们才能在几分钟内看完整个联邦。说清楚一点：这不是六十部手机在偷偷训练一个真正的神经网络。真正的模型更新有成千上万甚至上百万个数字；你们看到的只是为了可视化而做的两个数字的投影。
 
 </div>
 
 ### Transition
 
-**EN:** While you're scanning, here is exactly what your phone is about to show you.
+**EN:** Look at your card for a second, then look up — let's meet the federation as a whole.
 
-**中文:** 扫码的同时，我先说清楚手机接下来会显示什么。
+**中文:** 看一眼自己的卡片，然后抬头——我们一起看看整个联邦。
 
 ### Delivery And Timing
 
-Target time: **2:20**.
+Target time: **1:20**.
 
-Switch the projector to the Federation Dashboard, create/reset a session, click Show JOIN QR. If Wi-Fi is unreliable, click Populate 60 demo clients immediately instead and keep teaching — the resulting federation looks identical either way.
+Ask one or two students to read their hospital name and one stat aloud. Do not wait for every phone.
 
 ### Skip If Late
 
-Do not wait for 60/60. Proceed once roughly 70-80% have joined, or after about 90 seconds, whichever comes first.
+Skip straight to reading one site card aloud.
 
 ## Slide 5: Meet Our Federation
 
@@ -273,13 +275,13 @@ Do not wait for 60/60. Proceed once roughly 70-80% have joined, or after about 9
 
 ### English Script
 
-Freeze enrollment. Look at the map — every dot is one of you, sized by how many patients your hospital has. Would you trust all these hospitals equally? Would you weight all these hospitals equally? These are deliberately different questions. A hospital being small does not make it untrustworthy; it changes how much statistical weight its evidence should carry, which is a separate judgement entirely. Let the second question hang unanswered — Round 1 will answer it for us, whether we like the answer or not.
+Freeze enrollment. Look at the map — every dot is one of you, sized by how many patients your hospital has. Would you trust all these hospitals equally? Would you weight all these hospitals equally? These are deliberately different questions. A hospital being small does not make it untrustworthy; it changes how much statistical weight its evidence should carry. Let the second question hang unanswered — Round 1 will answer it for us.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-先冻结加入。看这张地图——每个点就是你们中的一个人，大小代表这家医院有多少患者。你们会同等信任所有这些医院吗？你们会给所有这些医院同等的权重吗？这是两个刻意不同的问题。一家医院小，不代表它不可信；这只是改变了它的证据应该拥有多少统计权重，是完全不同的判断。第二个问题先放着不回答——第一轮聚合会替我们回答，不管我们喜不喜欢这个答案。
+先冻结加入。看这张地图——每个点就是你们中的一个人，大小代表这家医院有多少患者。你们会同等信任所有这些医院吗？你们会给所有这些医院同等的权重吗？这是两个刻意不同的问题。一家医院小，不代表它不可信；这只是改变了它的证据应该拥有多少统计权重。第二个问题先放着不回答——第一轮聚合会替我们回答。
 
 </div>
 
@@ -291,9 +293,9 @@ Freeze enrollment. Look at the map — every dot is one of you, sized by how man
 
 ### Delivery And Timing
 
-Target time: **2:30**.
+Target time: **2:10**.
 
-Click Freeze enrollment on the dashboard. Point at 2-3 clearly different node sizes on the projector before asking either question.
+Click Freeze enrollment on the dashboard. Point at 2-3 clearly different node sizes before asking either question.
 
 ### Skip If Late
 
@@ -315,13 +317,13 @@ Ask only the trust question aloud; skip straight to Round 1 for the weight quest
 
 ### English Script
 
-Run FedAvg. Watch the arrows on the right: each one is somebody's simulated update. The white arrow is what the server actually keeps. F sub k of w is what hospital k wants the model to optimize locally; p sub k is how much influence that hospital receives. For classical sample-weighted FedAvg, p_k equals n_k over the sum of n_j — so every training example counts roughly equally, which means hospitals do not count equally. That is not purely a fairness decision; it is also a statistical and optimization choice. Watch the largest bar in the weights panel: that is the largest hospital in this room.
+Remember your prediction earlier? Run FedAvg now and let's see how close 'weight by how much data it was trained on' actually gets. Watch the arrows on the right: each one is somebody's simulated update. The white arrow is what the server actually keeps. For classical sample-weighted FedAvg, p_k equals n_k over the sum of n_j — every training example counts roughly equally, which means hospitals do not count equally. Watch the largest bar in the weights panel: the largest hospital in this room.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-现在运行 FedAvg。看右边的箭头：每一个都是某个人模拟出来的更新，白色箭头才是服务器真正保留下来的结果。F_k(w) 是医院 k 希望模型在本地优化的目标；p_k 是这家医院获得的影响力。经典的按样本量加权 FedAvg 里，p_k 等于 n_k 除以 Σn_j——也就是说每个训练样本的权重大致相等，但这意味着每家医院的权重并不相等。这不只是一个公平性的选择，也是一个统计与优化上的选择。看权重面板里最长的那根条——那就是这个教室里最大的医院。
+还记得你刚才的预测吗？现在运行 FedAvg，看看“按训练数据量加权”这个选项到底有多接近真实做法。看右边的箭头：每一个都是某个人模拟出来的更新，白色箭头才是服务器真正保留下来的结果。经典的按样本量加权 FedAvg 里，p_k 等于 n_k 除以 Σn_j——每个训练样本的权重大致相等，但这意味着每家医院的权重并不相等。看权重面板里最长的那根条——那就是这个教室里最大的医院。
 
 </div>
 
@@ -333,9 +335,9 @@ Run FedAvg. Watch the arrows on the right: each one is somebody's simulated upda
 
 ### Delivery And Timing
 
-Target time: **2:40**.
+Target time: **2:20**.
 
-On the dashboard, Start Round 1, confirm aggregation policy is FedAvg. Point at one large node's thick opaque arrow and one small node's thin faint arrow.
+On the dashboard, Start Round 1, confirm aggregation policy is FedAvg. Point at one large node's thick opaque arrow and one small node's thin faint arrow. Connect back to the opening poll explicitly.
 
 ### Interaction Notes
 
@@ -369,65 +371,97 @@ Show the resultant white arrow and the largest-weight number only; skip deriving
 
 ### English Script
 
-Go back to your own site card. Some of your arrows agreed with your neighbours'; some clearly did not. That disagreement has a name: non-IID. Feature shift comes from scanners and protocols; label shift from different prevalence; concept shift when the outcome means something different at another site; workflow shift from referral and annotation practice. Zech and colleagues showed exactly this kind of site-level generalization failure in chest radiograph models. Institution is a latent variable, and federation makes that fact much harder to ignore.
+Go back to your own site card. Some of your arrows agreed with your neighbours'; some clearly did not. That disagreement has a name: non-IID. Feature shift comes from scanners and protocols; label shift from different prevalence; concept shift when the outcome means something different at another site; workflow shift from referral and annotation practice. Institution is a latent variable, and federation makes that fact much harder to ignore.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-回头看看你自己的站点卡片。有些人的箭头和邻居方向一致，有些明显不一致。这种不一致有个名字：non-IID。特征漂移来自扫描仪和采集协议；标签漂移来自不同的患病率；概念漂移是指结局在另一个中心意味着不同的事情；流程漂移来自转诊和标注习惯的不同。Zech 等人在胸片模型里就展示过这种中心级泛化失败。机构本身就是一个潜变量，而联邦学习让这一点变得更难被忽视。
+回头看看你自己的站点卡片。有些人的箭头和邻居方向一致，有些明显不一致。这种不一致有个名字：non-IID。特征漂移来自扫描仪和采集协议；标签漂移来自不同的患病率；概念漂移是指结局在另一个中心意味着不同的事情；流程漂移来自转诊和标注习惯的不同。机构本身就是一个潜变量，而联邦学习让这一点变得更难被忽视。
 
 </div>
 
 ### Transition
 
-**EN:** Now let's stress the federation on purpose and see what happens to these disagreements.
+**EN:** Before we stress-test the federation, a quick map of where these methods sit — the classics and the frontier.
 
-**中文:** 现在我们故意给这个联邦施加压力，看看这些分歧会发生什么。
+**中文:** 在给联邦施压之前，先快速看一下这些方法在版图上的位置——经典方法和前沿方向。
 
 ### Delivery And Timing
 
-Target time: **2:30**.
+Target time: **2:10**.
 
-Ask 2-3 students with visibly different archetypes to read one line from their own site card aloud before naming the four shift types.
-
-### Interaction Notes
-
-- Optional: show ONE short element from the MRI domain-shift lab (e.g. one contrast slider move) if time allows — do not run the entire lab live; the full lab is in resources.
-
-### 交互参数和图表读数
-
-<ul lang="zh-Hans">
-<li>如果时间允许，可以展示 MRI 域偏移实验室里的一个片段（例如拖动一次对比度滑块），但不要现场完整跑完整个实验室；完整版在课程资源里。</li>
-</ul>
+Ask 2-3 students with visibly different archetypes to read one line from their own site card aloud.
 
 ### Skip If Late
 
 Skip the four shift-type cards entirely; keep only the two arrow figures and the center statement.
 
-## Slide 8: Round 2: Federation Under Stress
+## Slide 8: FL Classics and the 2026 Frontier
 
 ### Key Points
 
-- Predict before revealing: what happens to the aggregate when one hospital looks very different?
-- Robust aggregation (clipping, coordinate median) bounds an outlier's influence but cannot explain it.
-- Label error, preprocessing error, domain shift, corrupted training, and a malicious client all look alike from the server's side.
+- FedProx, FedBN, SCAFFOLD, and FedOpt are not interchangeable "averaging options".
+- FedProx changes the local objective; FedBN and SCAFFOLD target feature shift and client drift differently.
+- The full six-area frontier map is in backup; naming mechanisms correctly matters more than naming many.
 
 ### 中文要点
 
-- 先预测再揭晓：当一家医院看起来很不一样时，聚合结果会怎样变化？
-- 稳健聚合（裁剪、坐标中位数）能限制异常更新的影响，但无法解释它为什么异常。
-- 标签错误、预处理错误、域偏移、训练损坏、恶意客户端，在服务器看来可能长得一模一样。
+- FedProx、FedBN、SCAFFOLD、FedOpt 并不是几个可以互换的“加权平均选项”。
+- FedProx 改变的是本地目标；FedBN 和 SCAFFOLD 分别针对特征漂移和客户端漂移，机制不同。
+- 完整的六大前沿方向放在备用页；把机制说对，比说出很多名字更重要。
 
 ### English Script
 
-Predict before I click: if I make one hospital's population rare and clinically important, what happens to its voice under FedAvg? Under FedAvg, a small hospital's contribution shrinks toward its sample-size weight regardless of clinical importance. Now the second event: one extreme, unexplained update appears. It could be a label error, a preprocessing error, domain shift, corrupted training, or a malicious client — from the server's side these look observationally similar. Clipping and coordinate-median bound the update's magnitude, but they do not tell us which of those five stories is true.
+You've now run the one method almost everyone starts with. Two sentences on where the rest of the field sits, because these get misclassified constantly. FedProx changes local optimization, not the aggregation weighting; FedBN and SCAFFOLD address feature shift and client drift through different mechanisms; FedOpt generalizes the server update rule. None of these is simply 'another averaging formula.'
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-先预测，我再点：如果我让一家医院的人群变得罕见但临床上很重要，它在 FedAvg 下的声音会怎样？在 FedAvg 下，无论临床上多重要，小医院的贡献都会缩小到接近它的样本量权重。现在第二个事件：出现一个极端的、无法解释的更新。它可能是标签错误、预处理错误、域偏移、训练损坏，也可能是恶意客户端——从服务器的角度看，这些情况观察起来可能非常相似。裁剪和坐标中位数能限制这个更新的幅度，但无法告诉我们这五种故事里到底哪一个是真的。
+你们刚才跑的是几乎所有人都会先学的那个方法。花两句话说清楚这个领域其余部分的位置，因为这些方法经常被搞混。FedProx 改变的是本地优化目标，不是聚合权重；FedBN 和 SCAFFOLD 分别通过不同的机制应对特征漂移和客户端漂移；FedOpt 则是把服务器端的更新规则一般化。这些都不是“另一种加权平均公式”而已。
+
+</div>
+
+### Transition
+
+**EN:** Let's put one of these ideas under real pressure. Round 2.
+
+**中文:** 现在让其中一个想法真正接受压力测试——第二轮开始。
+
+### Delivery And Timing
+
+Target time: **1:40**.
+
+Name the classics list quickly; point to backup for the full frontier grid if asked.
+
+### Skip If Late
+
+Name FedProx, FedBN, and SCAFFOLD only, skip FedOpt and the frontier grid.
+
+## Slide 9: Round 2: Federation Under Stress
+
+### Key Points
+
+- Predict before revealing: what happens to the aggregate when one hospital looks very different?
+- Robust aggregation (clipping, coordinate median) bounds an outlier's influence but cannot explain it.
+- Pick ONE event as the default live path — running both is a backup option, not the plan.
+
+### 中文要点
+
+- 先预测再揭晓：当一家医院看起来很不一样时，聚合结果会怎样变化？
+- 稳健聚合（裁剪、坐标中位数）能限制异常更新的影响，但无法解释它为什么异常。
+- 默认现场只做一个事件——两个都做是备用选项，不是标准计划。
+
+### English Script
+
+Predict before I click: if I make one hospital's population rare and clinically important, what happens to its voice under FedAvg? Under FedAvg, a small hospital's contribution shrinks toward its sample-size weight regardless of clinical importance. Clipping and coordinate-median bound an extreme update's magnitude, but they do not tell us why it was extreme in the first place.
+
+### 中文讲稿
+
+<div lang="zh-Hans">
+
+先预测，我再点：如果我让一家医院的人群变得罕见但临床上很重要，它在 FedAvg 下的声音会怎样？在 FedAvg 下，无论临床上多重要，小医院的贡献都会缩小到接近它的样本量权重。裁剪和坐标中位数能限制这个极端更新的幅度，但无法告诉我们它一开始为什么会是极端的。
 
 </div>
 
@@ -439,27 +473,25 @@ Predict before I click: if I make one hospital's population rare and clinically 
 
 ### Delivery And Timing
 
-Target time: **2:50**.
+Target time: **2:00**.
 
-Ask the room to predict out loud, THEN click the event button. Show FedAvg's result, then click one alternative aggregation policy to compare. Do not reveal which real cause the suspicious update represents.
+Ask the room to predict out loud, THEN click 'B · Rare hospital' — the stronger default because it connects to the next two slides. Show FedAvg's result, then click one alternative policy to compare in under 30 seconds.
 
 ### Interaction Notes
 
-- Event B (rare hospital) and Event C (suspicious update) are independent — running both is the full version; running one is the skip-if-late version.
-- When comparing strategies, only change one variable at a time: same event, different aggregation policy.
+- Event C (suspicious update) is available as an alternative if the room specifically wants a data-integrity discussion instead.
 
 ### 交互参数和图表读数
 
 <ul lang="zh-Hans">
-<li>事件 B（罕见医院）和事件 C（可疑更新）是相互独立的——两个都做是完整版，只做一个是迟到时的精简版。</li>
-<li>比较不同策略时，一次只改一个变量：同一个事件，换不同的聚合策略。</li>
+<li>如果教室更想讨论数据完整性问题，可以改用事件 C（可疑更新）作为替代。</li>
 </ul>
 
 ### Skip If Late
 
-Trigger only ONE event (prefer the rare hospital) and skip the strategy comparison entirely.
+Trigger only Event B (rare hospital) and skip the strategy comparison entirely.
 
-## Slide 9: Did It Help Every Hospital?
+## Slide 10: Did It Help Every Hospital?
 
 ### Key Points
 
@@ -475,13 +507,13 @@ Trigger only ONE event (prefer the rare hospital) and skip the strategy comparis
 
 ### English Script
 
-Look back at the evaluation panel: the mean can go up while the rarest or most shifted hospital goes down at the same time. This mirrors what FeTS reports in real distributed multi-site evaluation — average performance can hide institutional outlier weaknesses; our synthetic panel is a teaching projection of that same finding, not a claim about a specific method. A study should predefine minimum acceptable performance at the site and subgroup level, not only global AUROC. The average model does not treat the average hospital.
+Look back at the evaluation panel: the mean can go up while the rarest or most shifted hospital goes down at the same time. This mirrors what FeTS reports in real distributed multi-site evaluation. A study should predefine minimum acceptable performance at the site and subgroup level, not only global AUROC. The average model does not treat the average hospital.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-回头看评估面板：均值可以上升，同时最罕见或偏移最大的那家医院的表现却在下降。这和 FeTS 在真实分布式多中心评估中报告的现象是一致的——平均表现可以掩盖某些机构的异常弱点；我们这里的合成面板只是对这个发现的教学式投影，不是在评价某个具体方法。研究应该在中心和亚组层面预先设定可接受表现的下限，而不是只看全局 AUROC。“平均模型”并不会公平对待“平均医院”。
+回头看评估面板：均值可以上升，同时最罕见或偏移最大的那家医院的表现却在下降。这和 FeTS 在真实分布式多中心评估中报告的现象是一致的。研究应该在中心和亚组层面预先设定可接受表现的下限，而不是只看全局 AUROC。“平均模型”并不会公平对待“平均医院”。
 
 </div>
 
@@ -493,37 +525,37 @@ Look back at the evaluation panel: the mean can go up while the rarest or most s
 
 ### Delivery And Timing
 
-Target time: **1:50**.
+Target time: **1:30**.
 
-Point at the dashboard's evaluation panel, still visible from the previous slide, and read the mean and worst-site numbers aloud.
+Point at the dashboard's evaluation panel, still visible from the previous slide, and read the numbers aloud.
 
 ### Skip If Late
 
 Read only the two boxed statements; skip re-opening the dashboard.
 
-## Slide 10: Privacy: What Moves, What Stays
+## Slide 11: Security: What Moves, What Stays
 
 ### Key Points
 
 - Raw records, identifiers, and local preprocessing stay local; updates, metrics, counts, and logs still move.
 - Federated learning changes the privacy problem. It does not delete it.
-- The full threat-surface explorer (leakage, inference, poisoning, secure aggregation, DP) is a resource, not live content.
+- The full threat-surface explorer is a resource, not live content.
 
 ### 中文要点
 
 - 原始记录、标识信息、本地预处理留在本地；但更新、指标、计数、日志仍然在移动。
 - 联邦学习改变了隐私问题，但没有消除它。
-- 完整的隐私威胁面探索器（泄露、推断、投毒、安全聚合、差分隐私）是课后资源，不在现场讲。
+- 完整的隐私威胁面探索器是课后资源，不在现场讲。
 
 ### English Script
 
-Your phone never sent us a single patient record. It sent a two-number summary of an update — and in a real system, that update itself is an information channel. Gradient leakage, membership inference, poisoning, secure aggregation, and differential privacy each address a different part of the threat surface; none of them is solved simply because raw data stayed put. Ask for a threat model in plain language: who can see what, what could they infer, and who responds if the assumption breaks.
+Your phone never sent us a single patient record. It sent a two-number summary of an update — and in a real system, that update itself is an information channel. Gradient leakage, membership inference, poisoning, secure aggregation, and differential privacy each address a different part of the threat surface; none of them is solved simply because raw data stayed put.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-你的手机从没有发送过任何一条患者记录，它只发送了一个更新的两个数字摘要——但在真实系统里，这个更新本身就是一个信息通道。梯度泄露、成员推断、投毒攻击、安全聚合、差分隐私，各自应对威胁面的不同部分；不能因为原始数据没动，就认为隐私问题已经解决。应该用大白话问清楚威胁模型：谁能看到什么，他们能推断出什么，如果假设被打破了谁来负责。
+你的手机从没有发送过任何一条患者记录，它只发送了一个更新的两个数字摘要——但在真实系统里，这个更新本身就是一个信息通道。梯度泄露、成员推断、投毒攻击、安全聚合、差分隐私，各自应对威胁面的不同部分；不能因为原始数据没动，就认为隐私问题已经解决。
 
 </div>
 
@@ -535,15 +567,15 @@ Your phone never sent us a single patient record. It sent a two-number summary o
 
 ### Delivery And Timing
 
-Target time: **1:40**.
+Target time: **1:30**.
 
-State the caveat sentence exactly as written — it is the single most important sentence in this section. Do not open the full lab live.
+State the caveat sentence exactly as written. Do not open the full lab live.
 
 ### Skip If Late
 
-Read only the callout line and the two-column list; skip pointing to the full explorer link.
+Read only the callout line and the two-column list.
 
-## Slide 11: Medical FL in the Real World
+## Slide 12: Medical FL in the Real World
 
 ### Key Points
 
@@ -559,97 +591,139 @@ Read only the callout line and the two-column list; skip pointing to the full ex
 
 ### English Script
 
-Everything you just did with sixty phones has a real analogue at seventy-one hospitals across six continents. Pati and colleagues trained together at that scale on 6,314 glioblastoma patients. FeTS then evaluated 41 models across 32 institutions and found exactly what your dashboard just showed: average performance can hide site-level failure. And yet Teo and colleagues found that of 612 reviewed healthcare-FL articles, only 32 — 5.2 percent — were real-life clinical applications. Everything you just simulated becomes harder in real hospitals: more heterogeneity, more governance, less control.
+Everything you just did with sixty phones has a real analogue at seventy-one hospitals across six continents. Pati and colleagues trained together at that scale on 6,314 glioblastoma patients. FeTS then found exactly what your dashboard just showed: average performance can hide site-level failure. Yet only 32 of 612 reviewed healthcare-FL articles — 5.2 percent — were real-life clinical applications.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-你们刚才用六十部手机做的事情，在现实中有一个真实的对应：七十一家医院，横跨六大洲。Pati 等人在这个规模上，用 6,314 名胶质母细胞瘤患者共同训练。随后 FeTS 在 32 个机构上评估了 41 个模型，发现的现象和你们刚才在仪表盘上看到的一模一样：平均表现可以掩盖中心级的失败。然而 Teo 等人发现，在被系统综述纳入的 612 篇医疗联邦学习文献里，只有 32 篇——也就是 5.2%——是真实的临床应用。你们刚才模拟的一切，在真实医院里只会更难：异质性更多，治理更复杂，可控性更低。
+你们刚才用六十部手机做的事情，在现实中有一个真实的对应：七十一家医院，横跨六大洲。Pati 等人在这个规模上，用 6,314 名胶质母细胞瘤患者共同训练。随后 FeTS 发现的现象，和你们刚才在仪表盘上看到的一模一样：平均表现可以掩盖中心级的失败。然而在被系统综述纳入的 612 篇医疗联邦学习文献里，只有 32 篇——也就是 5.2%——是真实的临床应用。
 
 </div>
 
 ### Transition
 
-**EN:** So what should actually stick with you from the last twenty minutes?
+**EN:** So what should actually stick with you — not just from FL, but from the whole course?
 
-**中文:** 那么过去这二十分钟里，什么才是真正应该留下来的东西？
+**中文:** 那么，不只是联邦学习，整个课程真正应该留下来的东西是什么？
 
 ### Delivery And Timing
 
-Target time: **1:50**.
+Target time: **1:30**.
 
-Keep this tight — three stat cards and one closing line. The frontier map and governance stack are backup only.
+Keep this tight — three stat cards and one closing line. The governance stack and case detail are backup only.
 
 ### Skip If Late
 
 Keep the scale and FeTS stats; drop the Teo et al. evidence-gap statistic first if very short on time.
 
-## Slide 12: What Should You Remember?
+## Slide 13: Four Lenses to Borrow, With or Without FL
 
 ### Key Points
 
-- Data stay local, but information — updates, metrics, released models — still moves.
-- Non-IID hospital data, aggregation-as-assumption, and worst-site failure are not edge cases; they are the norm.
-- For medical AI specifically: heterogeneity, privacy, evaluation, governance.
+- Bias (who shapes the model) and fairness (who the result fails) are deliberately distinct lenses.
+- Security and heterogeneity map directly onto what the room just watched happen live.
+- None of the four require ever running federated learning to be useful.
 
 ### 中文要点
 
-- 数据留在本地，但信息——更新、指标、发布出去的模型——仍然在移动。
-- 非独立同分布的医院数据、聚合背后的假设、最差站点失败，都不是边缘情况，而是常态。
-- 对医学 AI 而言，还要额外记住：异质性、隐私、评估、治理。
+- 偏见（谁在塑造模型）和公平性（结果最终对谁不利）是两个刻意区分开的透镜。
+- 安全性和异质性直接对应教室里刚刚现场发生的事情。
+- 这四条透镜完全不需要真的跑联邦学习也能用得上。
 
 ### English Script
 
-Four things to keep, and you have already seen every one of them happen on your own phone in the last twenty minutes. Data stay local; information does not. A federation optimizes across different local worlds — non-IID is not a bug in the room, it is the room. Aggregation embeds assumptions about influence; sample-size weighting is a choice, not a neutral default. And global performance can hide local failure — the average is not the deployment site. For medical AI specifically, add heterogeneity, privacy, evaluation, and governance as a second layer.
+Four lenses. You have already watched every one of them happen on your own phone in the last twenty-some minutes — and every one applies even if you never touch FL again. Bias: sample-size weighting gives the biggest contributor the most influence by default; that is a policy choice, and it can silence small, clinically important populations. Security: data staying local is a start, not an ending. Heterogeneity: disagreement is signal, not noise. Fairness: a rising average can hide a falling site. Bias and fairness are deliberately distinct — bias is about who shapes the model, fairness is about who the result then fails.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-有四件事希望大家记住，而且过去二十分钟里，你们已经在自己手机上亲眼见过每一件。数据留在本地，但信息不会。一个联邦是在不同的本地世界之间做优化——非独立同分布不是这个教室里的一个 bug，它就是这个教室本身。聚合方式内嵌了关于影响力的假设；按样本量加权是一种选择，不是天经地义的默认项。全局表现可以掩盖局部失败——平均值不是那个要部署的医院。对医学 AI 而言，再加一层：异质性、隐私、评估、治理。
+四个透镜。过去二十多分钟里，你们已经在自己手机上亲眼见过每一个——而且每一个都适用，哪怕你以后再也不碰联邦学习。偏见：按样本量加权，默认就会让贡献最大的一方获得最大影响力；这是一种政策选择，而且可能会压制规模小但临床上很重要的人群。安全性：数据留在本地只是开始，不是结束。异质性：分歧是信号，不是噪声。公平性：上升的平均值可能掩盖某个下降的站点。偏见和公平性是刻意区分开的——偏见关乎谁在塑造模型，公平性关乎结果最终让谁承受后果。
 
 </div>
 
 ### Transition
 
-**EN:** One more thing before you go — how to keep exploring this after class.
+**EN:** One more thing before questions — a small tool to keep exploring these four lenses on your own.
 
-**中文:** 最后一件事——课后如何继续深入探索这些内容。
+**中文:** 提问之前还有一件事——一个可以自己继续探索这四个透镜的小工具。
 
 ### Delivery And Timing
 
-Target time: **1:50**.
+Target time: **2:00**.
 
-Ask the audience which of the four would change one of their current projects before moving to resources.
+Ask the audience which of the four would change one of their current projects, federated or not.
 
 ### Skip If Late
 
-Read cards 3 and 4 only — they are the ones most often missed — and skip the second-layer line.
+Read cards 1 and 4 only — they are the pair most often conflated.
 
-## Slide 13: Course Resources
+## Slide 14: Explore the Node vs Center Playground
 
 ### Key Points
 
-- This QR is the permanent course-resources code — deliberately different from the federation join code.
-- FL helps when the clinical question is shared but patient-level data cannot or should not be pooled.
-- The transferable habit is to make the collaboration visible.
+- A second, independent QR — not the join code, not the resources QR.
+- Three tabs, one or two controls each: Security, Heterogeneity, Fairness.
+- No session, no login — explore now or after class, at your own pace.
 
 ### 中文要点
 
-- 这个二维码是永久的课程资源码，特意与刚才加入联邦用的码不同。
-- 当临床问题是共享的、但患者级数据不能或不应该汇总时，联邦学习才有用。
-- 真正可迁移的习惯是：让合作方式变得可见、可检验。
+- 第二个、完全独立的二维码——不是加入码，也不是资源码。
+- 三个标签页，每页一两个控件：安全性、异质性、公平性。
+- 不需要会话，不需要登录——现在或课后都可以按自己的节奏探索。
 
 ### English Script
 
-One thing to remember: federation does not remove the multicentre problem; it gives you a way to do it explicitly. This QR is different from the one you scanned earlier — it goes to the permanent course site, labs, and references, not to a live session. FL helps when the clinical question is shared but patient-level data cannot or should not be pooled; it fails when heterogeneity, privacy, evaluation, and governance are treated as afterthoughts.
+This QR is new — it is not the code you scanned earlier, and it is not the resources QR coming up next. It opens a small playground: three tabs, one or two controls each. The heterogeneity tab reuses the same 2D update-vector idea from Round 1; the fairness tab reuses the same FedAvg weighting and evaluation math from the live activity. Try dragging one hospital's sample size up and watching the rare-population site's performance fall — the fastest way to re-experience today's core lesson alone.
 
 ### 中文讲稿
 
 <div lang="zh-Hans">
 
-记住一件事：联邦学习不会消除多中心问题，它只是给了我们一种把这个问题讲清楚的方式。这个二维码和你们之前扫的不一样——它指向永久的课程网站、实验室和参考文献，不是一个实时会话。当临床问题是共享的、但患者级数据不能或不应该汇总时，联邦学习才有用；如果把异质性、隐私、评估和治理都当作事后补救，它就会失败。
+这个二维码是新的——不是你们之前扫的那个，也不是接下来要出现的资源码。它打开一个小型 playground：三个标签页，每页一两个控件。异质性标签复用了第一轮里同样的二维更新向量概念；公平性标签复用了同样的 FedAvg 加权和评估数学。可以试着把某家医院的样本量往上拖，看看罕见人群站点的表现如何下降——这是自己重新体验今天核心结论最快的方式。
+
+</div>
+
+### Transition
+
+**EN:** Bring your own project to questions, using the same four lenses.
+
+**中文:** 带着自己的项目来提问，用同样的四个透镜去审视它。
+
+### Delivery And Timing
+
+Target time: **1:20**.
+
+Optionally demonstrate the fairness slider once on the projector, then leave the QR up.
+
+### Skip If Late
+
+Show the QR and name the three tabs only, skip demonstrating a slider live.
+
+## Slide 15: Course Resources
+
+### Key Points
+
+- This is a third, distinct QR — the room has now seen join/predict, playground, and resources.
+- FL helps when the clinical question is shared but patient-level data cannot or should not be pooled.
+- The transferable habit is to make the collaboration visible.
+
+### 中文要点
+
+- 这是第三个、完全不同的二维码——教室里已经依次见过加入/预测码、playground 码、资源码。
+- 当临床问题是共享的、但患者级数据不能或不应该汇总时，联邦学习才有用。
+- 真正可迁移的习惯是：让合作方式变得可见、可检验。
+
+### English Script
+
+One thing to remember: federation does not remove the multicentre problem; it gives you a way to do it explicitly. This is a third, different QR — the permanent course site, labs, and references. FL helps when the clinical question is shared but patient-level data cannot or should not be pooled; it fails when heterogeneity, privacy, evaluation, and governance are treated as afterthoughts.
+
+### 中文讲稿
+
+<div lang="zh-Hans">
+
+记住一件事：联邦学习不会消除多中心问题，它只是给了我们一种把这个问题讲清楚的方式。这是第三个、不一样的二维码——指向永久的课程网站、实验室和参考文献。当临床问题是共享的、但患者级数据不能或不应该汇总时，联邦学习才有用；如果把异质性、隐私、评估和治理都当作事后补救，它就会失败。
 
 </div>
 
@@ -663,8 +737,8 @@ One thing to remember: federation does not remove the multicentre problem; it gi
 
 Target time: **1:00**.
 
-Leave this QR slide up for the whole Q&A period. Explicitly say this is the resources QR, not the federation join code, once.
+Leave this QR slide up for the whole Q&A period. Name all three QR codes the room has now seen.
 
 ### Skip If Late
 
-Show the QR and read only the first closing line; skip the second and third.
+Show the QR and read only the first closing line.

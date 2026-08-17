@@ -10,6 +10,8 @@ import {
   summarizeParticipation,
   makeSessionCode,
   mulberry32,
+  PREDICT_OPTIONS,
+  summarizePoll,
 } from "../lib/simulation.js";
 import { createBackend } from "../lib/backend.js";
 import { clientDisplayNumber } from "../lib/identity.js";
@@ -39,7 +41,7 @@ const state = {
 };
 
 function defaultMeta() {
-  return { phase: "lobby", joinOpen: true, aggregation: "fedavg", event: null, eventClientId: null };
+  return { phase: "predict", joinOpen: true, aggregation: "fedavg", event: null, eventClientId: null };
 }
 
 // --- DOM refs ---------------------------------------------------------
@@ -68,6 +70,10 @@ const qrFallbackUrl = $("qr-fallback-url");
 const fatalOverlay = $("fatal-overlay");
 const rehearsalStrip = $("rehearsal-strip");
 const adminToast = $("admin-toast");
+const predictStage = $("predict-stage");
+const adminStage = $("admin-stage");
+const predictBars = $("predict-bars");
+const predictTotal = $("predict-total");
 
 let toastTimer = null;
 function showToast(message, { error = false } = {}) {
@@ -158,8 +164,18 @@ function clientsArray() {
 // --- Rendering --------------------------------------------------------------
 
 function render() {
-  renderTopbar();
   const clients = clientsArray();
+  const isPredictPhase = (state.meta.phase || "predict") === "predict";
+  predictStage.hidden = !isPredictPhase;
+  adminStage.hidden = isPredictPhase;
+
+  renderTopbar(clients, isPredictPhase);
+
+  if (isPredictPhase) {
+    renderPredict(clients);
+    return;
+  }
+
   const strategyKey = state.meta.aggregation || "fedavg";
   const aggregation = runAggregation(strategyKey, clients, { maxNorm: 1.6 });
   renderMap(clients);
@@ -169,13 +185,35 @@ function render() {
   renderDropout(clients);
 }
 
-function renderTopbar() {
-  phasePill.textContent = state.meta.phase || "lobby";
+function renderPredict(clients) {
+  const poll = summarizePoll(clients);
+  const maxCount = Math.max(1, ...Object.values(poll.counts));
+  predictBars.innerHTML = PREDICT_OPTIONS.map((option) => {
+    const count = poll.counts[option.key] || 0;
+    const pct = poll.total ? Math.round((count / poll.total) * 100) : 0;
+    const leading = count === maxCount && count > 0;
+    return `
+      <div class="predict-row ${leading ? "leading" : ""}">
+        <span>${option.label}</span>
+        <span class="predict-bar-track"><span class="predict-bar-fill" style="width:${Math.round((count / maxCount) * 100)}%"></span></span>
+        <span class="predict-count">${count} · ${pct}%</span>
+      </div>`;
+  }).join("");
+  predictTotal.textContent = `${poll.total} response${poll.total === 1 ? "" : "s"}`;
+}
+
+function renderTopbar(clients, isPredictPhase) {
+  phasePill.textContent = state.meta.phase || "predict";
   sessionCodeDisplay.textContent = state.sessionCode || "— create session —";
-  const clients = clientsArray();
-  const summary = summarizeParticipation(clients);
-  joinedCount.textContent = String(summary.joined);
-  respondedCount.textContent = String(summary.responded);
+  if (isPredictPhase) {
+    const poll = summarizePoll(clients);
+    joinedCount.textContent = String(clients.length);
+    respondedCount.textContent = String(poll.total);
+  } else {
+    const summary = summarizeParticipation(clients);
+    joinedCount.textContent = String(summary.joined);
+    respondedCount.textContent = String(summary.responded);
+  }
   const strategy = AGGREGATION_STRATEGIES[state.meta.aggregation || "fedavg"];
   aggregationLabel.textContent = strategy ? strategy.label.split(" · ")[0] : "FedAvg";
 }
@@ -429,6 +467,19 @@ function decideForClient(seed, client) {
   return { decision: "flag", concern };
 }
 
+// Weighted so the demo roster looks like a plausible cold-take distribution:
+// "weight by data" (closest to FedAvg) and "average" are the most common
+// intuitions, "vote" a distant third, and the two weakest options rarest.
+function voteForClient(seed, client) {
+  const rng = clientRng(`${seed}::predict`, client.id);
+  const roll = rng();
+  if (roll < 0.32) return "weight-by-data";
+  if (roll < 0.58) return "average";
+  if (roll < 0.78) return "vote";
+  if (roll < 0.91) return "best-only";
+  return "pool-retrain";
+}
+
 function concernPoolFor(client) {
   if (client.archetype === "noisy" || client.suspicious) return ["unusual-update", "label-quality"];
   if (client.archetype === "raresubgroup") return ["unusual-population", "small-sample"];
@@ -446,6 +497,7 @@ async function populateDemoClients(count = 60) {
     roster.map((client) =>
       state.backend.upsertClient(state.sessionCode, client.id, {
         joinedAt: Date.now(),
+        predictVote: voteForClient(seed, client),
         archetype: client.archetype,
         archetypeLabel: client.archetypeLabel,
         archetypeNote: client.archetypeNote,
@@ -485,19 +537,22 @@ async function simulateResponses() {
 // --- Rehearsal mode ----------------------------------------------------------
 
 const REHEARSAL_STEPS = [
-  { label: "1 · Title", line: "Open on the title slide. State the thesis in one sentence." },
-  { label: "2 · Four hospitals", line: "Ask: who has worked with data that could not leave its institution?" },
-  { label: "3 · One FL round", line: "Walk the round animation: broadcast, local training, updates move, aggregate." },
-  { label: "4 · Join", line: "Show the JOIN QR. Wait for ~70–80% of the room, then freeze enrollment." },
-  { label: "5 · Meet the federation", line: "Ask: would you trust all these hospitals equally? Would you weight them equally?" },
-  { label: "6 · Round 1", line: "Run FedAvg. Point at the weight bars and the resultant arrow." },
-  { label: "7 · Not IID", line: "Reveal profiles. Point at disagreeing arrows. Name feature/label/concept/workflow shift." },
-  { label: "8 · Round 2", line: "Predict, then trigger the rare-hospital or suspicious-update event." },
-  { label: "9 · Worst site", line: "Show mean vs worst-site. 'The average is not the deployment site.'" },
-  { label: "10 · Privacy", line: "Stays local vs still moves. Federation changes the privacy problem; it does not delete it." },
-  { label: "11 · Real world", line: "Everything simulated here becomes harder in real hospitals." },
-  { label: "12 · Remember", line: "Four principles, then the medical-AI layer: heterogeneity, privacy, evaluation, governance." },
-  { label: "13 · Resources", line: "Show the resources QR — distinct from the join QR." },
+  { label: "1 · Title", line: "Open on the title slide. Name the two-day-course callback in one sentence." },
+  { label: "2 · You already trained different models", line: "Show JOIN QR. Ask the opening prediction poll: how would you combine 60 models without moving data?" },
+  { label: "3 · Why not pool", line: "Name centralized vs local-only vs federated. Ask who voted to pool the data." },
+  { label: "4 · One FL round", line: "Walk the round animation: broadcast, local training, updates move, aggregate." },
+  { label: "5 · Reveal your hospital", line: "Prompt: tap Reveal my site — no new scan needed." },
+  { label: "6 · Meet the federation", line: "Freeze enrollment. Ask: would you trust all these hospitals equally? Would you weight them equally?" },
+  { label: "7 · Round 1", line: "Run FedAvg. Point at the weight bars and the resultant arrow. Callback to the opening poll." },
+  { label: "8 · Not IID", line: "Reveal profiles. Point at disagreeing arrows. Name feature/label/concept/workflow shift." },
+  { label: "9 · Classics & frontier", line: "Name FedProx/FedBN/SCAFFOLD/FedOpt correctly in two sentences." },
+  { label: "10 · Round 2", line: "Predict, then trigger the rare-hospital event (default) or suspicious-update event." },
+  { label: "11 · Worst site", line: "Show mean vs worst-site. 'The average is not the deployment site.'" },
+  { label: "12 · Security", line: "Stays local vs still moves. Federation changes the privacy problem; it does not delete it." },
+  { label: "13 · Real world", line: "Everything simulated here becomes harder in real hospitals." },
+  { label: "14 · Four lenses", line: "Bias, security, heterogeneity, fairness — none require running FL to be useful." },
+  { label: "15 · Playground", line: "Show the playground QR — distinct from the join QR and the resources QR." },
+  { label: "16 · Resources", line: "Show the resources QR — the third and final distinct QR of the lecture." },
 ];
 
 function startRehearsal() {
@@ -564,6 +619,15 @@ function wireControls() {
   $("btn-toggle-join").addEventListener("click", async () => {
     const nextOpen = state.meta.joinOpen === false;
     await state.backend.setMeta(state.sessionCode, { joinOpen: nextOpen });
+  });
+
+  $("btn-reveal-federation").addEventListener("click", async () => {
+    try {
+      await state.backend.setMeta(state.sessionCode, { phase: "lobby" });
+    } catch (error) {
+      console.error(error);
+      showToast("Could not reveal the federation map — check the connection.", { error: true });
+    }
   });
 
   $("btn-round1").addEventListener("click", async () => {

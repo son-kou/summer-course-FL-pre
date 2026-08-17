@@ -129,6 +129,10 @@ body {
   min-height: 0;
 }
 
+.admin-stage[hidden] {
+  display: none;
+}
+
 .stage-col {
   display: flex;
   flex-direction: column;
@@ -602,5 +606,92 @@ body {
 
 .admin-toast.error {
   background: var(--coral, #c85446);
+}
+
+/* --- Opening prediction poll: full-stage, undivided attention, big text
+   for the back of the room. Shown instead of .admin-stage while
+   meta.phase === "predict". --- */
+
+.predict-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.predict-stage[hidden] {
+  display: none;
+}
+
+.predict-inner {
+  max-width: 980px;
+  width: 100%;
+}
+
+.predict-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+.predict-question {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  line-height: 1.2;
+  margin-bottom: 32px;
+}
+
+.predict-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.predict-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 420px) 1fr 72px;
+  align-items: center;
+  gap: 16px;
+  font-size: 1.05rem;
+}
+
+.predict-row .predict-bar-track {
+  background: #0b1930;
+  border-radius: 8px;
+  height: 28px;
+  overflow: hidden;
+}
+
+.predict-row .predict-bar-fill {
+  height: 100%;
+  background: var(--teal);
+  transition: width 0.3s ease;
+}
+
+.predict-row.leading .predict-bar-fill {
+  background: var(--amber);
+}
+
+.predict-row .predict-count {
+  text-align: right;
+  font-weight: 800;
+  font-family: var(--font-display);
+}
+
+.predict-total {
+  margin-top: 20px;
+  color: #93a8ce;
+  font-size: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .predict-row .predict-bar-fill {
+    transition: none;
+  }
 }
 

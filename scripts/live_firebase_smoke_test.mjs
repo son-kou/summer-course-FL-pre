@@ -67,6 +67,14 @@ async function main() {
   await studentPage.goto(joinUrl, { waitUntil: "networkidle" });
   await studentPage.waitForTimeout(1500);
 
+  console.log("Student answering the opening prediction poll...");
+  await studentPage.click("text=Weight each model by how much data it was trained on");
+  await studentPage.waitForTimeout(1500);
+
+  console.log("Admin revealing the federation map...");
+  await adminPage.click("#btn-reveal-federation");
+  await adminPage.waitForTimeout(1000);
+
   await studentPage.click("text=Reveal my site");
   await studentPage.waitForTimeout(1500);
   const siteHeadline = await studentPage.textContent("h2");

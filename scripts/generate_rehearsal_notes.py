@@ -11,7 +11,7 @@ DATA = ROOT / "assets/practice/slide-scripts.json"
 SPEAKER_NOTES = ROOT / "speaker-notes.md"
 ENGLISH_SPEAKER_NOTES = ROOT / "speaker-notes-en.md"
 PRINTABLE_QMD = ROOT / "rehearsal-notes.qmd"
-EXPECTED_MAIN_SLIDES = 14
+EXPECTED_MAIN_SLIDES = 16
 COURSE_SECONDS = 30 * 60
 
 
