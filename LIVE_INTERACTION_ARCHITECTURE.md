@@ -147,8 +147,9 @@ Skip this section entirely to keep using the zero-config `LocalProvider` /
              ".write": "auth != null"
            },
            "clients": {
+             ".write": "auth != null && root.child('sessions').child($code).child('meta').child('creatorUid').val() === auth.uid",
              "$clientId": {
-               ".write": "auth != null && newData.child('uid').val() === auth.uid && (!data.exists() || data.child('uid').val() === auth.uid)"
+               ".write": "auth != null && (root.child('sessions').child($code).child('meta').child('creatorUid').val() === auth.uid || (newData.child('uid').val() === auth.uid && (!data.exists() || data.child('uid').val() === auth.uid)))"
              }
            }
          }
@@ -158,24 +159,42 @@ Skip this section entirely to keep using the zero-config `LocalProvider` /
    ```
 
    This denies everything by default, then allows any anonymously
-   authenticated device to read a session, and restricts each client record
-   to being written only by the device that created it (`backend.js` stamps
-   every client write with the signed-in anonymous `uid` for exactly this
-   check).
+   authenticated device to read a session. Each client record can be written
+   by the device that created it (`backend.js` stamps every client write
+   with the signed-in anonymous `uid`, checked at the `$clientId` rule), **or**
+   by whichever device is stamped as `meta.creatorUid` — the device that
+   called `createSession`/`resetSession`, i.e. the instructor's browser. The
+   `clients`-level rule (without a rule at the `$clientId`, that path can't
+   satisfy it) is what lets the instructor remove the *entire* `clients`
+   node in one call for "Reset simulation" — a plain per-record rule cannot
+   authorize that, since no single device owns every student's record.
 
 7. Redeploy the site (or just test locally — Firebase works the same from
    `quarto preview`, since only the config object matters, not the origin).
 
-**Known limitation, stated plainly:** the `meta` node (session phase,
-aggregation policy, teaching events) is writable by *any* anonymously
-authenticated device, including a student's, because there is no
-student-vs-instructor role in anonymous auth. In practice this is mitigated
-by the admin URL/session code never being shown to students and by resetting
-between classes — it is *not* cryptographically enforced. Hardening this
-further (custom claims, a Cloud Function gatekeeper) is a reasonable next
-step but is deliberately out of scope here: this is a 30-minute classroom
-tool, not a production system (see the "do not over-engineer" note in the
-project's design brief).
+**Known limitations, stated plainly:**
+
+- The `meta` node (session phase, aggregation policy, teaching events,
+  *and* `creatorUid` itself) is writable by *any* anonymously authenticated
+  device, including a student's, because there is no student-vs-instructor
+  role in anonymous auth. A technically sophisticated student could, in
+  principle, call the Realtime Database REST API directly (bypassing the
+  student UI entirely) and overwrite `meta.creatorUid` with their own uid,
+  granting themselves the same admin-write access described above. This is
+  *not* cryptographically enforced.
+- In practice this is mitigated by the admin URL/session code never being
+  shown to students, by the low incentive and short session lifetime, and by
+  starting a fresh session code (`btn-create-session`) rather than reusing
+  one across classes. Hardening this further (custom claims, a Cloud
+  Function gatekeeper) is a reasonable next step but is deliberately out of
+  scope here: this is a 30-minute classroom tool, not a production system
+  (see the "do not over-engineer" note in the project's design brief).
+- `resetSession` re-stamps `creatorUid` from whichever device calls it, so
+  the *same instructor browser tab* that created the session can always
+  reset it later (anonymous auth persists across reloads on that device).
+  A different device calling reset on a session it did not create will
+  correctly be denied — use "Create / reset session" (a fresh code) from
+  that device instead.
 
 ## 5. Session and data schema
 
@@ -191,6 +210,7 @@ sessions/
       aggregation: "fedavg" | "equal" | "clipped" | "median"
       event: null | "giant" | "rare" | "suspicious"
       eventClientId: string | null
+      creatorUid: string (Firebase anonymous auth uid of the creating/resetting device; security-rule admin key)
       createdAt: ISO timestamp
     clients/
       client-a1b2c3/
@@ -345,6 +365,13 @@ npm run qa:browser              # scripts/browser_qa.mjs — Playwright smoke te
 # The live activity specifically: student flow, admin dashboard, cross-tab
 # rehearsal sync with no backend, graceful fallback, mobile viewports
 npm run qa:live                 # scripts/live_browser_qa.mjs
+
+# Only meaningful once firebase-config.js has real values: proves the
+# actual configured backend (Firebase, or Local as a fallback) round-trips
+# join -> decide -> aggregate -> reset correctly, including the
+# creator-uid admin permission described in §4
+python3 -m http.server 8931 &
+npm run qa:live-firebase -- http://127.0.0.1:8931   # scripts/live_firebase_smoke_test.mjs
 ```
 
 To rehearse the student experience without a second device, open

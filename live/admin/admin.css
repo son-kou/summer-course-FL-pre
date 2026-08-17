@@ -579,3 +579,28 @@ body {
   padding: 10px 12px;
 }
 
+.admin-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 60;
+  background: var(--navy, #10243f);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(9, 18, 34, 0.35);
+  max-width: min(90vw, 560px);
+  text-align: center;
+}
+
+.admin-toast[hidden] {
+  display: none;
+}
+
+.admin-toast.error {
+  background: var(--coral, #c85446);
+}
+

@@ -131,12 +131,25 @@ async function main() {
     await context.close();
   }
 
-  // --- No backend configured (placeholder firebase-config.js) must fall back silently, never throw ---
+  // --- Backend resolution must always settle to a known state, never hang
+  // on "checking connection" or throw. With a real firebase-config.js this
+  // exercises the actual Firebase handshake (anonymous sign-in + dynamic
+  // module load), which is a genuine network round trip — unlike the
+  // synchronous LocalProvider fallback, so this needs to wait for the
+  // connection pill to leave its initial "checking connection" state
+  // rather than merely wait for the (always-present) DOM element. ---
   {
     const page = await browser.newPage();
     trackErrors(page, "no-backend-fallback");
     await page.goto(urlFor("live/admin/index.html"));
-    await page.waitForSelector("#session-code-display", { timeout: 10000 });
+    await page
+      .waitForFunction(() => !document.getElementById("connection-pill")?.textContent.includes("checking"), null, {
+        timeout: 15000,
+      })
+      .catch(() => errors.push("no-backend-fallback: connection pill never left 'checking connection'"));
+    await page.waitForFunction(() => document.getElementById("session-code-display")?.textContent !== "— create session —", null, {
+      timeout: 15000,
+    });
     const pill = await page.textContent("#connection-pill");
     if (!/local rehearsal|demo mode|live backend connected/.test(pill)) {
       errors.push(`no-backend-fallback: unexpected connection pill text: ${pill}`);

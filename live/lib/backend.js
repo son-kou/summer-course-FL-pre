@@ -20,11 +20,23 @@
 //   watchClients(code, cb)               -> unsubscribe()   cb(clientsById)
 //   setMeta(code, patch)                 -> Promise<void>
 //   upsertClient(code, clientId, patch)  -> Promise<void>
-//   resetSession(code)                   -> Promise<void>
+//   resetSession(code, nextMeta?)        -> Promise<void>
 //
 // No provider ever stores names, emails, or any personal data. A client
 // record is a session-scoped synthetic profile plus a participation
 // decision.
+//
+// A note on Firebase admin permission: the security rules (see
+// LIVE_INTERACTION_ARCHITECTURE.md) let a client write only its own record,
+// identified by a `uid` stamped from Firebase Anonymous Auth. That alone
+// would make it impossible for the instructor's device to ever clear other
+// students' records (60 different anonymous uids). FirebaseProvider works
+// around this by stamping `meta.creatorUid` with the uid of whichever
+// device called createSession/resetSession, and the rules grant that uid
+// write access to every client record under the session. This is a
+// pragmatic, rules-only admin role — not a cryptographically hardened one
+// (see the architecture doc's stated limitation) — appropriate for a
+// 30-minute classroom tool.
 
 function nowIso() {
   return new Date().toISOString();
@@ -84,8 +96,8 @@ export class DemoProvider {
     this._emitClients(code);
   }
 
-  async resetSession(code) {
-    this.sessions.set(code, { meta: null, clients: new Map() });
+  async resetSession(code, nextMeta = null) {
+    this.sessions.set(code, { meta: nextMeta, clients: new Map() });
     this._emitMeta(code);
     this._emitClients(code);
   }
@@ -206,10 +218,11 @@ export class LocalProvider {
     (this.clientListeners.get(code) || []).forEach((cb) => cb(clients));
   }
 
-  async resetSession(code) {
-    localStorage.removeItem(this._metaKey(code));
+  async resetSession(code, nextMeta = null) {
+    if (nextMeta) localStorage.setItem(this._metaKey(code), JSON.stringify(nextMeta));
+    else localStorage.removeItem(this._metaKey(code));
     localStorage.setItem(this._clientsKey(code), JSON.stringify({}));
-    this.channel?.postMessage({ type: "meta", code, meta: null });
+    this.channel?.postMessage({ type: "meta", code, meta: nextMeta });
     this.channel?.postMessage({ type: "clients", code, clients: {} });
   }
 }
@@ -244,7 +257,11 @@ export class FirebaseProvider {
   async createSession(code, meta) {
     await this.appReady;
     const { ref, set } = this._mod;
-    await set(ref(this._db, `sessions/${code}/meta`), { ...meta, createdAt: nowIso() });
+    // creatorUid marks this device as the session's instructor for the
+    // security rules' admin-override clause (see module header comment and
+    // LIVE_INTERACTION_ARCHITECTURE.md) — without it, no device could ever
+    // clear another student's record.
+    await set(ref(this._db, `sessions/${code}/meta`), { ...meta, creatorUid: this._uid, createdAt: nowIso() });
   }
 
   watchMeta(code, cb) {
@@ -279,11 +296,17 @@ export class FirebaseProvider {
     await update(ref(this._db, `sessions/${code}/clients/${clientId}`), { ...patch, uid: this._uid, updatedAt: nowIso() });
   }
 
-  async resetSession(code) {
+  async resetSession(code, nextMeta = null) {
     await this.appReady;
     const { ref, remove, set } = this._mod;
+    // Removing the whole "clients" node in one call requires the
+    // clients-level admin-override rule (creatorUid), not the per-record
+    // uid rule — see the security rules in LIVE_INTERACTION_ARCHITECTURE.md.
     await remove(ref(this._db, `sessions/${code}/clients`));
-    await set(ref(this._db, `sessions/${code}/meta`), null);
+    await set(
+      ref(this._db, `sessions/${code}/meta`),
+      nextMeta ? { ...nextMeta, creatorUid: this._uid, createdAt: nowIso() } : null,
+    );
   }
 }
 

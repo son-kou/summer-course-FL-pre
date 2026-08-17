@@ -67,6 +67,18 @@ const qrCodeText = $("qr-code-text");
 const qrFallbackUrl = $("qr-fallback-url");
 const fatalOverlay = $("fatal-overlay");
 const rehearsalStrip = $("rehearsal-strip");
+const adminToast = $("admin-toast");
+
+let toastTimer = null;
+function showToast(message, { error = false } = {}) {
+  adminToast.textContent = message;
+  adminToast.classList.toggle("error", error);
+  adminToast.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    adminToast.hidden = true;
+  }, 4000);
+}
 
 // --- Boot ---------------------------------------------------------------
 
@@ -535,7 +547,13 @@ function showQr() {
 function wireControls() {
   $("btn-create-session").addEventListener("click", async () => {
     if (!window.confirm("Create a fresh session? This resets the current federation.")) return;
-    await createSession();
+    try {
+      await createSession();
+      showToast(`New session created: ${state.sessionCode}`);
+    } catch (error) {
+      console.error(error);
+      showToast("Could not create a new session — check the live backend connection.", { error: true });
+    }
   });
   $("btn-show-qr").addEventListener("click", showQr);
   $("qr-close").addEventListener("click", () => {
@@ -556,8 +574,16 @@ function wireControls() {
   });
   $("btn-reset").addEventListener("click", async () => {
     if (!window.confirm("Reset the whole simulation for this session?")) return;
-    await state.backend.resetSession(state.sessionCode);
-    state.eventTargets = {};
+    try {
+      await state.backend.resetSession(state.sessionCode, defaultMeta());
+      state.eventTargets = {};
+      showToast("Simulation reset. Same session code, join QR still valid.");
+    } catch (error) {
+      console.error(error);
+      showToast("Reset failed — this device may not be the session's creator. Use “Create / reset session” instead.", {
+        error: true,
+      });
+    }
   });
 
   document.querySelectorAll("#aggregation-controls [data-strategy]").forEach((button) => {

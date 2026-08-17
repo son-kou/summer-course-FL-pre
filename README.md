@@ -52,6 +52,7 @@ That helper regenerates the QR code, bilingual rehearsal notes, and PDFs; render
 ```bash
 npm test        # unit tests for the deterministic simulation math (live/lib/simulation.js)
 npm run qa:live  # Playwright smoke test: student flow, dashboard, cross-tab sync, fallback, mobile
+npm run qa:live-firebase -- http://127.0.0.1:8931  # against a real configured backend; see LIVE_INTERACTION_ARCHITECTURE.md §11
 ```
 
 `live/index.html` (student) and `live/admin/index.html` (instructor

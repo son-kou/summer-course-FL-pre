@@ -2,6 +2,7 @@
   "scripts": {
     "qa:browser": "node scripts/browser_qa.mjs",
     "qa:live": "node scripts/live_browser_qa.mjs",
+    "qa:live-firebase": "node scripts/live_firebase_smoke_test.mjs",
     "test": "node --test live/tests/"
   },
   "devDependencies": {

@@ -40,6 +40,16 @@ Planned spoken content: **27:00**. Buffer: **3:00**. Course slot: **30:00**.
    loads within a couple of seconds.
 7. Have the short manual URL (`live/index.html`) and the session code visible
    somewhere you can read aloud, in case a student's scanner fails.
+8. **If you changed `live/firebase-config.js`, the Realtime Database security
+   rules, or any file under `live/`** since the last time you taught, run the
+   automated end-to-end check first instead of trusting a manual
+   click-through: `python3 -m http.server 8931 &` then
+   `node scripts/live_firebase_smoke_test.mjs http://127.0.0.1:8931`. It
+   drives a real admin + student pair through join, decide, aggregate, and
+   reset against whatever backend is configured, and fails loudly on any
+   error instead of the silent-failure mode a manual walkthrough can miss.
+   (`npm run qa:live` separately covers demo mode, cross-tab rehearsal, and
+   fallback with no backend at all — run both after any `live/` change.)
 
 ## During class: exact sequence
 
