@@ -15,11 +15,11 @@
 // with the config object shown in the Firebase console
 // (Project settings -> General -> Your apps -> SDK setup and configuration).
 export const firebaseConfig = {
-  apiKey: "YOUR-API-KEY",
-  authDomain: "YOUR-PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR-PROJECT-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "YOUR-PROJECT",
-  storageBucket: "YOUR-PROJECT.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:0000000000000000000000",
+  apiKey: "AIzaSyDwVH-5FtALDpfh57xGOiyQPB2G7U_RkGQ",
+  authDomain: "fl-summer-course.firebaseapp.com",
+  databaseURL: "https://fl-summer-course-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "fl-summer-course",
+  storageBucket: "fl-summer-course.firebasestorage.app",
+  messagingSenderId: "1059592963311",
+  appId: "1:1059592963311:web:6c9a06b1baaabb39a0471a",
 };
