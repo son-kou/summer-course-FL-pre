@@ -276,13 +276,13 @@ A pre-built four-hospital sandbox with sample-size, equal-site, and quality-awar
 <p class="callout">Your hospital cannot send patient data to the central server.</p>
 <p style="font-size:0.55em;color:var(--grey);margin-top:10px">For teaching, your phone represents a federated client. The local training outcome has been simulated so we can inspect a full federation in a few minutes &mdash; a real update has thousands to millions of numbers, not two.</p>
 <div class="live-cta-row">
-<a class="live-cta" href="../live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
-<a class="live-cta secondary" href="../live/index.html?demo=1" target="_blank" rel="noopener">Preview student view</a>
+<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+<a class="live-cta secondary" href="live/index.html?demo=1" target="_blank" rel="noopener">Preview student view</a>
 </div>
 <p class="live-status-note">Dashboard shows the JOIN QR full-screen. No backend? Click "Populate 60 demo clients" instead.</p>
 :::
 ::: {}
-<iframe class="lab-frame" src="../live/admin/index.html?embed=1&demo=1" title="Federation dashboard preview" scrolling="no"></iframe>
+<iframe class="lab-frame" src="live/admin/index.html?embed=1&demo=1" title="Federation dashboard preview" scrolling="no"></iframe>
 :::
 ::::
 
@@ -316,11 +316,11 @@ Exact citation reminders: No new citation; this slide is the activity's mechanic
 <p class="question-band">Would you <em>weight</em> all these hospitals equally?</p>
 <p style="font-size:0.5em;color:var(--grey)">These are deliberately different questions.</p>
 <div class="live-cta-row">
-<a class="live-cta" href="../live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
 </div>
 :::
 ::: {}
-<iframe class="lab-frame full" src="../live/admin/index.html?embed=1&demo=1" title="Federation map preview" scrolling="no"></iframe>
+<iframe class="lab-frame full" src="live/admin/index.html?embed=1&demo=1" title="Federation map preview" scrolling="no"></iframe>
 :::
 ::::
 
@@ -355,11 +355,11 @@ Exact citation reminders: No new citation.
 <p class="theory-legend">F<sub>k</sub>(w): what hospital k wants the model to optimize locally. p<sub>k</sub>: how much influence that hospital receives. Aggregation is partly a statement about whose objective matters &mdash; and partly a statistical/optimization choice, not purely a fairness decision.</p>
 </div>
 <div class="live-cta-row">
-<a class="live-cta" href="../live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
 </div>
 :::
 ::: {}
-<iframe class="lab-frame full" src="../live/admin/index.html?embed=1&demo=1" title="Aggregation weights and vectors preview" scrolling="no"></iframe>
+<iframe class="lab-frame full" src="live/admin/index.html?embed=1&demo=1" title="Aggregation weights and vectors preview" scrolling="no"></iframe>
 :::
 ::::
 
@@ -445,11 +445,11 @@ Exact citation reminders: Zech et al. 2018; Li et al. 2021 FedBN.
 <p><strong>C &middot; Suspicious update:</strong> one extreme, unexplained update.</p>
 </div>
 <div class="live-cta-row">
-<a class="live-cta" href="../live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
 </div>
 :::
 ::: {}
-<iframe class="lab-frame full" src="../live/admin/index.html?embed=1&demo=1" title="Teaching event and aggregation policy preview" scrolling="no"></iframe>
+<iframe class="lab-frame full" src="live/admin/index.html?embed=1&demo=1" title="Teaching event and aggregation policy preview" scrolling="no"></iframe>
 :::
 ::::
 
