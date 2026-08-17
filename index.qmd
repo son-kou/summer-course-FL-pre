@@ -87,7 +87,7 @@ Exact citation reminders: Public MRI attribution is recorded in `assets/mri/READ
 <p class="live-status-note">Scan the code on the main screen. No login, no name &mdash; just answer the question, about 20 seconds. This scan is for the whole activity; you will not need to scan again.</p>
 :::
 ::: {}
-<iframe class="lab-frame" src="live/admin/index.html?embed=1&demo=1" title="Opening prediction poll preview" scrolling="no"></iframe>
+<iframe class="lab-frame" src="live/admin/index.html?embed=1&demo=1&autoqr=1" title="Opening prediction poll preview, join QR" scrolling="no"></iframe>
 :::
 ::::
 

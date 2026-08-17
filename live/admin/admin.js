@@ -110,6 +110,17 @@ async function boot() {
 
     wireControls();
     render();
+
+    // Only the opening-slide preview (index.qmd passes &autoqr=1) auto-reveals
+    // the QR — a reader flipping through the deck should see all three of the
+    // lecture's QR codes at a glance, without one click nobody in the preview
+    // performs. The other embedded previews (federation map, vectors,
+    // weights) must NOT do this, or the QR modal would cover the very thing
+    // they exist to preview. The real, full-page dashboard never auto-shows
+    // it either: an instructor opening a fresh tab keeps manual control.
+    if (params.get("autoqr") === "1") {
+      showQr();
+    }
   } catch (error) {
     console.error(error);
     fatalOverlay.hidden = false;
