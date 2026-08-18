@@ -656,6 +656,10 @@ function showQr() {
   qrOverlay.hidden = false;
 }
 
+function closeQr() {
+  qrOverlay.hidden = true;
+}
+
 // --- Wiring -------------------------------------------------------------------
 
 function wireControls() {
@@ -670,8 +674,15 @@ function wireControls() {
     }
   });
   $("btn-show-qr").addEventListener("click", showQr);
-  $("qr-close").addEventListener("click", () => {
-    qrOverlay.hidden = true;
+  $("qr-close").addEventListener("click", closeQr);
+  // The QR overlay covers the whole screen, so give it two more obvious
+  // ways out beyond finding the small "Close" button: clicking the dark
+  // backdrop, and pressing Escape.
+  qrOverlay.addEventListener("click", (event) => {
+    if (event.target === qrOverlay) closeQr();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !qrOverlay.hidden) closeQr();
   });
   $("session-code-button").addEventListener("click", showQr);
 

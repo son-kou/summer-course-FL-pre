@@ -117,7 +117,28 @@ async function main() {
     await page.click("#btn-show-qr");
     const qrBox = await page.locator("#qr-target svg").boundingBox({ timeout: 5000 }).catch(() => null);
     if (!qrBox || qrBox.width < 50) errors.push("admin-demo: JOIN QR did not render");
+
+    // The QR overlay covers the whole screen, so it must be closable more
+    // than one way: Escape, clicking the dark backdrop, and the visible
+    // Close button.
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(150);
+    if (!(await page.evaluate(() => document.getElementById("qr-overlay").hidden))) {
+      errors.push("admin-demo: Escape did not close the JOIN QR overlay");
+    }
+    await page.click("#btn-show-qr");
+    await page.waitForTimeout(150);
+    await page.click("#qr-overlay", { position: { x: 5, y: 5 } });
+    await page.waitForTimeout(150);
+    if (!(await page.evaluate(() => document.getElementById("qr-overlay").hidden))) {
+      errors.push("admin-demo: clicking the backdrop did not close the JOIN QR overlay");
+    }
+    await page.click("#btn-show-qr");
+    await page.waitForTimeout(150);
     await page.click("#qr-close");
+    if (!(await page.evaluate(() => document.getElementById("qr-overlay").hidden))) {
+      errors.push("admin-demo: the Close button did not close the JOIN QR overlay");
+    }
 
     await page.click("#btn-rehearsal");
     await page.waitForSelector("#rehearsal-strip:not([hidden])", { timeout: 5000 });
