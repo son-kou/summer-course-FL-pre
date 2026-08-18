@@ -41,7 +41,7 @@
       "scriptZh": "先举手问一下——昨天谁的 Dice 分数让自己满意，谁不满意？很好。不同的数据暴露、不同的训练过程，得到了不同的模型。现在问题来了：如果我想把你们六十个人的模型合并成一个最好的模型，而且不允许任何人把训练数据发给我，你会怎么做？扫码回答，诚实作答就好——现在还没有标准答案。这是一次真正的“冷启动”预测：在说出任何机制名字之前先问，这样记录下来的才是你们真实的直觉。",
       "transitionEn": "Let's look at what you actually voted for — and then ask why pooling the data, which some of you picked, usually isn't on the table in medicine.",
       "transitionZh": "来看看大家实际投了什么票——然后问问看，为什么有些人选的“汇总数据”，在医学场景里往往根本不可行。",
-      "delivery": "Project the Federation Dashboard full-screen, click Create / reset session, then Show JOIN QR. The big poll chart fills in live. If Wi-Fi is unreliable, click Populate 60 demo clients and narrate as if the room just voted. Once most votes are in, read the leading option aloud, then click Reveal federation map to switch the dashboard into map view for the rest of the lecture.",
+      "delivery": "Click \"Open Federation Dashboard\" ONCE — this creates the session and auto-shows the QR. If Wi-Fi is unreliable, click Populate 60 demo clients instead. Then switch back to this slide: the right-hand panel mirrors the live session automatically and keeps updating in real time, so the dashboard tab does not need to stay in front.",
       "skipIfLate": "Do not wait for 60/60 votes. Proceed once roughly 70-80% have answered, or after about 45-60 seconds."
     },
     {
@@ -63,7 +63,7 @@
       "scriptZh": "有几位选了“把大家的数据集中到一起重新训练”——这就是集中式汇总，在课堂上是完全合理的答案。但在医学场景里，这通常是最先被排除的选项。汇总数据统计控制力最强，但法律和物流负担最高。仅本地训练最容易通过治理审查，但泛化能力最差。联邦学习让数据留在本地，改为交换模型更新——这是用“数据不动”换来新的统计与系统复杂性，不是免费午餐。",
       "transitionEn": "So what does federation actually look like as a mechanism? One round, start to finish.",
       "transitionZh": "那联邦作为一种机制到底长什么样？我们看完整的一轮。",
-      "delivery": "Ask who voted to pool the data, and ask what would have to be true institutionally for that to actually work.",
+      "delivery": "The right-hand panel is the same live mirror as Slide 1. Ask who voted to pool the data, and what would have to be true institutionally for that to actually work. Before Slide 3, switch to the real dashboard tab once and click Reveal federation map.",
       "skipIfLate": "Show only the three kickers and skip the center statement entirely."
     },
     {

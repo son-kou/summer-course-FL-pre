@@ -83,7 +83,7 @@ Let's look at what you actually voted for — and then ask why pooling the data,
 
 Target time: **2:30**.
 
-Project the Federation Dashboard full-screen, click Create / reset session, then Show JOIN QR. The big poll chart fills in live. If Wi-Fi is unreliable, click Populate 60 demo clients and narrate as if the room just voted. Once most votes are in, read the leading option aloud, then click Reveal federation map to switch the dashboard into map view for the rest of the lecture.
+Click "Open Federation Dashboard" ONCE — this creates the session and auto-shows the QR. If Wi-Fi is unreliable, click Populate 60 demo clients instead. Then switch back to this slide: the right-hand panel mirrors the live session automatically and keeps updating in real time, so the dashboard tab does not need to stay in front.
 
 ### Skip If Late
 
@@ -109,7 +109,7 @@ So what does federation actually look like as a mechanism? One round, start to f
 
 Target time: **1:50**.
 
-Ask who voted to pool the data, and ask what would have to be true institutionally for that to actually work.
+The right-hand panel is the same live mirror as Slide 1. Ask who voted to pool the data, and what would have to be true institutionally for that to actually work. Before Slide 3, switch to the real dashboard tab once and click Reveal federation map.
 
 ### Skip If Late
 

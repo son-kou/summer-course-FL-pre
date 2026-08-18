@@ -57,6 +57,32 @@ async function main() {
     await page.close();
   }
 
+  // --- Reload resumes progress instead of restarting at the opening poll ---
+  {
+    const page = await browser.newPage({ viewport: { width: 375, height: 667 } });
+    trackErrors(page, "student-resume");
+    const code = "FL-RESUME";
+    await page.goto(urlFor(`live/index.html?code=${code}&local=1`));
+    await answerPredictPoll(page);
+    await page.waitForSelector("text=Reveal my site", { timeout: 10000 });
+    await page.click("text=Reveal my site");
+    await page.waitForSelector("text=Continue to my decision", { timeout: 5000 });
+
+    await page.reload({ waitUntil: "networkidle" });
+    const resumedToPoll = await page.locator("text=You already trained different models").count();
+    if (resumedToPoll > 0) {
+      errors.push("student-resume: reload sent an already-progressed student back to the opening poll");
+    }
+    await page.waitForSelector("text=Continue to my decision", { timeout: 5000 });
+    await page.click("text=Continue to my decision");
+    await page.click("button.button-participate");
+    await page.waitForSelector("text=Look at the main screen", { timeout: 5000 });
+
+    await page.reload({ waitUntil: "networkidle" });
+    await page.waitForSelector("text=Look at the main screen", { timeout: 5000 });
+    await page.close();
+  }
+
   // --- Student flow with no ?code=: manual entry fallback ---
   {
     const page = await browser.newPage({ viewport: { width: 390, height: 844 } });

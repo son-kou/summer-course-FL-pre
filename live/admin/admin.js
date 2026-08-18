@@ -15,7 +15,7 @@ import {
   summarizePollByDesign,
 } from "../lib/simulation.js";
 import { createBackend } from "../lib/backend.js";
-import { clientDisplayNumber } from "../lib/identity.js";
+import { clientDisplayNumber, publishActiveSession } from "../lib/identity.js";
 import { firebaseConfig } from "../firebase-config.js";
 
 const CONCERN_LABELS = {
@@ -107,6 +107,7 @@ async function boot() {
     if (existingCode) {
       state.sessionCode = existingCode;
       subscribeSession(existingCode);
+      if (kind !== "demo") publishActiveSession(existingCode);
     } else {
       await createSession();
     }
@@ -152,6 +153,12 @@ async function createSession() {
   url.searchParams.set("code", code);
   history.replaceState(null, "", url.toString());
   subscribeSession(code);
+  // Never publish a throwaway Demo Mode session as "the" active session —
+  // every deck-embedded preview defaults to ?demo=1 so it shows *something*
+  // before a real session exists, and each one independently calls
+  // createSession(). If those were published, the last iframe to load would
+  // silently hijack every other iframe's (and the real dashboard's) mirror.
+  if (state.backendKind !== "demo") publishActiveSession(code);
 }
 
 function subscribeSession(code) {

@@ -565,6 +565,27 @@ body {
   }
 }
 
+/* Compact read-only mirror inside a slide iframe (?embed=1). Controls are
+   hidden because this view only ever mirrors the SAME session the full-size
+   page is operating (see live/deck-sync.js and the creatorUid publish in
+   createSession/boot above) — never a session of its own. */
+.embed .admin-controls,
+.embed .rehearsal-strip {
+  display: none !important;
+}
+
+.embed .admin-topbar {
+  padding: 8px 14px;
+}
+
+.embed .admin-stage {
+  padding: 8px 12px;
+}
+
+.embed .panel {
+  padding: 10px 12px;
+}
+
 .admin-toast {
   position: fixed;
   left: 50%;

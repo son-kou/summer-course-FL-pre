@@ -144,7 +144,13 @@ def css_urls(text: str) -> list[str]:
 
 
 def ignored_render_path(path: Path) -> bool:
-    if path.as_posix() == "assets/practice/rehearsal-include.html":
+    # `*-include.html` files (e.g. rehearsal-include.html, live-sync-include.html)
+    # are Quarto `include-after-body` fragments: their contents get inlined into
+    # index.html at the site root, so any relative link inside them is only ever
+    # meaningful resolved against the site root, not against this fragment's own
+    # location under assets/practice/ — which is the only place it also exists
+    # as a standalone (never directly visited) file in `_site`.
+    if path.parent.as_posix() == "assets/practice" and path.name.endswith("-include.html"):
         return True
     return any(part in {"node_modules", ".asset-downloads", "qa-screenshots"} for part in path.parts)
 

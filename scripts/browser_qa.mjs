@@ -165,6 +165,39 @@ async function main() {
     errors.push("final slide QR image did not load with useful dimensions");
   }
 
+  // --- Slide 1's embedded live-poll panel mirrors the real dashboard session,
+  // never a session of its own (regression guard for the iframe-per-session bug) ---
+  {
+    const ctx = await browser.newContext();
+    const deckPage = await ctx.newPage();
+    deckPage.on("pageerror", (error) => errors.push(`deck-sync deck pageerror: ${error.message}`));
+    await deckPage.goto(urlFor("index.html"), { waitUntil: "networkidle" });
+    await waitForReveal(deckPage);
+    await deckPage.evaluate(() => window.Reveal.slide(1, 0));
+    await deckPage.waitForTimeout(300);
+
+    const beforeSyncLs = await deckPage.evaluate(() => window.localStorage.getItem("fl-live-active-session"));
+    if (beforeSyncLs) {
+      errors.push(`deck-sync: a fresh deck load published an active session (${beforeSyncLs}) before any real dashboard existed`);
+    }
+
+    const dashPage = await ctx.newPage();
+    dashPage.on("pageerror", (error) => errors.push(`deck-sync dashboard pageerror: ${error.message}`));
+    await dashPage.goto(urlFor("live/admin/index.html?local=1"), { waitUntil: "networkidle" });
+    await dashPage.waitForSelector("#session-code-display", { timeout: 10000 });
+    const code = (await dashPage.textContent("#session-code-display")).trim();
+
+    await deckPage.waitForFunction(
+      (expected) => document.querySelector("iframe.live-embed")?.src.includes(`code=${expected}`),
+      code,
+      { timeout: 5000 },
+    ).catch(() => {
+      errors.push(`deck-sync: slide 1's embedded iframe never synced to the real session ${code}`);
+    });
+
+    await ctx.close();
+  }
+
   for (const size of slideSizes) {
     await page.setViewportSize(size);
     for (let h = 0; h < count; h += 1) {

@@ -25,6 +25,7 @@ format:
     html-math-method: katex
     include-after-body:
       - assets/practice/rehearsal-include.html
+      - assets/practice/live-sync-include.html
 ---
 
 # Federated Learning in Medical AI:<br>When Data Cannot Move {.title-slide .no-generated-title #title}
@@ -76,17 +77,18 @@ Exact citation reminders: Public MRI attribution is recorded in `assets/mri/READ
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.closing-grid}
-::: {}
+:::: {.lab-layout .round-lab}
+::: {.round-panel}
 <p class="callout">Yesterday, everyone in this room trained a segmentation model on the same MRI dataset &mdash; and got different performance.</p>
 <p class="question-band">If we wanted to combine all of your models into ONE best model, without anyone sending their training data anywhere, how would you do it?</p>
-:::
-::: {}
 <div class="live-cta-row">
 <a class="live-cta" href="live/admin/index.html?autoqr=1" target="fl-dashboard" rel="noopener">Open Federation Dashboard →</a>
 <a class="live-cta secondary" href="live/index.html?demo=1" target="_blank" rel="noopener">Preview student view</a>
 </div>
 <p class="live-status-note">Scan the code on the main screen. No login, no name &mdash; just answer the question, about 20 seconds. This scan is for the whole activity; you will not need to scan again.</p>
+:::
+::: {}
+<iframe class="lab-frame live-embed" data-base-src="live/admin/index.html?embed=1" src="live/admin/index.html?embed=1&demo=1" title="Live opening-poll results — syncs automatically once you open the Federation Dashboard" scrolling="no"></iframe>
 :::
 ::::
 
@@ -105,7 +107,7 @@ Transition: "Let's look at what you actually voted for — and then ask why pool
 
 Optional skip: Do not wait for 60/60 votes. Proceed once roughly 70-80% have answered, or after about 45-60 seconds, whichever comes first.
 
-Interaction instructions: Click "Open Federation Dashboard →" ONCE — this creates the session and shows the big JOIN QR automatically. This is the ONLY dashboard tab/session used for the entire lecture: every other "Open Federation Dashboard" button later in the deck reopens this exact same tab (same link, named window) rather than creating a new one. Do not click "Create / reset session" again after this point. If Wi-Fi is unreliable, click "Populate 60 demo clients" on the dashboard instead. Once roughly 3+ votes are in, a "What this means" panel appears automatically below the poll bars, grouping the five options into four families with a pro and a con each — stay on the dashboard and use it directly for the next slide's discussion; do not click "Reveal federation map" yet.
+Interaction instructions: Click "Open Federation Dashboard →" ONCE — this creates the session and shows the big JOIN QR automatically. This is the ONLY dashboard tab/session used for the entire lecture: every other "Open Federation Dashboard" button later in the deck reopens this exact same tab (same link, named window) rather than creating a new one. Do not click "Create / reset session" again after this point. If Wi-Fi is unreliable, click "Populate 60 demo clients" on the dashboard instead. Once students are scanning, switch back to THIS slide — the panel on the right mirrors the dashboard automatically (it picks up the live session within a couple of seconds) and keeps updating in real time, so there is no need to keep the dashboard tab in front. Once roughly 3+ votes are in, a "What this means" panel appears automatically below the poll bars, grouping the five options into four families with a pro and a con each.
 
 Exact citation reminders: No new citation; this slide is an original interactive framing device.
 :::
@@ -114,24 +116,19 @@ Exact citation reminders: No new citation; this slide is an original interactive
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.compact-evidence}
-::: {}
-<span class="kicker">Centralized</span>
-Pool all patient data in one place. Strongest statistical control; highest legal and logistical movement burden.
+:::: {.lab-layout .round-lab}
+::: {.round-panel}
+<div class="design-list compact">
+<p><strong>Centralized:</strong> pool all patient data in one place. Strongest statistical control; highest legal and logistical movement burden.</p>
+<p><strong>Local-only:</strong> each hospital trains and keeps its own model. Easiest governance; weakest generalization beyond one hospital.</p>
+<p><strong>Federated:</strong> data stay local; a shared model is built by exchanging model updates instead of records.</p>
+</div>
+<div class="center-statement compact">Federated learning is one collaboration design among several &mdash; not automatically the right one.</div>
 :::
 ::: {}
-<span class="kicker">Local-only</span>
-Each hospital trains and keeps its own model. Easiest governance; weakest generalization beyond one hospital.
-:::
-::: {}
-<span class="kicker">Federated</span>
-Data stay local; a shared model is built by exchanging model updates instead of records.
+<iframe class="lab-frame full live-embed" data-base-src="live/admin/index.html?embed=1" src="live/admin/index.html?embed=1&demo=1" title="Live poll results and design-mapping panel — syncs automatically" scrolling="no"></iframe>
 :::
 ::::
-
-::: {.center-statement .compact}
-Federated learning is one collaboration design among several &mdash; not automatically the right one.
-:::
 
 ::: {.notes}
 Timing: 1:50. Target 1:50 &middot; skip-if-late: show only the three kickers, skip the center statement.
@@ -148,7 +145,7 @@ Transition: "So what does federation actually look like as a mechanism? One roun
 
 Optional skip: Skip to the center statement only if very short on time.
 
-Interaction instructions: This slide is the clean, written recap of what the dashboard's "What this means" panel just showed with real numbers — point back at the dashboard once more while introducing it, then flip here for the summary. Ask who voted to pool the data, and ask one of them what would have to be true institutionally for that to actually work (single IRB, single data-processing agreement, no cross-border transfer restriction). Before moving to Slide 3, switch back to the dashboard one last time and click "Reveal federation map" — nodes appear immediately, uniformly sized, since everyone who voted has already joined.
+Interaction instructions: The panel on the right is the same live mirror as Slide 1 — point at the real counts and pro/con text there, then use the cards on the left as the clean written recap of the same three designs. Ask who voted to pool the data, and ask one of them what would have to be true institutionally for that to actually work (single IRB, single data-processing agreement, no cross-border transfer restriction). Before moving to Slide 3, switch to the real dashboard tab once (the embedded panel here has no clickable controls) and click "Reveal federation map" — nodes appear immediately, uniformly sized, since everyone who voted has already joined.
 
 Exact citation reminders: Rieke et al. 2020; Kairouz et al. 2021; Karargyris et al. 2023.
 :::

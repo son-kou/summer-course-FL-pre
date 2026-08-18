@@ -1,6 +1,6 @@
 import { generateClient, PREDICT_OPTIONS } from "./lib/simulation.js";
 import { createBackend } from "./lib/backend.js";
-import { getSessionCodeFromUrl, getOrCreateClientId, clientDisplayNumber } from "./lib/identity.js";
+import { getSessionCodeFromUrl, getOrCreateClientId, clientDisplayNumber, saveProgress, loadProgress } from "./lib/identity.js";
 import { firebaseConfig } from "./firebase-config.js";
 import { el, htmlToNode } from "./lib/dom.js";
 
@@ -261,6 +261,7 @@ function screenWaiting() {
 
 function setScreen(name) {
   state.screen = name;
+  saveProgress(state.sessionCode, name);
   if (name === "predict") screenPredict();
   else if (name === "welcome") screenWelcome();
   else if (name === "site") screenSite();
@@ -345,7 +346,11 @@ async function boot() {
     state.backend = provider;
     state.backendKind = kind;
 
-    setScreen("predict");
+    // Resume exactly where this device left off — a real refresh, or a
+    // mobile browser silently discarding and reloading a backgrounded tab,
+    // must not send an already-decided student back through the whole flow
+    // (and, worse, back through the opening poll a second time).
+    setScreen(loadProgress(sessionCode) || "predict");
   } catch (error) {
     console.error(error);
     renderFatalFallback();
