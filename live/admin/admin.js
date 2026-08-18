@@ -40,6 +40,7 @@ const state = {
   eventTargets: {},
   eventEffectTimer: null,
   rehearsal: { active: false, stepIndex: -1 },
+  forceView: null,
 };
 
 function defaultMeta() {
@@ -98,6 +99,12 @@ function showToast(message, { error = false } = {}) {
 async function boot() {
   try {
     const params = new URLSearchParams(location.search);
+    // Slides 1-2 embed this dashboard to show the opening prediction poll
+    // specifically — that poll's votes are cast once, early, and should
+    // stay visible there even after the real session's phase moves on
+    // (map revealed, rounds run) for the rest of the lecture. ?view=predict
+    // pins the predict-stage on regardless of the live meta.phase.
+    state.forceView = params.get("view");
     const { provider, kind } = await createBackend({
       params,
       firebaseConfig,
@@ -187,7 +194,7 @@ function clientsArray() {
 
 function render() {
   const clients = clientsArray();
-  const isPredictPhase = (state.meta.phase || "predict") === "predict";
+  const isPredictPhase = state.forceView === "predict" || (state.meta.phase || "predict") === "predict";
   predictStage.hidden = !isPredictPhase;
   adminStage.hidden = isPredictPhase;
 
@@ -254,7 +261,7 @@ function renderPredict(clients) {
 }
 
 function renderTopbar(clients, isPredictPhase) {
-  phasePill.textContent = state.meta.phase || "predict";
+  phasePill.textContent = state.forceView === "predict" ? "predict" : state.meta.phase || "predict";
   sessionCodeDisplay.textContent = state.sessionCode || "— create session —";
   if (isPredictPhase) {
     const poll = summarizePoll(clients);

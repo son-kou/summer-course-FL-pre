@@ -85,10 +85,13 @@ Exact citation reminders: Public MRI attribution is recorded in `assets/mri/READ
 <a class="live-cta" href="live/admin/index.html?autoqr=1" target="fl-dashboard" rel="noopener">Open Federation Dashboard →</a>
 <a class="live-cta secondary" href="live/index.html?demo=1" target="_blank" rel="noopener">Preview student view</a>
 </div>
-<p class="live-status-note">Scan the code on the main screen. No login, no name &mdash; just answer the question, about 20 seconds. This scan is for the whole activity; you will not need to scan again.</p>
+<div class="live-join-row">
+<div class="live-join-qr" data-live-join-qr role="img" aria-label="QR code to join the live activity"></div>
+<p class="live-status-note">Scan this code. No login, no name &mdash; just answer the question, about 20 seconds. This scan is for the whole activity; you will not need to scan again.</p>
+</div>
 :::
 ::: {}
-<iframe class="lab-frame live-embed" data-base-src="live/admin/index.html?embed=1" src="live/admin/index.html?embed=1&demo=1" title="Live opening-poll results — syncs automatically once you open the Federation Dashboard" scrolling="no"></iframe>
+<iframe class="lab-frame live-embed" data-base-src="live/admin/index.html?embed=1&view=predict" src="live/admin/index.html?embed=1&view=predict&demo=1" title="Live opening-poll results — syncs automatically once you open the Federation Dashboard" scrolling="no"></iframe>
 :::
 ::::
 
@@ -107,7 +110,7 @@ Transition: "Let's look at what you actually voted for — and then ask why pool
 
 Optional skip: Do not wait for 60/60 votes. Proceed once roughly 70-80% have answered, or after about 45-60 seconds, whichever comes first.
 
-Interaction instructions: Click "Open Federation Dashboard →" ONCE — this creates the session and shows the big JOIN QR automatically. This is the ONLY dashboard tab/session used for the entire lecture: every other "Open Federation Dashboard" button later in the deck reopens this exact same tab (same link, named window) rather than creating a new one. Do not click "Create / reset session" again after this point. If Wi-Fi is unreliable, click "Populate 60 demo clients" on the dashboard instead. Once students are scanning, switch back to THIS slide — the panel on the right mirrors the dashboard automatically (it picks up the live session within a couple of seconds) and keeps updating in real time, so there is no need to keep the dashboard tab in front. Once roughly 3+ votes are in, a "What this means" panel appears automatically below the poll bars, grouping the five options into four families with a pro and a con each.
+Interaction instructions: Click "Open Federation Dashboard →" ONCE — this creates the session and shows the big JOIN QR automatically. This is the ONLY dashboard tab/session used for the entire lecture: every other "Open Federation Dashboard" button later in the deck reopens this exact same tab (same link, named window) rather than creating a new one. Do not click "Create / reset session" again after this point. If Wi-Fi is unreliable, click "Populate 60 demo clients" on the dashboard instead. Once students are scanning, switch back to THIS slide — the small QR code on the left and the poll panel on the right both update automatically (within a couple of seconds), so there is no need to keep the dashboard tab in front at all. Once roughly 3+ votes are in, a "What this means" panel appears automatically below the poll bars, grouping the five options into four families with a pro and a con each. This poll panel is pinned to this slide and Slide 2 specifically — it keeps showing these opening results even after the dashboard itself moves on to the federation map and later rounds, so you can safely revisit either slide at any point in the lecture.
 
 Exact citation reminders: No new citation; this slide is an original interactive framing device.
 :::
@@ -126,7 +129,7 @@ Exact citation reminders: No new citation; this slide is an original interactive
 <div class="center-statement compact">Federated learning is one collaboration design among several &mdash; not automatically the right one.</div>
 :::
 ::: {}
-<iframe class="lab-frame full live-embed" data-base-src="live/admin/index.html?embed=1" src="live/admin/index.html?embed=1&demo=1" title="Live poll results and design-mapping panel — syncs automatically" scrolling="no"></iframe>
+<iframe class="lab-frame full live-embed" data-base-src="live/admin/index.html?embed=1&view=predict" src="live/admin/index.html?embed=1&view=predict&demo=1" title="Live poll results and design-mapping panel — syncs automatically" scrolling="no"></iframe>
 :::
 ::::
 

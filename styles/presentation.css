@@ -365,6 +365,14 @@
   height: 640px;
 }
 
+/* The two opening-poll mirrors (Slides 1-2) carry more content than a
+   typical lab embed once the "what this means" design-mapping panel
+   appears below the poll bars — a little extra height keeps that panel
+   from being clipped by the iframe's own overflow:hidden. */
+.lab-frame.live-embed {
+  height: 680px;
+}
+
 .lab-slide {
   position: relative;
   min-width: 0;
@@ -1382,6 +1390,51 @@
 .live-status-note {
   font-size: 0.46em;
   color: var(--grey);
+  margin: 0;
+}
+
+.live-join-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.live-join-qr {
+  flex: 0 0 auto;
+  width: 88px;
+  height: 88px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0 4px 12px rgba(16, 36, 63, 0.08);
+}
+
+.live-join-qr svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Before "Open Federation Dashboard" has been clicked once, there is no
+   session code yet to encode — show a quiet placeholder instead of an
+   empty box that could read as a rendering glitch. deck-sync.js stamps
+   data-synced-code once it draws the real QR into this element; Pandoc's
+   raw-HTML output has whitespace between the tags, so :empty won't match. */
+.live-join-qr:not([data-synced-code]) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-style: dashed;
+}
+
+.live-join-qr:not([data-synced-code])::after {
+  content: "QR";
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--line);
 }
 
 .round-steps {
@@ -1427,6 +1480,23 @@
   font-size: 0.85em;
   color: var(--navy);
   margin-bottom: 6px;
+}
+
+/* "One Federated-Learning Round" reuses .round-lab/.round-panel, but the
+   diagram is the whole point of this slide, so it gets a much wider column
+   and a taller cap than the shared default (scoped to this slide only —
+   .round-lab is also shared by Slide 1's poll+embed layout). The step list
+   drops to 2 columns to stay readable in the narrower remaining space. */
+#one-federated-learning-round .round-lab {
+  grid-template-columns: minmax(0, 0.68fr) minmax(0, 0.32fr);
+}
+
+#one-federated-learning-round .visual {
+  max-height: 640px;
+}
+
+#one-federated-learning-round .round-steps {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .theory-legend {

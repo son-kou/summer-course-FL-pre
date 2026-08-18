@@ -663,6 +663,71 @@ body {
   padding: 10px 12px;
 }
 
+/* The predict-stage is designed for full-projector viewing; a slide-embedded
+   iframe is a fraction of that size, so every dimension here is compacted
+   independently (rem sizing does not shrink with the iframe, only with the
+   root html font-size, which stays constant across embed/full-size). */
+.embed .predict-stage {
+  padding: 14px 20px;
+}
+
+.embed .predict-kicker {
+  font-size: 0.62rem;
+  margin-bottom: 4px;
+}
+
+.embed .predict-question {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.embed .predict-bars {
+  gap: 6px;
+}
+
+.embed .predict-row {
+  grid-template-columns: minmax(140px, 260px) 1fr 52px;
+  gap: 8px;
+  font-size: 0.68rem;
+}
+
+.embed .predict-row .predict-bar-track {
+  height: 14px;
+}
+
+.embed .predict-total {
+  margin-top: 8px;
+  font-size: 0.68rem;
+}
+
+.embed .predict-design-panel {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.embed .predict-design-heading {
+  font-size: 0.66rem;
+  margin-bottom: 6px;
+}
+
+.embed .predict-design-groups {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+}
+
+.embed .predict-design-card {
+  padding: 8px 10px;
+}
+
+.embed .predict-design-card-label {
+  font-size: 0.7rem;
+}
+
+.embed .predict-design-card p {
+  font-size: 0.62rem;
+  margin-top: 2px;
+}
+
 .admin-toast {
   position: fixed;
   left: 50%;

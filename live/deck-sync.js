@@ -41,6 +41,29 @@
       iframe.dataset.syncedCode = code;
       iframe.src = url.toString();
     });
+    syncJoinQr(code, deckIsLocal);
+  }
+
+  // Renders the actual JOIN QR straight into the slide (see .live-join-qr in
+  // Slide 1), so the room never has to look at a second window to scan in —
+  // same code, same qrcode.js the dashboard's own QR overlay uses.
+  function syncJoinQr(code, deckIsLocal) {
+    if (typeof window.qrcode !== "function") return;
+    document.querySelectorAll(".live-join-qr").forEach((el) => {
+      if (el.dataset.syncedCode === code) return;
+      const url = new URL("live/index.html", document.baseURI);
+      url.searchParams.set("code", code);
+      if (deckIsLocal) url.searchParams.set("local", "1");
+      try {
+        const qr = window.qrcode(0, "M");
+        qr.addData(url.toString());
+        qr.make();
+        el.innerHTML = qr.createSvgTag({ scalable: true, margin: 2 });
+        el.dataset.syncedCode = code;
+      } catch (error) {
+        console.error(error);
+      }
+    });
   }
 
   window.addEventListener("storage", (event) => {
