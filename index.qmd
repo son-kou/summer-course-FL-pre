@@ -76,18 +76,17 @@ Exact citation reminders: Public MRI attribution is recorded in `assets/mri/READ
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.lab-layout .round-lab}
-::: {.round-panel}
+:::: {.closing-grid}
+::: {}
 <p class="callout">Yesterday, everyone in this room trained a segmentation model on the same MRI dataset &mdash; and got different performance.</p>
 <p class="question-band">If we wanted to combine all of your models into ONE best model, without anyone sending their training data anywhere, how would you do it?</p>
+:::
+::: {}
 <div class="live-cta-row">
-<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
+<a class="live-cta" href="live/admin/index.html?autoqr=1" target="fl-dashboard" rel="noopener">Open Federation Dashboard →</a>
 <a class="live-cta secondary" href="live/index.html?demo=1" target="_blank" rel="noopener">Preview student view</a>
 </div>
 <p class="live-status-note">Scan the code on the main screen. No login, no name &mdash; just answer the question, about 20 seconds. This scan is for the whole activity; you will not need to scan again.</p>
-:::
-::: {}
-<iframe class="lab-frame" src="live/admin/index.html?embed=1&demo=1&autoqr=1" title="Opening prediction poll preview, join QR" scrolling="no"></iframe>
 :::
 ::::
 
@@ -106,7 +105,7 @@ Transition: "Let's look at what you actually voted for — and then ask why pool
 
 Optional skip: Do not wait for 60/60 votes. Proceed once roughly 70-80% have answered, or after about 45-60 seconds, whichever comes first.
 
-Interaction instructions: Project the Federation Dashboard full-screen, click "Create / reset session," then "Show JOIN QR." The dashboard's big poll chart fills in live as votes arrive. If Wi-Fi is unreliable, click "Populate 60 demo clients" and narrate as if the room just voted — the resulting distribution is identical either way. Once most votes are in, read the leading option aloud, then click "Reveal federation map" to switch the dashboard into map view for the rest of the lecture (nodes will appear immediately, sized uniformly, since everyone who voted has already joined).
+Interaction instructions: Click "Open Federation Dashboard →" ONCE — this creates the session and shows the big JOIN QR automatically. This is the ONLY dashboard tab/session used for the entire lecture: every other "Open Federation Dashboard" button later in the deck reopens this exact same tab (same link, named window) rather than creating a new one. Do not click "Create / reset session" again after this point. If Wi-Fi is unreliable, click "Populate 60 demo clients" on the dashboard instead. Once roughly 3+ votes are in, a "What this means" panel appears automatically below the poll bars, grouping the five options into four families with a pro and a con each — stay on the dashboard and use it directly for the next slide's discussion; do not click "Reveal federation map" yet.
 
 Exact citation reminders: No new citation; this slide is an original interactive framing device.
 :::
@@ -139,7 +138,7 @@ Timing: 1:50. Target 1:50 &middot; skip-if-late: show only the three kickers, sk
 
 Thesis: FL is one design in a larger design space, chosen for a reason, not by default.
 
-Opening sentence: "A few of you picked 'send everyone's data to one place and retrain' — that's centralized pooling, and it's a completely reasonable answer in a classroom. In medicine, it's usually the option that's off the table first."
+Opening sentence: "Look at the panel that just appeared on the dashboard. A few of you picked 'send everyone's data to one place and retrain' — that's centralized pooling, and it's a completely reasonable answer in a classroom. In medicine, it's usually the option that's off the table first. Notice something else: nobody picked 'keep every hospital's model fully separate' — because the question assumed we were combining them. That's local-only, and it's on this slide too."
 
 Main evidence: Rieke et al. and Kairouz et al. provide broad FL framing; the fuller five-design taxonomy (including federated evaluation and federated analytics) is in the backup slide if the audience wants the complete map.
 
@@ -149,7 +148,7 @@ Transition: "So what does federation actually look like as a mechanism? One roun
 
 Optional skip: Skip to the center statement only if very short on time.
 
-Interaction instructions: Ask who voted to pool the data, and ask one of them what would have to be true institutionally for that to actually work (single IRB, single data-processing agreement, no cross-border transfer restriction).
+Interaction instructions: This slide is the clean, written recap of what the dashboard's "What this means" panel just showed with real numbers — point back at the dashboard once more while introducing it, then flip here for the summary. Ask who voted to pool the data, and ask one of them what would have to be true institutionally for that to actually work (single IRB, single data-processing agreement, no cross-border transfer restriction). Before moving to Slide 3, switch back to the dashboard one last time and click "Reveal federation map" — nodes appear immediately, uniformly sized, since everyone who voted has already joined.
 
 Exact citation reminders: Rieke et al. 2020; Kairouz et al. 2021; Karargyris et al. 2023.
 :::
@@ -255,16 +254,16 @@ A pre-built four-hospital sandbox with sample-size, equal-site, and quality-awar
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.lab-layout .round-lab}
-::: {.round-panel}
+:::: {.closing-grid}
+::: {}
 <p class="callout">Tap "Reveal my site" on your phone now.</p>
 <p style="font-size:0.55em;color:var(--grey);margin-top:10px">For teaching, your phone represents a federated client. The local training outcome has been simulated so we can inspect a full federation in a few minutes &mdash; a real update has thousands to millions of numbers, not two.</p>
-<div class="live-cta-row">
-<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
-</div>
 :::
 ::: {}
-<iframe class="lab-frame" src="live/admin/index.html?embed=1&demo=1" title="Federation dashboard preview" scrolling="no"></iframe>
+<div class="live-cta-row">
+<a class="live-cta" href="live/admin/index.html?autoqr=1" target="fl-dashboard" rel="noopener">Open Federation Dashboard →</a>
+</div>
+<p class="live-status-note">No new session needed &mdash; this reuses the same dashboard tab from the opening poll. Nothing to click here; just narrate while phones reveal their cards.</p>
 :::
 ::::
 
@@ -292,17 +291,17 @@ Exact citation reminders: No new citation; this slide is the activity's mechanic
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.lab-layout .round-lab}
-::: {.round-panel}
+:::: {.closing-grid}
+::: {}
 <p class="question-band">Would you trust all these hospitals equally?</p>
 <p class="question-band">Would you <em>weight</em> all these hospitals equally?</p>
 <p style="font-size:0.5em;color:var(--grey)">These are deliberately different questions.</p>
-<div class="live-cta-row">
-<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
-</div>
 :::
 ::: {}
-<iframe class="lab-frame full" src="live/admin/index.html?embed=1&demo=1" title="Federation map preview" scrolling="no"></iframe>
+<div class="live-cta-row">
+<a class="live-cta" href="live/admin/index.html?autoqr=1" target="fl-dashboard" rel="noopener">Open Federation Dashboard →</a>
+</div>
+<p class="live-status-note">Switch to that same dashboard tab now: click "Freeze enrollment" and point at 2-3 different node sizes on the map.</p>
 :::
 ::::
 
@@ -321,7 +320,7 @@ Transition: "Let's answer the weighting question for real. Round 1."
 
 Optional skip: Skip the archetype explanation; just point at the size variation.
 
-Interaction instructions: On the dashboard, click "Freeze enrollment." Point at 2-3 clearly different node sizes on the projector. Ask the trust question, take one or two verbal answers, then ask the weight question and let it hang unanswered into Round 1.
+Interaction instructions: Switch to the SAME dashboard tab opened on Slide 1 (do not open a new one, do not click "Create / reset session" again). Click "Freeze enrollment." Point at 2-3 clearly different node sizes on the projector. Ask the trust question, take one or two verbal answers, then ask the weight question and let it hang unanswered into Round 1.
 
 Exact citation reminders: No new citation.
 :::
@@ -330,18 +329,18 @@ Exact citation reminders: No new citation.
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.lab-layout .round-lab}
-::: {.round-panel}
+:::: {.closing-grid}
+::: {}
 <div class="theory-block">
 <p class="theory-formula">F(w) = &sum;<sub>k=1</sub><sup>K</sup> p<sub>k</sub> F<sub>k</sub>(w) &nbsp;&nbsp;with&nbsp;&nbsp; p<sub>k</sub> = n<sub>k</sub> / &sum;<sub>j</sub> n<sub>j</sub></p>
 <p class="theory-legend">F<sub>k</sub>(w): what hospital k wants the model to optimize locally. p<sub>k</sub>: how much influence that hospital receives. Aggregation is partly a statement about whose objective matters &mdash; and partly a statistical/optimization choice, not purely a fairness decision.</p>
 </div>
-<div class="live-cta-row">
-<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
-</div>
 :::
 ::: {}
-<iframe class="lab-frame full" src="live/admin/index.html?embed=1&demo=1" title="Aggregation weights and vectors preview" scrolling="no"></iframe>
+<div class="live-cta-row">
+<a class="live-cta" href="live/admin/index.html?autoqr=1" target="fl-dashboard" rel="noopener">Open Federation Dashboard →</a>
+</div>
+<p class="live-status-note">Same dashboard tab. Click "Start Round 1" &mdash; the arrows and weight bars appear for the first time.</p>
 :::
 ::::
 
@@ -360,7 +359,7 @@ Transition: "Notice something — not everyone's arrow points the same way. Why 
 
 Optional skip: Skip deriving the formula symbol-by-symbol; just point at the correspondence between a bar and an arrow's opacity.
 
-Interaction instructions: On the dashboard, click "Start Round 1," confirm aggregation policy is "FedAvg," and narrate the weights panel: "largest client weight: X%." Point at one specific large node's bar and its thick, opaque arrow, then a small node's thin, faint arrow. Briefly connect back to the opening poll: whoever voted "weight by data" predicted exactly this mechanism.
+Interaction instructions: On the same dashboard tab, click "Start Round 1" — the vector field and weights panel were deliberately empty until this click, so this is the first time arrows and bars appear; confirm aggregation policy is "FedAvg," and narrate the weights panel: "largest client weight: X%." Point at one specific large node's bar and its thick, opaque arrow, then a small node's thin, faint arrow. Briefly connect back to the opening poll: whoever voted "weight by data" predicted exactly this mechanism.
 
 Exact citation reminders: McMahan et al. 2017; Kairouz et al. 2021.
 :::
@@ -509,19 +508,19 @@ Who is responsible when it breaks?<br>
 
 <div class="brand-strip"><img src="assets/brand/au-logo-uk-blue.png" alt="Aarhus University logo"><span class="brand-divider"></span><span class="cercare-brand"><img src="assets/brand/cercare-icon.png" alt="" aria-hidden="true">Cercare Medical</span></div>
 
-:::: {.lab-layout .round-lab}
-::: {.round-panel}
+:::: {.closing-grid}
+::: {}
 <p class="question-band">Predict first: what will happen to the aggregate when one hospital looks very different?</p>
 <div class="design-list compact" style="margin-top:10px">
 <p><strong>B &middot; Rare hospital:</strong> a small, clinically distinctive site.</p>
 <p><strong>C &middot; Suspicious update:</strong> one extreme, unexplained update.</p>
 </div>
-<div class="live-cta-row">
-<a class="live-cta" href="live/admin/index.html" target="_blank" rel="noopener">Open Federation Dashboard →</a>
-</div>
 :::
 ::: {}
-<iframe class="lab-frame full" src="live/admin/index.html?embed=1&demo=1" title="Teaching event and aggregation policy preview" scrolling="no"></iframe>
+<div class="live-cta-row">
+<a class="live-cta" href="live/admin/index.html?autoqr=1" target="fl-dashboard" rel="noopener">Open Federation Dashboard →</a>
+</div>
+<p class="live-status-note">Same dashboard tab. Click "B &middot; Rare hospital," then compare with "Clipped FedAvg."</p>
 :::
 ::::
 
@@ -540,7 +539,7 @@ Transition: "So a global number just changed. Did it change for everyone the sam
 
 Optional skip: Pick ONE event only — Event B (rare hospital) is the stronger default because it connects directly to the next two slides. Use Event C only if the room specifically wants to discuss data integrity.
 
-Interaction instructions: Ask the room to predict out loud, THEN click "B · Rare hospital" on the dashboard. Show FedAvg's result, then click one alternative aggregation policy (Clipped FedAvg or Coordinate median) to compare in under 30 seconds. Do not reveal a root cause if you also run Event C — ask the room to list candidate explanations instead.
+Interaction instructions: On the same dashboard tab, ask the room to predict out loud, THEN click "B · Rare hospital." Show FedAvg's result, then click one alternative aggregation policy (Clipped FedAvg or Coordinate median) to compare in under 30 seconds. Do not reveal a root cause if you also run Event C — ask the room to list candidate explanations instead.
 
 Exact citation reminders: Kairouz et al. 2021 (robust aggregation framing); no single paper is cited for the synthetic event itself.
 :::

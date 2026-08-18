@@ -563,26 +563,6 @@ body {
   }
 }
 
-/* Compact read-only preview inside a slide iframe (?embed=1). Controls are
-   deliberately hidden here — the live activity is always operated from the
-   full-size /live/admin/ page, never from an embedded slide preview. */
-.embed .admin-controls,
-.embed .rehearsal-strip {
-  display: none !important;
-}
-
-.embed .admin-topbar {
-  padding: 8px 14px;
-}
-
-.embed .admin-stage {
-  padding: 8px 12px;
-}
-
-.embed .panel {
-  padding: 10px 12px;
-}
-
 .admin-toast {
   position: fixed;
   left: 50%;
@@ -687,6 +667,66 @@ body {
   margin-top: 20px;
   color: #93a8ce;
   font-size: 1rem;
+}
+
+.predict-design-panel {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid #24365a;
+}
+
+.predict-design-panel[hidden] {
+  display: none;
+}
+
+.predict-design-heading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #93a8ce;
+  margin-bottom: 14px;
+}
+
+.predict-design-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.predict-design-card {
+  background: #0b1930;
+  border: 1px solid #24365a;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.predict-design-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.predict-design-card-label {
+  font-weight: 800;
+  font-size: 0.92rem;
+}
+
+.predict-design-card-count {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--teal);
+  flex: 0 0 auto;
+}
+
+.predict-design-card p {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: #b9c8e6;
+}
+
+.predict-design-card .con {
+  color: #e3a49b;
 }
 
 @media (prefers-reduced-motion: reduce) {

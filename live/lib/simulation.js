@@ -520,3 +520,47 @@ export function summarizePoll(clients) {
   });
   return { total: voted.length, counts };
 }
+
+// Groups the five cold-take options into the collaboration-design families
+// the lecture actually teaches, each with one honest pro and one honest con.
+// This is what turns the raw vote tally into the "why not simply pool"
+// discussion — grounded in what the room just picked, not an abstract list.
+export const POLL_DESIGN_GROUPS = [
+  {
+    key: "pool",
+    label: "Centralized pooling",
+    optionKeys: ["pool-retrain"],
+    pro: "Strongest statistical control — one dataset, one training run.",
+    con: "Highest legal and logistical burden: raw data must physically move.",
+  },
+  {
+    key: "federated",
+    label: "Federated / weighted combination",
+    optionKeys: ["weight-by-data", "average"],
+    pro: "Data never leaves any hospital, and the group still gets one shared model.",
+    con: "The weighting rule embeds an assumption about whose data should count more.",
+  },
+  {
+    key: "ensemble",
+    label: "Ensemble — keep every model separate",
+    optionKeys: ["vote"],
+    pro: "No aggregation assumptions at all; every model's judgement is preserved.",
+    con: "Never becomes one shared model — every model must run at inference time.",
+  },
+  {
+    key: "select",
+    label: "Pick one champion model",
+    optionKeys: ["best-only"],
+    pro: "The simplest possible rule to explain and implement.",
+    con: "Throws away every other hospital's information entirely.",
+  },
+];
+
+/** Roll the raw poll tally up into the four design families, for display. */
+export function summarizePollByDesign(clients) {
+  const poll = summarizePoll(clients);
+  return POLL_DESIGN_GROUPS.map((group) => ({
+    ...group,
+    count: group.optionKeys.reduce((sum, key) => sum + (poll.counts[key] || 0), 0),
+  }));
+}

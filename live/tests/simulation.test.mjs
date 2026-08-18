@@ -19,6 +19,8 @@ import {
   AGGREGATION_STRATEGIES,
   PREDICT_OPTIONS,
   summarizePoll,
+  POLL_DESIGN_GROUPS,
+  summarizePollByDesign,
 } from "../lib/simulation.js";
 
 test("mulberry32 is deterministic for a given seed", () => {
@@ -246,5 +248,31 @@ test("aggregation does not crash on a client that has voted in the opening poll 
   const clients = [...roster.map((c) => ({ ...c, decision: "participate" })), partial];
   Object.keys(AGGREGATION_STRATEGIES).forEach((key) => {
     assert.doesNotThrow(() => runAggregation(key, clients));
+  });
+});
+
+test("summarizePollByDesign covers every poll option exactly once across the four groups", () => {
+  const coveredOptions = POLL_DESIGN_GROUPS.flatMap((g) => g.optionKeys);
+  const allOptionKeys = PREDICT_OPTIONS.map((o) => o.key);
+  assert.deepEqual([...coveredOptions].sort(), [...allOptionKeys].sort());
+  const seen = new Set();
+  coveredOptions.forEach((key) => {
+    assert.ok(!seen.has(key), `option ${key} appears in more than one design group`);
+    seen.add(key);
+  });
+});
+
+test("summarizePollByDesign counts roll up correctly and every group has a pro and a con", () => {
+  const roster = generateRoster("FL-2014", 20);
+  const keys = PREDICT_OPTIONS.map((o) => o.key);
+  const voted = roster.map((c, i) => ({ ...c, predictVote: keys[i % keys.length] }));
+  const grouped = summarizePollByDesign(voted);
+  assert.equal(grouped.length, POLL_DESIGN_GROUPS.length);
+  const totalGrouped = grouped.reduce((s, g) => s + g.count, 0);
+  assert.equal(totalGrouped, voted.length);
+  grouped.forEach((g) => {
+    assert.ok(g.pro && g.pro.length > 0);
+    assert.ok(g.con && g.con.length > 0);
+    assert.ok(g.count >= 0);
   });
 });

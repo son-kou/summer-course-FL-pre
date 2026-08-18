@@ -10,13 +10,36 @@ an operating document, not a script — the actual words to say are in
 
 Planned spoken content: **27:00**. Buffer: **3:00**. Course slot: **30:00**.
 
+## The one rule that matters most
+
+**There is exactly ONE dashboard tab, opened exactly ONCE, for the entire
+lecture.** Every "Open Federation Dashboard →" button anywhere in the deck
+points to the identical URL (`live/admin/index.html?autoqr=1`) and opens into
+a named window (`fl-dashboard`), so clicking any of them after the first
+just brings that same tab to the front — it does **not** create a new
+session. The only action that creates a new session is clicking
+**"Create / reset session"** on the dashboard itself, or opening the URL
+fresh in a context with no window named `fl-dashboard` yet (e.g. the very
+first click of the day, or a previous `fl-dashboard` tab you manually
+closed).
+
+**Never click "Create / reset session" once real students have joined.**
+Doing so wipes every joined client and hands out a brand-new session code —
+which is exactly the bug this runbook exists to prevent: a QR code that
+students scanned pointing at a session the dashboard has already abandoned.
+
 ## Before class (allow 15 minutes)
 
 1. **Open the deck**: `index.html` on the projector, fullscreen (`F`).
-2. **Open the dashboard in a second tab**: `live/admin/index.html`. Do not
-   project this tab yet — keep it ready to switch to.
-3. **Test the connection.** Look at the connection pill, top-right of the
-   dashboard:
+2. **Test the dashboard using a throwaway session**, then close it: open
+   `live/admin/index.html` directly (not via the deck), click "Populate 60
+   demo clients," then "Simulate responses," then "Start Round 1." You
+   should see the Federation map fill with dots and the vectors/weights/
+   evaluation panels populate with numbers within a couple of seconds.
+   **Close this tab when done** — it is disposable practice, not the session
+   you will actually teach with.
+3. **Check the connection pill**, top-right of the dashboard, while doing the
+   above:
    - "● live backend connected" → real Firebase session, works over the
      room's Wi-Fi. Proceed normally.
    - "● local rehearsal mode" → no Firebase configured; only devices on the
@@ -27,21 +50,19 @@ Planned spoken content: **27:00**. Buffer: **3:00**. Course slot: **30:00**.
    - "● live backend unavailable — demo mode" → Firebase was configured but
      failed to connect (e.g. no internet). Demo Mode will be used
      automatically; no action needed beyond knowing this going in.
-4. **Confirm Demo Mode works regardless**: on the dashboard, click "Populate
-   60 demo clients," then "Simulate responses." You should see the Federation
-   map fill with dots and the weights/evaluation panels populate with
-   numbers within a couple of seconds. Click "Reset simulation" afterward so
-   the room starts from zero.
-5. **Projector check**: confirm the dashboard is legible from the back of the
+4. **Projector check**: confirm the dashboard is legible from the back of the
    room — big numbers (joined count, aggregation label, largest client
    weight) should be readable; the federation map dots and vector arrows
    should be visually distinct.
-6. **Mobile check**: scan the join QR yourself once with your own phone to
-   confirm it resolves to `live/index.html?code=...` and the welcome screen
-   loads within a couple of seconds.
-7. Have the short manual URL (`live/index.html`) and the session code visible
-   somewhere you can read aloud, in case a student's scanner fails.
-8. **If you changed `live/firebase-config.js`, the Realtime Database security
+5. **Mobile check**: from the throwaway session in step 2, scan the join QR
+   yourself once with your own phone to confirm it resolves to
+   `live/index.html?code=...` and the opening poll loads within a couple of
+   seconds. Then close that throwaway tab per step 2 — do **not** carry it
+   into class.
+6. Have the short manual URL (`live/index.html`) visible somewhere you can
+   read aloud, in case a student's scanner fails. You will read the real
+   session code aloud once class actually starts (step 2 of "During class").
+7. **If you changed `live/firebase-config.js`, the Realtime Database security
    rules, or any file under `live/`** since the last time you taught, run the
    automated end-to-end check first instead of trusting a manual
    click-through: `python3 -m http.server 8931 &` then
@@ -54,28 +75,29 @@ Planned spoken content: **27:00**. Buffer: **3:00**. Course slot: **30:00**.
 
 ## During class: exact sequence
 
-Each step names the slide, the dashboard action (if any), and the target
-time from `speaker-notes.md`. Full talking points live in the speaker notes —
-this is the control sequence only.
+The dashboard is used at exactly **four visits** (bolded below), always the
+same tab. Between visits you are on the slide deck and the dashboard needs
+no attention. Full talking points live in `speaker-notes.md` /
+`index.html?practice=1` — this is the control sequence only.
 
-| # | Slide | Dashboard / control action | Target |
-|---:|---|---|---:|
-| 1 | Title | — | 0:40 |
-| 2 | You Already Trained Different Models | Switch to dashboard tab → **Create / reset session** → **Show JOIN QR** (full screen); poll chart fills live | 2:30 |
-| 3 | Why Not Simply Pool the Data? | Read the leading poll option aloud, then click **Reveal federation map** | 1:50 |
-| 4 | One Federated-Learning Round | Click through the 7 fragments | 1:30 |
-| 5 | Reveal Your Simulated Hospital | Prompt "tap Reveal my site" — no new scan needed | 1:20 |
-| 6 | Meet Our Federation | **Freeze enrollment** | 2:10 |
-| 7 | Round 1: Federated Averaging | Confirm aggregation = **FedAvg**; talk through weights panel; callback to the poll | 2:20 |
-| 8 | The Data Are Not IID | (dashboard stays as-is; talk over it) | 2:10 |
-| 9 | FL Classics and the 2026 Frontier | — | 1:40 |
-| 10 | Round 2: Federation Under Stress | Ask room to predict → click **B · Rare hospital** (default) → compare with **Clipped FedAvg** or **Coordinate median** | 2:00 |
-| 11 | Did It Help Every Hospital? | Point at evaluation panel (mean / worst site) | 1:30 |
-| 12 | Security: What Moves, What Stays | Switch back to slide deck | 1:30 |
-| 13 | Medical FL in the Real World | — | 1:30 |
-| 14 | Four Lenses to Borrow | — | 2:00 |
-| 15 | Explore the Node vs Center Playground | Show the playground QR (distinct from join and resources) | 1:20 |
-| 16 | Course Resources | Show the resources QR (third and final distinct QR) | 1:00 |
+| # | Slide | Where | Action | Target |
+|---:|---|---|---|---:|
+| 1 | Title | Deck | — | 0:40 |
+| 2 | You Already Trained Different Models | Deck → **Dashboard visit 1** | Click **"Open Federation Dashboard →"** ONCE (creates the session, auto-shows the QR). Read the leading poll option aloud once ~70-80% have voted (or ~45-60s) | 2:30 |
+| 3 | Why Not Simply Pool the Data? | **Dashboard visit 1 continues**, then Deck | Point at the "What this means" panel that appeared under the poll bars; discuss pool vs. federated vs. ensemble using the *real counts*. Before leaving, click **"Reveal federation map →"** | 1:50 |
+| 4 | One Federated-Learning Round | Deck | Click through the 7 fragments. Dashboard needs no attention | 1:30 |
+| 5 | Reveal Your Simulated Hospital | Deck | Prompt "tap Reveal my site" — no new scan needed. Nothing to click | 1:20 |
+| 6 | Meet Our Federation | **Dashboard visit 2** | Click the same "Open Federation Dashboard" button (same tab reopens). Click **"Freeze enrollment"**. Ask the trust/weight questions over the now-populated map | 2:10 |
+| 7 | Round 1: Federated Averaging | **Dashboard visit 2 continues** | Click **"Start Round 1"** — arrows and weight bars were deliberately empty until now; this click reveals them for the first time. Callback to the poll | 2:20 |
+| 8 | The Data Are Not IID | Deck | Dashboard stays open in the background; no attention needed | 2:10 |
+| 9 | FL Classics and the 2026 Frontier | Deck | — | 1:40 |
+| 10 | Round 2: Federation Under Stress | **Dashboard visit 3** | Same tab. Ask room to predict → click **"B · Rare hospital"** (default) → compare with **"Clipped FedAvg"** or **"Coordinate median"** | 2:00 |
+| 11 | Did It Help Every Hospital? | **Dashboard visit 3 continues** | Point at the evaluation panel (mean / worst site), still on screen from Round 2 | 1:30 |
+| 12 | Security: What Moves, What Stays | Deck | Switch back to slide deck; dashboard no longer needed for the rest of class | 1:30 |
+| 13 | Medical FL in the Real World | Deck | — | 1:30 |
+| 14 | Four Lenses to Borrow | Deck | — | 2:00 |
+| 15 | Explore the Node vs Center Playground | Deck | Show the (static) playground QR — distinct from the join code and the resources QR | 1:20 |
+| 16 | Course Resources | Deck | Show the (static) resources QR — the third and final distinct QR | 1:00 |
 
 Q&A and any overrun live inside the 3-minute buffer, seeded by the "Backup:
 Q&A Prompts" slide (`Down` arrow from Slide 14) if discussion is slow.
@@ -91,6 +113,12 @@ Q&A Prompts" slide (`Down` arrow from Slide 14) if discussion is slow.
   it feels like it should.
 - If joining is slow, narrate the poll options and site card fields out loud
   while people finish scanning — it is not dead air, it is pre-briefing.
+- **Every "Open Federation Dashboard" click reopens the same tab and session**
+  — you never need to re-create anything between visits 1, 2, and 3. If the
+  dashboard tab was accidentally closed, clicking the button again from any
+  slide reopens a fresh tab, but since no `?code=` is in that URL it would
+  start a **new** session — see "The dashboard tab was accidentally closed
+  mid-class" below for the recovery move if this happens.
 - Only run **one** of Event B (rare hospital) or Event C (suspicious update)
   live unless you are ahead of schedule. Section "Running late" below tells
   you which to keep.
@@ -160,6 +188,26 @@ stats. On Slide 14 ("Four Lenses to Borrow"), read cards 1 and 4 only
 ("Bias..." and "Fairness...") — they are the pair most often conflated. On
 Slide 15 ("Explore the Node vs Center Playground"), show the QR and name the
 three tabs without a live demonstration. Skip straight to the resources QR.
+
+### The dashboard tab was accidentally closed mid-class
+
+Click any "Open Federation Dashboard" button in the deck again. Because that
+tab no longer exists, the browser opens a **fresh** one — and since its URL
+has no `?code=`, it will mint a **brand-new session**, orphaning everyone
+who already joined the old one. Recognize this immediately from the topbar:
+`JOINED 0` and a session code you don't recognize from Slide 2 means this
+just happened, not that everyone's connection dropped. Recovery depends on
+timing:
+
+- **Before or during the opening poll (Slides 2-3):** cheap to recover —
+  just say "let's do that again" and re-show the QR; nobody has invested
+  more than one tap yet.
+- **After Round 1 has already run (Slides 6 onward):** do not try to recreate
+  the old session. Say "let's fast-forward the federation" and click
+  "Populate 60 demo clients" + "Simulate responses" on the new session to
+  get back to an equivalent state in seconds, then continue narrating as
+  normal — the pedagogical point survives even though the specific numbers
+  changed.
 
 ### A red error / stack trace appears anywhere
 

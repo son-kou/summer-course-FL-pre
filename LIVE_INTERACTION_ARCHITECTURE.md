@@ -71,18 +71,29 @@ root-relative local server. `_quarto.yml` lists `live/**` under
 `project.resources` so Quarto copies the directory into `_site/` verbatim
 (it contains no `.qmd`/`.py`/executable-notebook files for Quarto to render).
 
-The main slide deck embeds small **read-only previews** of the dashboard via
-`<iframe src="live/admin/index.html?embed=1&demo=1">` (note: **not**
-`../live/...` — `index.qmd` lives at the site root, so a leading `../` would
-escape the Pages subpath entirely and 404; this exact bug shipped once and
-was caught by clicking through the deployed site, not by the build), following
-the same pattern already used for `labs/*/index.html?embed=1`. `?embed=1`
-adds a `.embed` class to `<html>` that hides admin controls and compacts
-spacing — the embedded preview is for rehearsal/visual continuity only, and
-each embed boots its own isolated demo session (it does not reflect the
-instructor's real session state). **The activity is always operated from the
-full-size page**, opened in a new tab via the "Open Federation Dashboard →"
-buttons on the relevant slides.
+**The deck never embeds a live iframe of the dashboard.** An earlier version
+did (`<iframe src="live/admin/index.html?embed=1&demo=1">` on five slides),
+and it caused exactly the confusion this footnote is warning against: each
+iframe booted its own isolated, throwaway demo session, so a QR scanned from
+one slide's embed pointed at a session no other slide's embed — or the
+instructor's real full-page dashboard — ever saw. Two bugs compounded this:
+(1) `index.qmd` lives at the site root, so a leading `../live/...` path
+(used briefly) escaped the Pages subpath entirely and 404'd; (2) even the
+correct-path embeds each independently called `createSession()` since none
+of them carried a `?code=`. Both are fixed by removing the iframes outright.
+
+**The activity is always operated from exactly one full-page dashboard
+tab**, opened via the "Open Federation Dashboard →" buttons on the relevant
+slides. Every one of those buttons shares the *same* `href`
+(`live/admin/index.html?autoqr=1`) and the *same* `target="fl-dashboard"`
+window name, so the first click creates the tab and the session; every
+later click across any other slide just refocuses that identical tab
+(same href ⇒ the browser does not reload it) rather than creating a new
+session. `?autoqr=1` makes `admin.js` call `showQr()` once on boot so the
+first click also saves the instructor a click at the podium. See
+`LIVE_LECTURE_RUNBOOK.md`'s "one rule that matters most" for the operating
+consequence of this, and its recovery steps if the tab is ever closed
+mid-class.
 
 ## 3. Backend choice and the provider abstraction
 
@@ -216,7 +227,17 @@ sessions/
     meta/
       phase: "predict" | "lobby" | "joining" | "round1" | "stress" | "closed"
                                             // "predict": the opening poll; dashboard shows the
-                                            // poll chart instead of the federation map/vectors
+                                            // poll chart (plus a live "what this means" design-
+                                            // mapping panel, see summarizePollByDesign in
+                                            // simulation.js, once 3+ votes are in) instead of the
+                                            // federation map/vectors.
+                                            // "lobby"/"joining": map is shown, but the vector
+                                            // field / weights / evaluation panels intentionally
+                                            // stay blank ("Waiting for Start Round 1…") until
+                                            // phase becomes "round1"/"stress"/"closed" — otherwise
+                                            // clicking Start Round 1 would visibly do nothing,
+                                            // since aggregation over already-decided clients would
+                                            // already have been rendering continuously beforehand.
       joinOpen: boolean
       aggregation: "fedavg" | "equal" | "clipped" | "median"
       event: null | "giant" | "rare" | "suspicious"
@@ -371,7 +392,7 @@ supposed to avoid (see "do not over-engineer" in the design brief). Instead:
 # Pure simulation math — deterministic, no browser needed
 npm test                       # node --test live/tests/
 
-# Whole main deck, including the embedded dashboard previews
+# Whole main deck (the "Open Federation Dashboard" links, not embeds)
 quarto preview                 # or: quarto render && python3 -m http.server -d _site
 npm run qa:browser              # scripts/browser_qa.mjs — Playwright smoke test of all 16 slides
 

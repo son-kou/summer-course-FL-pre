@@ -12,6 +12,7 @@ import {
   mulberry32,
   PREDICT_OPTIONS,
   summarizePoll,
+  summarizePollByDesign,
 } from "../lib/simulation.js";
 import { createBackend } from "../lib/backend.js";
 import { clientDisplayNumber } from "../lib/identity.js";
@@ -74,6 +75,8 @@ const predictStage = $("predict-stage");
 const adminStage = $("admin-stage");
 const predictBars = $("predict-bars");
 const predictTotal = $("predict-total");
+const predictDesignPanel = $("predict-design-panel");
+const predictDesignGroups = $("predict-design-groups");
 
 let toastTimer = null;
 function showToast(message, { error = false } = {}) {
@@ -111,13 +114,10 @@ async function boot() {
     wireControls();
     render();
 
-    // Only the opening-slide preview (index.qmd passes &autoqr=1) auto-reveals
-    // the QR — a reader flipping through the deck should see all three of the
-    // lecture's QR codes at a glance, without one click nobody in the preview
-    // performs. The other embedded previews (federation map, vectors,
-    // weights) must NOT do this, or the QR modal would cover the very thing
-    // they exist to preview. The real, full-page dashboard never auto-shows
-    // it either: an instructor opening a fresh tab keeps manual control.
+    // The opening slide's "Open Federation Dashboard" link passes
+    // &autoqr=1 so a fresh session immediately shows its QR — one less
+    // click at the exact moment a presenter is standing at the podium
+    // wanting the code on screen as fast as possible.
     if (params.get("autoqr") === "1") {
       showQr();
     }
@@ -187,12 +187,19 @@ function render() {
     return;
   }
 
+  // The map (who has joined) is always meaningful. The aggregation panels
+  // are deliberately withheld until the instructor clicks "Start Round 1" /
+  // "Start Round 2" — otherwise they'd already be showing live-updating
+  // arrows and weights before that click did anything, making the click
+  // feel like it had no effect.
+  const phase = state.meta.phase || "predict";
+  const hasAggregated = phase === "round1" || phase === "stress" || phase === "closed";
   const strategyKey = state.meta.aggregation || "fedavg";
   const aggregation = runAggregation(strategyKey, clients, { maxNorm: 1.6 });
   renderMap(clients);
-  renderVectors(clients, aggregation);
-  renderWeights(clients, aggregation, strategyKey);
-  renderEval(aggregation);
+  renderVectors(clients, aggregation, hasAggregated);
+  renderWeights(clients, aggregation, strategyKey, hasAggregated);
+  renderEval(aggregation, hasAggregated);
   renderDropout(clients);
 }
 
@@ -211,6 +218,28 @@ function renderPredict(clients) {
       </div>`;
   }).join("");
   predictTotal.textContent = `${poll.total} response${poll.total === 1 ? "" : "s"}`;
+
+  // Reveal the design-mapping panel only once there is enough data for it to
+  // be a real discussion rather than a guess — this is the "why not simply
+  // pool" content, grounded in the room's actual votes.
+  const showDesignPanel = poll.total >= 3;
+  predictDesignPanel.hidden = !showDesignPanel;
+  if (showDesignPanel) {
+    const groups = summarizePollByDesign(clients);
+    predictDesignGroups.innerHTML = groups
+      .map(
+        (g) => `
+        <div class="predict-design-card">
+          <div class="predict-design-card-head">
+            <span class="predict-design-card-label">${g.label}</span>
+            <span class="predict-design-card-count">${g.count}</span>
+          </div>
+          <p>${g.pro}</p>
+          <p class="con">${g.con}</p>
+        </div>`,
+      )
+      .join("");
+  }
 }
 
 function renderTopbar(clients, isPredictPhase) {
@@ -309,13 +338,18 @@ function arrowPath(cx, cy, tipX, tipY, headLen) {
   return `${tipX.toFixed(1)},${tipY.toFixed(1)} ${leftX.toFixed(1)},${leftY.toFixed(1)} ${rightX.toFixed(1)},${rightY.toFixed(1)}`;
 }
 
-function renderVectors(clients, aggregation) {
+function renderVectors(clients, aggregation, hasAggregated) {
   const width = 640;
   const height = 480;
   const cx = width / 2;
   const cy = height / 2;
   const maxRadius = Math.min(width, height) / 2 - 30;
-  const included = new Set(aggregation.included);
+
+  if (!hasAggregated) {
+    vectorField.innerHTML = `<svg viewBox="0 0 ${width} ${height}"><text x="50%" y="50%" text-anchor="middle" fill="#7d94bf" font-size="18">Click "Start Round 1" to aggregate and reveal the update vectors.</text></svg>`;
+    return;
+  }
+
   const byId = Object.fromEntries(clients.map((c) => [c.id, c]));
 
   const clientArrows = aggregation.included
@@ -351,7 +385,14 @@ function renderVectors(clients, aggregation) {
     </svg>`;
 }
 
-function renderWeights(clients, aggregation, strategyKey) {
+function renderWeights(clients, aggregation, strategyKey, hasAggregated) {
+  if (!hasAggregated) {
+    weightsEquation.innerHTML = "";
+    weightsBars.innerHTML = `<p style="color:#7d94bf;font-size:0.85rem">Waiting for "Start Round 1"…</p>`;
+    weightsHeadline.textContent = "Largest client weight: —";
+    return;
+  }
+
   const byId = Object.fromEntries(clients.map((c) => [c.id, c]));
   const rows = [...aggregation.weights.entries()].sort((a, b) => b[1] - a[1]);
   const top = rows.slice(0, 8);
@@ -385,7 +426,14 @@ function renderWeights(clients, aggregation, strategyKey) {
   weightsHeadline.textContent = rows.length ? `Largest client weight: ${Math.round(maxWeight * 1000) / 10}%` : "Largest client weight: —";
 }
 
-function renderEval(aggregation) {
+function renderEval(aggregation, hasAggregated) {
+  if (!hasAggregated) {
+    evalCards.innerHTML = `<p style="color:#7d94bf;font-size:0.85rem">Waiting for "Start Round 1"…</p>`;
+    evalMean.textContent = "—";
+    evalWorst.textContent = "—";
+    return;
+  }
+
   const evaluation = evaluateGlobalUpdate(aggregation.globalDelta || [0, 0]);
   evalCards.innerHTML = evaluation.perEnvironment
     .map(
@@ -550,7 +598,7 @@ async function simulateResponses() {
 const REHEARSAL_STEPS = [
   { label: "1 · Title", line: "Open on the title slide. Name the two-day-course callback in one sentence." },
   { label: "2 · You already trained different models", line: "Show JOIN QR. Ask the opening prediction poll: how would you combine 60 models without moving data?" },
-  { label: "3 · Why not pool", line: "Name centralized vs local-only vs federated. Ask who voted to pool the data." },
+  { label: "3 · Why not pool", line: "Point at the 'What this means' panel under the poll bars. Ask who voted to pool the data, then click Reveal federation map." },
   { label: "4 · One FL round", line: "Walk the round animation: broadcast, local training, updates move, aggregate." },
   { label: "5 · Reveal your hospital", line: "Prompt: tap Reveal my site — no new scan needed." },
   { label: "6 · Meet the federation", line: "Freeze enrollment. Ask: would you trust all these hospitals equally? Would you weight them equally?" },

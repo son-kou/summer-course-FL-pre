@@ -7,7 +7,6 @@
 <meta name="robots" content="noindex" />
 <link rel="stylesheet" href="../style.css" />
 <link rel="stylesheet" href="admin.css" />
-<script>if (new URLSearchParams(location.search).get("embed") === "1") document.documentElement.classList.add("embed");</script>
 </head>
 <body>
 <div id="qr-overlay" class="qr-overlay" hidden>
@@ -65,6 +64,10 @@
     <h1 class="predict-question">If we combined everyone's models into one — without moving training data — how would you do it?</h1>
     <div id="predict-bars" class="predict-bars"></div>
     <p id="predict-total" class="predict-total">0 responses</p>
+    <div id="predict-design-panel" class="predict-design-panel" hidden>
+      <p class="predict-design-heading">What this means: four ways to combine models — and note, nobody proposed "keep every hospital fully separate"</p>
+      <div id="predict-design-groups" class="predict-design-groups"></div>
+    </div>
   </div>
 </div>
 

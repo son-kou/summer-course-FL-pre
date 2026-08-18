@@ -83,7 +83,24 @@ async function main() {
 
     await page.click('[data-strategy="fedavg"]');
     await page.waitForTimeout(200);
+
+    const beforeRound1 = await page.textContent("#weights-headline");
+    if (!/—/.test(beforeRound1)) errors.push(`admin-demo: weights headline should be a placeholder before Start Round 1, got: ${beforeRound1}`);
+
+    // The weights/vectors/evaluation panels are intentionally blank
+    // ("Waiting for Start Round 1…") until aggregation actually starts —
+    // otherwise clicking "Start Round 1" would visibly do nothing, since
+    // they'd already have been rendering continuously beforehand. So an
+    // event's effect on the aggregate is only checkable once Round 1 has
+    // begun.
+    await page.click("#btn-toggle-join");
+    await page.waitForTimeout(150);
+    await page.click("#btn-round1");
+    await page.waitForTimeout(150);
+    if ((await page.textContent("#phase-pill")) !== "round1") errors.push("admin-demo: phase did not advance to round1");
+
     const before = await page.textContent("#weights-headline");
+    if (/—/.test(before)) errors.push(`admin-demo: weights headline still showed a placeholder after Start Round 1: ${before}`);
     await page.click("#btn-event-giant");
     await page.waitForTimeout(300);
     const after = await page.textContent("#weights-headline");
@@ -93,12 +110,6 @@ async function main() {
     await page.waitForTimeout(200);
     await page.click("#btn-event-suspicious");
     await page.waitForTimeout(200);
-
-    await page.click("#btn-toggle-join");
-    await page.waitForTimeout(150);
-    await page.click("#btn-round1");
-    await page.waitForTimeout(150);
-    if ((await page.textContent("#phase-pill")) !== "round1") errors.push("admin-demo: phase did not advance to round1");
     await page.click("#btn-round2");
     await page.waitForTimeout(150);
     if ((await page.textContent("#phase-pill")) !== "stress") errors.push("admin-demo: phase did not advance to stress");
