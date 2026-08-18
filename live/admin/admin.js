@@ -278,18 +278,23 @@ function statusOf(client) {
 }
 
 const STATUS_FILL = {
-  participate: "#17a2a0",
+  participate: "#0c6b6f",
   flag: "#d99a2b",
-  hold: "#0f2340",
-  straggler: "#22365c",
-  waiting: "#17284a",
+  hold: "#ffffff",
+  straggler: "#e7eaee",
+  waiting: "#f3f5f7",
+};
+
+const STATUS_STROKE = {
+  waiting: "#aab2c0",
+  straggler: "#596579",
 };
 
 function renderMap(clients) {
   const width = 1000;
   const height = 480;
   if (!clients.length) {
-    federationMap.innerHTML = `<svg viewBox="0 0 ${width} ${height}"><text x="50%" y="50%" text-anchor="middle" fill="#7d94bf" font-size="20">No clients yet — show the JOIN QR, or populate demo clients.</text></svg>`;
+    federationMap.innerHTML = `<svg viewBox="0 0 ${width} ${height}"><text x="50%" y="50%" text-anchor="middle" fill="#596579" font-size="20">No clients yet — show the JOIN QR, or populate demo clients.</text></svg>`;
     return;
   }
   const cols = Math.max(6, Math.ceil(Math.sqrt(clients.length * (width / height))));
@@ -307,14 +312,14 @@ function renderMap(clients) {
       const status = statusOf(client);
       const radius = 6 + 12 * Math.sqrt(Math.min(1, (client.nTrain || 40) / maxN));
       const fill = STATUS_FILL[status];
-      const stroke = client.suspicious ? "#c85446" : status === "hold" ? "#6b7fa8" : "none";
+      const stroke = client.suspicious ? "#c85446" : status === "hold" ? "#6b7fa8" : STATUS_STROKE[status] || "none";
       const dash = status === "hold" ? "3 3" : "0";
       const strokeWidth = client.suspicious ? 3 : 1.5;
       const glyph =
         status === "flag"
           ? `<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="10" fill="#10243f">⚑</text>`
           : status === "straggler"
-            ? `<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="10" fill="#b9c8e6">⏱</text>`
+            ? `<text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="10" fill="#596579">⏱</text>`
             : "";
       const rareMarker = client.rarePopulation
         ? `<circle cx="${cx + radius - 2}" cy="${cy - radius + 2}" r="4" fill="#c85446"></circle>`
@@ -357,7 +362,7 @@ function renderVectors(clients, aggregation, hasAggregated) {
   const maxRadius = Math.min(width, height) / 2 - 30;
 
   if (!hasAggregated) {
-    vectorField.innerHTML = `<svg viewBox="0 0 ${width} ${height}"><text x="50%" y="50%" text-anchor="middle" fill="#7d94bf" font-size="18">Click "Start Round 1" to aggregate and reveal the update vectors.</text></svg>`;
+    vectorField.innerHTML = `<svg viewBox="0 0 ${width} ${height}"><text x="50%" y="50%" text-anchor="middle" fill="#596579" font-size="18">Click "Start Round 1" to aggregate and reveal the update vectors.</text></svg>`;
     return;
   }
 
@@ -372,7 +377,7 @@ function renderVectors(clients, aggregation, hasAggregated) {
       const tipX = cx + x;
       const tipY = cy - y;
       const opacity = Math.max(0.25, Math.min(0.9, weight * 6 + 0.2));
-      const color = client.suspicious ? "#c85446" : client.rarePopulation ? "#d99a2b" : "#5aa9a5";
+      const color = client.suspicious ? "#c85446" : client.rarePopulation ? "#d99a2b" : "#0c6b6f";
       return `
         <line x1="${cx}" y1="${cy}" x2="${tipX.toFixed(1)}" y2="${tipY.toFixed(1)}" stroke="${color}" stroke-width="2" opacity="${opacity.toFixed(2)}"></line>
         <polygon points="${arrowPath(cx, cy, tipX, tipY, 6)}" fill="${color}" opacity="${opacity.toFixed(2)}"></polygon>`;
@@ -386,20 +391,20 @@ function renderVectors(clients, aggregation, hasAggregated) {
 
   vectorField.innerHTML = `
     <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">
-      <line x1="20" y1="${cy}" x2="${width - 20}" y2="${cy}" stroke="#22365c"></line>
-      <line x1="${cx}" y1="20" x2="${cx}" y2="${height - 20}" stroke="#22365c"></line>
+      <line x1="20" y1="${cy}" x2="${width - 20}" y2="${cy}" stroke="#d7e0e4"></line>
+      <line x1="${cx}" y1="20" x2="${cx}" y2="${height - 20}" stroke="#d7e0e4"></line>
       ${clientArrows}
-      <line x1="${cx}" y1="${cy}" x2="${gTipX.toFixed(1)}" y2="${gTipY.toFixed(1)}" stroke="#ffffff" stroke-width="5" stroke-linecap="round"></line>
-      <polygon points="${arrowPath(cx, cy, gTipX, gTipY, 12)}" fill="#ffffff"></polygon>
+      <line x1="${cx}" y1="${cy}" x2="${gTipX.toFixed(1)}" y2="${gTipY.toFixed(1)}" stroke="#10243f" stroke-width="5" stroke-linecap="round"></line>
+      <polygon points="${arrowPath(cx, cy, gTipX, gTipY, 12)}" fill="#10243f"></polygon>
       <circle cx="${cx}" cy="${cy}" r="5" fill="#10243f" stroke="#ffffff" stroke-width="2"></circle>
-      <text x="${cx}" y="${height - 8}" text-anchor="middle" font-size="12" fill="#93a8ce">shared model · aggregated update norm ≈ ${globalNorm.toFixed(2)}</text>
+      <text x="${cx}" y="${height - 8}" text-anchor="middle" font-size="12" fill="#596579">shared model · aggregated update norm ≈ ${globalNorm.toFixed(2)}</text>
     </svg>`;
 }
 
 function renderWeights(clients, aggregation, strategyKey, hasAggregated) {
   if (!hasAggregated) {
     weightsEquation.innerHTML = "";
-    weightsBars.innerHTML = `<p style="color:#7d94bf;font-size:0.85rem">Waiting for "Start Round 1"…</p>`;
+    weightsBars.innerHTML = `<p style="color:#596579;font-size:0.85rem">Waiting for "Start Round 1"…</p>`;
     weightsHeadline.textContent = "Largest client weight: —";
     return;
   }
@@ -413,8 +418,8 @@ function renderWeights(clients, aggregation, strategyKey, hasAggregated) {
   const strategy = AGGREGATION_STRATEGIES[strategyKey];
   weightsEquation.innerHTML =
     strategyKey === "median"
-      ? `w<sub>t+1</sub> = coordinate-median { w<sub>t+1</sub><sup>(k)</sup> }<br><span style="color:#93a8ce;font-size:0.78rem">${strategy.teachingPoint}</span>`
-      : `w<sub>t+1</sub> = Σ<sub>k</sub> (n<sub>k</sub> / Σ<sub>j</sub> n<sub>j</sub>) · w<sub>t+1</sub><sup>(k)</sup><br><span style="color:#93a8ce;font-size:0.78rem">${strategy.teachingPoint}</span>`;
+      ? `w<sub>t+1</sub> = coordinate-median { w<sub>t+1</sub><sup>(k)</sup> }<br><span style="color:#596579;font-size:0.78rem">${strategy.teachingPoint}</span>`
+      : `w<sub>t+1</sub> = Σ<sub>k</sub> (n<sub>k</sub> / Σ<sub>j</sub> n<sub>j</sub>) · w<sub>t+1</sub><sup>(k)</sup><br><span style="color:#596579;font-size:0.78rem">${strategy.teachingPoint}</span>`;
 
   weightsBars.innerHTML = top
     .map(([id, weight]) => {
@@ -439,7 +444,7 @@ function renderWeights(clients, aggregation, strategyKey, hasAggregated) {
 
 function renderEval(aggregation, hasAggregated) {
   if (!hasAggregated) {
-    evalCards.innerHTML = `<p style="color:#7d94bf;font-size:0.85rem">Waiting for "Start Round 1"…</p>`;
+    evalCards.innerHTML = `<p style="color:#596579;font-size:0.85rem">Waiting for "Start Round 1"…</p>`;
     evalMean.textContent = "—";
     evalWorst.textContent = "—";
     return;
