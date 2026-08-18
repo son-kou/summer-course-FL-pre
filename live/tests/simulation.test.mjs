@@ -197,6 +197,30 @@ test("injectRareHospital marks only the targeted client as a rare population", (
   const roster = generateRoster("FL-2008", 10);
   const updated = injectRareHospital(roster, "client-5");
   assert.equal(updated.find((c) => c.id === "client-5").rarePopulation, true);
+  const others = updated.filter((c) => c.id !== "client-5");
+  const originalOthers = roster.filter((c) => c.id !== "client-5");
+  assert.deepEqual(others, originalOthers);
+});
+
+test("injectRareHospital shrinks the target's nTrain so its FedAvg weight becomes tiny", () => {
+  // Regression: the event previously only set a cosmetic flag and never
+  // touched nTrain/delta, so it had zero visible effect on aggregation —
+  // the whole point of "under FedAvg its contribution becomes tiny".
+  const roster = generateRoster("FL-2015", 12).map((c) => ({ ...c, decision: "participate" }));
+  const before = fedAvgWeights(roster).weights.get("client-1");
+  const updated = injectRareHospital(roster, "client-1");
+  const target = updated.find((c) => c.id === "client-1");
+  assert.ok(target.nTrain <= 20, `expected a deliberately small nTrain, got ${target.nTrain}`);
+  const after = fedAvgWeights(updated).weights.get("client-1");
+  assert.ok(after < before, `expected the rare hospital's weight to shrink (${before} -> ${after})`);
+});
+
+test("injectRareHospital points the target toward the rare-subgroup evaluation environment", () => {
+  const roster = generateRoster("FL-2016", 10);
+  const updated = injectRareHospital(roster, "client-3");
+  const target = updated.find((c) => c.id === "client-3");
+  const angle = (Math.atan2(target.delta[1], target.delta[0]) * 180) / Math.PI;
+  assert.ok(Math.abs(angle - 130) < 1, `expected the event to point near 130°, got ${angle}`);
 });
 
 test("injectSuspiciousUpdate is deterministic and marks the client suspicious", () => {

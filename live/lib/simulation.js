@@ -295,9 +295,32 @@ export function injectGiantHospital(roster, clientId, nTrain = 900) {
 }
 
 /** Event B: mark a client as the highlighted rare-population hospital. */
-export function injectRareHospital(roster, clientId) {
+/**
+ * Event B: highlight a clinically rare, small hospital. Unlike a cosmetic
+ * flag, this must actually reproduce "under FedAvg its contribution
+ * becomes tiny": a small, fixed nTrain so its aggregation weight is
+ * visibly near zero, and a fixed direction distinct from the common
+ * archetypes' cluster (matching the "raresubgroup" archetype's own angle
+ * in ARCHETYPES) so its arrow is visually distinguishable in the vector
+ * field even though it barely moves the aggregate.
+ */
+export function injectRareHospital(roster, clientId, options = {}) {
+  const nTrain = options.nTrain ?? 14;
+  const angleDeg = options.angleDeg ?? 130;
+  const magnitude = options.magnitude ?? 1.15;
+  const rad = (angleDeg * Math.PI) / 180;
+  const delta = [round(magnitude * Math.cos(rad), 3), round(magnitude * Math.sin(rad), 3)];
   return roster.map((c) =>
-    c.id === clientId ? { ...c, rarePopulation: true, archetypeNote: `${c.archetypeNote} (rare hospital event)` } : c,
+    c.id === clientId
+      ? {
+          ...c,
+          rarePopulation: true,
+          nTrain,
+          delta,
+          updateNorm: round(Math.hypot(delta[0], delta[1]), 3),
+          archetypeNote: `${c.archetypeNote} (rare hospital event)`,
+        }
+      : c,
   );
 }
 

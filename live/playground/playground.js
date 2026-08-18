@@ -157,28 +157,33 @@ const fairMean = document.getElementById("fair-mean");
 const fairRare = document.getElementById("fair-rare");
 const fairWorst = document.getElementById("fair-worst");
 
-// Seven fixed, ordinary hospitals plus the one rare-population site, all
-// pointing toward the "common academic" evaluation environment except the
-// rare site, which points toward its own environment (see EVAL_ENVIRONMENTS
-// in lib/simulation.js). Only the giant hospital's nTrain is adjustable.
-const FAIRNESS_ROSTER = [
-  { id: "giant", nTrain: 200, delta: [0.95, 0.14], decision: "participate" },
-  { id: "ordinary-1", nTrain: 140, delta: [0.9, 0.1], decision: "participate" },
-  { id: "ordinary-2", nTrain: 120, delta: [0.85, 0.16], decision: "participate" },
-  { id: "ordinary-3", nTrain: 110, delta: [0.92, 0.05], decision: "participate" },
-  { id: "ordinary-4", nTrain: 95, delta: [0.88, 0.12], decision: "participate" },
-  { id: "ordinary-5", nTrain: 90, delta: [0.9, 0.08], decision: "participate" },
-  { id: "ordinary-6", nTrain: 80, delta: [0.86, 0.1], decision: "participate" },
-  { id: "rare", nTrain: 22, delta: [0.53, 0.85], decision: "participate", rarePopulation: true },
-];
+// Just two logical parties, so the mechanism is easy to hold in your head:
+// "you" (a small, fixed-size hospital serving a rare population, pointing
+// toward the raresubgroup evaluation environment's ideal direction, 130° in
+// EVAL_ENVIRONMENTS) and "the rest of the federation" (everyone else,
+// pointing at 54° — the centroid of the three non-rare environments,
+// academic/rural/scanner, so growing "the rest" lifts most of them
+// together rather than just one). Only the rest's size moves — yours is
+// fixed, because a rare population does not get bigger on demand. Verified
+// numerically across the full slider range: mean rises ~0.70 -> ~0.74
+// while your own evaluated performance falls ~0.73 -> ~0.63, and "worst
+// site" flips from an ordinary hospital to your own within the first
+// fifth of the range — the whole range stays meaningfully sensitive, no
+// early saturation.
+const YOUR_N = 40;
+const YOUR_DELTA = [-0.64, 0.77]; // magnitude ~1.0 at 130°
+const REST_DELTA = [0.588, 0.809]; // magnitude ~1.0 at 54°
 
 function renderFairness() {
-  const giantN = Number(slFairness.value);
-  fairnessValue.textContent = `${giantN} patients`;
+  const restN = Number(slFairness.value);
+  fairnessValue.textContent = `${restN} patients`;
 
-  const roster = FAIRNESS_ROSTER.map((c) => (c.id === "giant" ? { ...c, nTrain: giantN } : c));
+  const roster = [
+    { id: "you", nTrain: YOUR_N, delta: YOUR_DELTA, decision: "participate" },
+    { id: "rest", nTrain: restN, delta: REST_DELTA, decision: "participate" },
+  ];
   const { weights } = fedAvgWeights(roster);
-  const totalN = roster.reduce((s, c) => s + c.nTrain, 0);
+  const totalN = YOUR_N + restN;
   const globalDelta = roster.reduce(
     (acc, c) => {
       const w = weights.get(c.id) || 0;
@@ -187,8 +192,8 @@ function renderFairness() {
     [0, 0],
   );
 
-  const rareWeight = weights.get("rare") || 0;
-  fairNodeWeight.textContent = `${(rareWeight * 100).toFixed(1)}% of ${totalN} total patients`;
+  const yourWeight = weights.get("you") || 0;
+  fairNodeWeight.textContent = `${(yourWeight * 100).toFixed(1)}% of ${totalN} total patients`;
 
   const evaluation = evaluateGlobalUpdate(globalDelta);
   const rareEnv = evaluation.perEnvironment.find((e) => e.key === "raresubgroup");
@@ -197,5 +202,9 @@ function renderFairness() {
   fairWorst.textContent = `${evaluation.worst.performance.toFixed(2)} (${evaluation.worst.label})`;
 }
 
+// Both events, so dragging on a touchscreen (where some mobile browsers are
+// inconsistent about firing "input" continuously during a drag) still
+// updates at least once the finger lifts.
 slFairness.addEventListener("input", renderFairness);
+slFairness.addEventListener("change", renderFairness);
 renderFairness();

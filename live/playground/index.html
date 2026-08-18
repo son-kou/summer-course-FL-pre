@@ -84,28 +84,28 @@
   </section>
 
   <section id="panel-fairness" class="tab-panel" data-panel="fairness" hidden>
-    <p class="panel-intro">Eight hospitals again — but now one of them (the rare-population site) has a fixed, small amount of data. Grow the other, biggest hospital and watch what happens under FedAvg.</p>
+    <p class="panel-intro"><strong>You are a small hospital serving a rare, clinically important population.</strong> The slider controls the size of the rest of the federation — everyone else. Drag it and watch what happens to the global average versus your own hospital.</p>
 
     <label class="slider-row">
-      <span>Largest hospital's sample size</span>
-      <input type="range" id="sl-fairness" min="40" max="2000" step="20" value="200" />
-      <span id="fairness-value" class="slider-value">200 patients</span>
+      <span>Size of the rest of the federation</span>
+      <input type="range" id="sl-fairness" min="10" max="2000" step="10" value="150" />
+      <span id="fairness-value" class="slider-value">150 patients</span>
     </label>
 
     <div class="compare-grid">
       <div class="compare-card node">
-        <span class="compare-label">Rare-population node</span>
+        <span class="compare-label">Your hospital</span>
         <p class="stat-value" id="fair-node-weight">—</p>
-        <p class="compare-note">Its share of influence over the shared model (FedAvg weight).</p>
+        <p class="compare-note">Your share of influence over the shared model (FedAvg weight).</p>
+        <p class="compare-note">Your evaluated performance <strong id="fair-rare">—</strong></p>
       </div>
       <div class="compare-card center">
         <span class="compare-label">Center's synthetic evaluation</span>
-        <p class="compare-note">Mean performance <strong id="fair-mean">—</strong></p>
-        <p class="compare-note">Rare-population site <strong id="fair-rare">—</strong></p>
+        <p class="compare-note">Global mean performance <strong id="fair-mean">—</strong></p>
         <p class="compare-note">Worst site <strong id="fair-worst">—</strong></p>
       </div>
     </div>
-    <p class="caveat-box small">Synthetic teaching simulation. A global average can improve while one hospital gets worse — sample-size weighting is a statistical choice, not automatically a fair one.</p>
+    <p class="caveat-box small">Synthetic teaching simulation. As the rest of the federation grows, the global average can keep improving while your own hospital's evaluated performance falls — sample-size weighting is a statistical choice, not automatically a fair one.</p>
   </section>
 
   <p class="footer-note">Synthetic teaching simulation. No patient data. No personal data collected. No session or login.</p>

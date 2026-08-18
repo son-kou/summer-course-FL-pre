@@ -1,6 +1,13 @@
 /* Instructor dashboard — designed for a 16:9 projector at lecture-hall
    viewing distance. Big numbers, few colours, no dense tables. */
 
+html {
+  /* Every size below is in rem, relative to this one value — bumping it
+     scales the whole dashboard in sync for a large lecture hall, the same
+     lever styles/presentation.css uses for the main deck. */
+  font-size: 17px;
+}
+
 html,
 body {
   background: var(--navy);
@@ -352,6 +359,16 @@ body {
   word-break: break-word;
 }
 
+.eval-summary-value .worst-label {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.62rem;
+  color: #93a8ce;
+  margin-top: 2px;
+  line-height: 1.2;
+}
+
 .dropout-line {
   font-family: var(--font-display);
   font-weight: 800;
@@ -609,6 +626,108 @@ body {
 
 .admin-toast.error {
   background: var(--coral, #c85446);
+}
+
+/* --- Event effect banner: a big, hard-to-miss before/after readout so a
+   teaching event's effect on the aggregate is never just "click and hope
+   the room notices a number changed somewhere." Sits over the top of the
+   panels (not full-screen, unlike the QR overlay) so the map/vectors keep
+   updating visibly underneath while this is up. --- */
+
+.event-effect-banner {
+  position: fixed;
+  top: 84px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  width: min(94vw, 980px);
+  background: #0b1930;
+  border: 2px solid var(--amber);
+  border-radius: 14px;
+  box-shadow: 0 18px 44px rgba(9, 18, 34, 0.5);
+}
+
+.event-effect-banner[hidden] {
+  display: none;
+}
+
+.event-effect-inner {
+  padding: 18px 22px 20px;
+}
+
+.event-effect-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.event-effect-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--amber);
+  margin: 0;
+}
+
+.event-effect-close {
+  background: none;
+  border: none;
+  color: #93a8ce;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.event-effect-close:hover {
+  color: #fff;
+}
+
+.event-effect-rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.event-effect-row {
+  background: #10243f;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.event-effect-row-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #93a8ce;
+  margin-bottom: 6px;
+}
+
+.event-effect-row-values {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.event-effect-row-arrow {
+  color: #93a8ce;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.event-effect-row-values .after {
+  color: var(--amber);
+}
+
+.event-effect-row-values.worse .after {
+  color: var(--coral);
+}
+
+.event-effect-row-values.better .after {
+  color: var(--teal);
 }
 
 /* --- Opening prediction poll: full-stage, undivided attention, big text

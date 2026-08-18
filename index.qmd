@@ -592,8 +592,8 @@ Exact citation reminders: Zenk et al. 2025 FeTS; Karargyris et al. 2023.
 <p class="callout">Federated learning changes the privacy problem. It does not delete it.</p>
 :::
 ::: {}
-<p style="font-size:0.6em;color:var(--grey);padding:0 8px">The full interactive threat-surface explorer (gradient leakage, membership inference, poisoning, secure aggregation, differential privacy) is in the course resources.</p>
-<a class="live-cta secondary" href="labs/privacy-threat-model/index.html" target="_blank" rel="noopener">Open Privacy Threat-Surface Explorer →</a>
+<iframe class="lab-frame full" src="labs/privacy-threat-model/index.html?embed=1" title="Interactive privacy threat-surface explorer" scrolling="no"></iframe>
+<a class="lab-open" href="labs/privacy-threat-model/index.html" target="_blank" rel="noopener">Open full-size explorer →</a>
 :::
 ::::
 
@@ -610,9 +610,9 @@ Clinical translation: Ask for a threat model in plain language: who can see what
 
 Transition: "This is exactly the kind of problem real medical federations are already living with. Let's look at scale."
 
-Optional skip: Skip the "open full explorer" pointer if time is tight; it is resource material, not live content.
+Optional skip: If time is tight, do not touch the toggles — read only the callout line and the two-column list; the explorer keeps working as a resource either way.
 
-Interaction instructions: Do not open the full lab live. State the caveat sentence exactly as written — it is the single most important sentence in this section.
+Interaction instructions: The explorer is now embedded directly in this slide. If there is time, tick one or two toggles live (e.g. "model updates visible," then "model released externally") and narrate how the threat surface changes — do not turn it into a fake privacy score. If short on time, do not touch it at all. State the caveat sentence exactly as written regardless — it is the single most important sentence in this section.
 
 Exact citation reminders: Shokri et al. 2017; Zhu et al. 2019; Bonawitz et al. 2017.
 :::

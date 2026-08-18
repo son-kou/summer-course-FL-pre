@@ -283,7 +283,7 @@
       "scriptZh": "你的手机从没有发送过任何一条患者记录，它只发送了一个更新的两个数字摘要——但在真实系统里，这个更新本身就是一个信息通道。梯度泄露、成员推断、投毒攻击、安全聚合、差分隐私，各自应对威胁面的不同部分；不能因为原始数据没动，就认为隐私问题已经解决。",
       "transitionEn": "This is exactly the kind of problem real medical federations are already living with. Let's look at scale.",
       "transitionZh": "这正是真实医学联邦已经在面对的问题。我们来看看真实世界的规模。",
-      "delivery": "State the caveat sentence exactly as written. Do not open the full lab live.",
+      "delivery": "The explorer is now embedded directly in this slide. If there is time, tick one or two toggles live and narrate the effect. State the caveat sentence exactly as written regardless.",
       "skipIfLate": "Read only the callout line and the two-column list."
     },
     {

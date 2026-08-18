@@ -25,6 +25,12 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Sizes here are mostly in rem — bumping this scales the whole student
+     view and playground together, matching the deck/dashboard treatment. */
+  font-size: 18px;
+}
+
 html,
 body {
   margin: 0;

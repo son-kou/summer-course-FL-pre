@@ -124,6 +124,11 @@ Q&A Prompts" slide (`Down` arrow from Slide 14) if discussion is slow.
   you which to keep.
 - When comparing aggregation strategies, change **one variable at a time**:
   same event, different policy button. Narrate what changed and why.
+- **Clicking an event button (B/C) pops up a before → after banner** on the
+  dashboard summarizing the numeric effect (e.g. target's FedAvg weight,
+  global mean, worst-site score). It auto-dismisses after a few seconds, or
+  click the **×** to close it early. Use it as your talking points for
+  Slide 11 — the numbers it shows are exactly what changed.
 
 ## Rehearsal mode (practice alone, no class needed)
 

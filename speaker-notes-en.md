@@ -357,7 +357,7 @@ This is exactly the kind of problem real medical federations are already living 
 
 Target time: **1:30**.
 
-State the caveat sentence exactly as written. Do not open the full lab live.
+The explorer is now embedded directly in this slide. If there is time, tick one or two toggles live and narrate the effect. State the caveat sentence exactly as written regardless.
 
 ### Skip If Late
 

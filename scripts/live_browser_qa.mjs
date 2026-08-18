@@ -276,12 +276,41 @@ async function main() {
     await checkNoOverflow(page, "playground-heterogeneity");
 
     await page.click('[data-tab="fairness"]');
-    await page.$eval("#sl-fairness", (input) => {
-      input.value = "2000";
-      input.dispatchEvent(new Event("input", { bubbles: true }));
-    });
+    const setFairness = (value) =>
+      page.$eval(
+        "#sl-fairness",
+        (input, val) => {
+          input.value = val;
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+        },
+        value,
+      );
+
+    // Regression guard: the fairness slider previously saturated within the
+    // first fraction of its range (one hospital's weight dominated so
+    // completely that moving the slider further changed nothing visible),
+    // which read as "the slider doesn't do anything." Check the full range
+    // stays meaningfully sensitive: low end vs high end must differ, AND
+    // mean/your-performance must move in the illustrated directions (mean
+    // up, your site down) as the rest of the federation grows.
+    await setFairness(10);
+    await page.waitForTimeout(150);
+    const meanLow = Number(await page.textContent("#fair-mean"));
+    const yoursLow = Number(await page.textContent("#fair-rare"));
     const rareWeightText = await page.textContent("#fair-node-weight");
     if (!/%/.test(rareWeightText)) errors.push(`playground-fairness: unexpected weight readout "${rareWeightText}"`);
+
+    await setFairness(2000);
+    await page.waitForTimeout(150);
+    const meanHigh = Number(await page.textContent("#fair-mean"));
+    const yoursHigh = Number(await page.textContent("#fair-rare"));
+
+    if (!(meanHigh > meanLow)) {
+      errors.push(`playground-fairness: mean did not rise across the slider range (${meanLow} -> ${meanHigh})`);
+    }
+    if (!(yoursHigh < yoursLow)) {
+      errors.push(`playground-fairness: your site's performance did not fall across the slider range (${yoursLow} -> ${yoursHigh})`);
+    }
     await checkNoOverflow(page, "playground-fairness");
 
     await page.close();

@@ -569,7 +569,7 @@ Your phone never sent us a single patient record. It sent a two-number summary o
 
 Target time: **1:30**.
 
-State the caveat sentence exactly as written. Do not open the full lab live.
+The explorer is now embedded directly in this slide. If there is time, tick one or two toggles live and narrate the effect. State the caveat sentence exactly as written regardless.
 
 ### Skip If Late
 

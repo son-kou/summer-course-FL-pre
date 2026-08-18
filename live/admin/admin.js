@@ -38,6 +38,7 @@ const state = {
   unsubMeta: null,
   unsubClients: null,
   eventTargets: {},
+  eventEffectTimer: null,
   rehearsal: { active: false, stepIndex: -1 },
 };
 
@@ -77,6 +78,9 @@ const predictBars = $("predict-bars");
 const predictTotal = $("predict-total");
 const predictDesignPanel = $("predict-design-panel");
 const predictDesignGroups = $("predict-design-groups");
+const eventEffectBanner = $("event-effect-banner");
+const eventEffectTitle = $("event-effect-title");
+const eventEffectRows = $("event-effect-rows");
 
 let toastTimer = null;
 function showToast(message, { error = false } = {}) {
@@ -453,7 +457,11 @@ function renderEval(aggregation, hasAggregated) {
     )
     .join("");
   evalMean.textContent = evaluation.mean.toFixed(2);
-  evalWorst.textContent = `${evaluation.worst.label} · ${evaluation.worst.performance.toFixed(2)}`;
+  // The score is the number a back-of-room reader needs first; the
+  // hospital name is a smaller caption underneath rather than inline text,
+  // so a long label (e.g. "Rare subgroup hospital") wraps without pushing
+  // the panel past its fixed height budget.
+  evalWorst.innerHTML = `${evaluation.worst.performance.toFixed(2)}<span class="worst-label">${evaluation.worst.label}</span>`;
   evalRange.textContent = evaluation.range.toFixed(2);
 }
 
@@ -485,19 +493,49 @@ function pickEventTarget(kind) {
   const arr = clientsArray();
   if (!arr.length) return null;
   const participating = (c) => c.decision === "participate" || c.decision === "flag";
-  const archetypeFor = { giant: "academic", rare: "raresubgroup", suspicious: "noisy" }[kind];
-  const rareFallback = (c) => c.rarePopulation;
+
+  if (kind === "rare") {
+    // injectRareHospital *transforms* a hospital into a small, divergent
+    // one — picking a client that is already small/rare would make the
+    // before/after barely move. Pick the largest-influence participating
+    // client that isn't already flagged rare, so the contrast is obvious:
+    // a hospital that mattered a lot, suddenly barely counts at all.
+    const byInfluence = arr
+      .filter((c) => participating(c) && !c.rarePopulation)
+      .sort((a, b) => (b.nTrain || 0) - (a.nTrain || 0));
+    const candidate = byInfluence[0] || arr.find(participating) || arr[0];
+    state.eventTargets[kind] = candidate.id;
+    return candidate.id;
+  }
+
+  const archetypeFor = { giant: "academic", suspicious: "noisy" }[kind];
 
   const candidate =
     arr.find((c) => c.archetype === archetypeFor && participating(c)) ||
-    (kind === "rare" && arr.find((c) => rareFallback(c) && participating(c))) ||
     arr.find((c) => participating(c)) ||
     arr.find((c) => c.archetype === archetypeFor) ||
-    (kind === "rare" && arr.find(rareFallback)) ||
     arr[0];
 
   state.eventTargets[kind] = candidate.id;
   return candidate.id;
+}
+
+function snapshotStats(clients, strategyKey, targetId) {
+  const aggregation = runAggregation(strategyKey, clients, { maxNorm: 1.6 });
+  const evaluation = evaluateGlobalUpdate(aggregation.globalDelta || [0, 0]);
+  const weights = [...aggregation.weights.values()];
+  const maxWeight = weights.length ? Math.max(...weights) : 0;
+  const targetWeight = aggregation.weights.get(targetId) || 0;
+  const targetRecord = clients.find((c) => c.id === targetId) || {};
+  const rareEnv = evaluation.perEnvironment.find((e) => e.key === "raresubgroup");
+  return {
+    evaluation,
+    maxWeight,
+    targetWeight,
+    nTrain: targetRecord.nTrain,
+    updateNorm: targetRecord.updateNorm,
+    rarePerf: rareEnv ? rareEnv.performance : null,
+  };
 }
 
 async function runEvent(kind) {
@@ -506,6 +544,10 @@ async function runEvent(kind) {
     window.alert("No clients yet. Populate demo clients or wait for students to join before running a teaching event.");
     return;
   }
+  const strategyKey = state.meta.aggregation || "fedavg";
+  const clientsBefore = clientsArray();
+  const before = snapshotStats(clientsBefore, strategyKey, id);
+
   const rec = { id, ...state.clients[id] };
   let patch = {};
   if (kind === "giant") {
@@ -513,13 +555,114 @@ async function runEvent(kind) {
     patch = { nTrain: patched.nTrain, archetypeNote: patched.archetypeNote };
   } else if (kind === "rare") {
     const [patched] = injectRareHospital([rec], id);
-    patch = { rarePopulation: patched.rarePopulation, archetypeNote: patched.archetypeNote };
+    patch = {
+      rarePopulation: patched.rarePopulation,
+      nTrain: patched.nTrain,
+      delta: patched.delta,
+      updateNorm: patched.updateNorm,
+      archetypeNote: patched.archetypeNote,
+    };
   } else if (kind === "suspicious") {
     const [patched] = injectSuspiciousUpdate([rec], id);
     patch = { delta: patched.delta, updateNorm: patched.updateNorm, suspicious: patched.suspicious };
   }
+
+  // Compute "after" from the patch applied locally, so the effect banner
+  // reflects exactly this click rather than whatever watchClients happens
+  // to deliver next (which could lag on a real backend, or race with other
+  // students' decisions arriving at the same moment).
+  const clientsAfter = clientsBefore.map((c) => (c.id === id ? { ...c, ...patch } : c));
+  const after = snapshotStats(clientsAfter, strategyKey, id);
+
   await state.backend.upsertClient(state.sessionCode, id, patch);
   await state.backend.setMeta(state.sessionCode, { event: kind, eventClientId: id });
+
+  renderEventEffect(kind, id, before, after);
+}
+
+const EVENT_TITLES = {
+  giant: "Event A · Giant hospital",
+  rare: "Event B · Rare hospital",
+  suspicious: "Event C · Suspicious update",
+};
+
+function pct(w) {
+  return `${Math.round(w * 1000) / 10}%`;
+}
+
+function score(v) {
+  return v == null ? "—" : v.toFixed(2);
+}
+
+function effectRow(label, beforeVal, afterVal, { better, worse } = {}) {
+  let cls = "";
+  if (typeof better === "boolean") cls = better ? "better" : worse ? "worse" : "";
+  return `
+    <div class="event-effect-row">
+      <span class="event-effect-row-label">${label}</span>
+      <div class="event-effect-row-values ${cls}">
+        <span class="before">${beforeVal}</span>
+        <span class="event-effect-row-arrow">→</span>
+        <span class="after">${afterVal}</span>
+      </div>
+    </div>`;
+}
+
+function renderEventEffect(kind, targetId, before, after) {
+  eventEffectTitle.textContent = `${EVENT_TITLES[kind] || kind} — Client #${clientDisplayNumber(targetId)}`;
+
+  let rows = "";
+  if (kind === "rare") {
+    rows =
+      effectRow("This hospital's weight", pct(before.targetWeight), pct(after.targetWeight), {
+        better: false,
+        worse: after.targetWeight < before.targetWeight,
+      }) +
+      effectRow("Mean performance", score(before.evaluation.mean), score(after.evaluation.mean), {
+        better: after.evaluation.mean >= before.evaluation.mean,
+        worse: after.evaluation.mean < before.evaluation.mean,
+      }) +
+      effectRow("Rare-subgroup site", score(before.rarePerf), score(after.rarePerf), {
+        better: after.rarePerf >= before.rarePerf,
+        worse: after.rarePerf < before.rarePerf,
+      }) +
+      effectRow(
+        "Worst site",
+        `${score(before.evaluation.worst.performance)} (${before.evaluation.worst.label})`,
+        `${score(after.evaluation.worst.performance)} (${after.evaluation.worst.label})`,
+      );
+  } else if (kind === "giant") {
+    rows =
+      effectRow("This hospital's weight", pct(before.targetWeight), pct(after.targetWeight), {
+        better: false,
+        worse: after.targetWeight > before.targetWeight,
+      }) +
+      effectRow("Largest client weight", pct(before.maxWeight), pct(after.maxWeight), {
+        better: false,
+        worse: after.maxWeight > before.maxWeight,
+      });
+  } else if (kind === "suspicious") {
+    rows =
+      effectRow("This hospital's update norm", score(before.updateNorm), score(after.updateNorm), {
+        better: false,
+        worse: after.updateNorm > before.updateNorm,
+      }) +
+      effectRow("Mean performance", score(before.evaluation.mean), score(after.evaluation.mean), {
+        better: after.evaluation.mean >= before.evaluation.mean,
+        worse: after.evaluation.mean < before.evaluation.mean,
+      }) +
+      effectRow(
+        "Worst site",
+        `${score(before.evaluation.worst.performance)} (${before.evaluation.worst.label})`,
+        `${score(after.evaluation.worst.performance)} (${after.evaluation.worst.label})`,
+      );
+  }
+  eventEffectRows.innerHTML = rows;
+  eventEffectBanner.hidden = false;
+  clearTimeout(state.eventEffectTimer);
+  state.eventEffectTimer = setTimeout(() => {
+    eventEffectBanner.hidden = true;
+  }, 18000);
 }
 
 function decideForClient(seed, client) {
@@ -682,6 +825,10 @@ function wireControls() {
   });
   $("btn-show-qr").addEventListener("click", showQr);
   $("qr-close").addEventListener("click", closeQr);
+  $("event-effect-close").addEventListener("click", () => {
+    clearTimeout(state.eventEffectTimer);
+    eventEffectBanner.hidden = true;
+  });
   // The QR overlay covers the whole screen, so give it two more obvious
   // ways out beyond finding the small "Close" button: clicking the dark
   // backdrop, and pressing Escape.
