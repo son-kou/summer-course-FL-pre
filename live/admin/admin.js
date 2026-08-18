@@ -494,6 +494,18 @@ function renderControlsState() {
     button.setAttribute("aria-pressed", String(button.dataset.strategy === (state.meta.aggregation || "fedavg")));
   });
   $("btn-toggle-join").textContent = state.meta.joinOpen === false ? "Reopen enrollment" : "Freeze enrollment";
+
+  // "Start Round 2" itself has no visible effect on the map/weights/eval
+  // panels — those are recomputed live from client data regardless of
+  // phase, and only a teaching event (A/B/C) actually changes that data.
+  // Gating the event buttons behind it gives the click a real, visible
+  // result (disabled → enabled) instead of looking like a no-op, while
+  // still leaving the "ask the room to predict first" beat intact.
+  const phase = state.meta.phase || "predict";
+  const eventsUnlocked = phase === "stress" || phase === "closed";
+  ["btn-event-giant", "btn-event-rare", "btn-event-suspicious"].forEach((id) => {
+    $(id).disabled = !eventsUnlocked;
+  });
 }
 
 // Prefer a client that is already participating (or flagged) so the event's
@@ -871,6 +883,7 @@ function wireControls() {
   });
   $("btn-round2").addEventListener("click", async () => {
     await state.backend.setMeta(state.sessionCode, { phase: "stress" });
+    showToast('Round 2 unlocked — ask the room to predict, then pick a teaching event: A, B, or C.');
   });
   $("btn-reset").addEventListener("click", async () => {
     if (!window.confirm("Reset the whole simulation for this session?")) return;

@@ -333,6 +333,10 @@ body {
 }
 
 .weight-row .weight-bar-fill {
+  /* Both fill and track are <span>s; without this, the fill stays inline
+     and its inline "width:N%" from JS has no effect — the bar never
+     visibly fills even though the style attribute is set correctly. */
+  display: block;
   height: 100%;
   background: var(--teal);
 }
@@ -920,6 +924,10 @@ body {
 }
 
 .predict-row .predict-bar-fill {
+  /* Same fix as .weight-bar-fill: fill and track are both <span>s, so the
+     fill needs an explicit block display or its inline "width:N%" is a
+     no-op and the bar renders as permanently empty. */
+  display: block;
   height: 100%;
   background: var(--teal);
   transition: width 0.3s ease;

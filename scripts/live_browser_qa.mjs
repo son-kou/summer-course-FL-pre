@@ -107,6 +107,18 @@ async function main() {
     const responded = Number(await page.textContent("#responded-count"));
     if (!(responded > 0)) errors.push(`admin-demo: expected responded > 0 after simulate, got ${responded}`);
 
+    // Regression guard: .predict-bar-fill is a <span> inside a <span>
+    // track — without an explicit block/flex display, an inline "width:N%"
+    // style is a no-op and the bar renders with zero pixel width even
+    // though the counts/percentages next to it look correct. Checked via
+    // computed display rather than rendered width, since this demo-mode
+    // session's predict-stage is hidden by the time clients are populated
+    // (populateDemoClients advances phase past "predict" immediately).
+    const predictFillDisplay = await page.$eval(".predict-bar-fill", (el) => getComputedStyle(el).display);
+    if (predictFillDisplay === "inline") {
+      errors.push(`admin-demo: .predict-bar-fill computed display is "inline" — width:N% is a no-op, bar will never visibly fill`);
+    }
+
     await page.click('[data-strategy="fedavg"]');
     await page.waitForTimeout(200);
 
@@ -127,6 +139,26 @@ async function main() {
 
     const before = await page.textContent("#weights-headline");
     if (/—/.test(before)) errors.push(`admin-demo: weights headline still showed a placeholder after Start Round 1: ${before}`);
+
+    // Same regression guard as the predict bars, for .weight-bar-fill.
+    const weightFillWidths = await page.$$eval(".weight-bar-fill", (els) => els.map((el) => el.getBoundingClientRect().width));
+    if (!weightFillWidths.some((w) => w > 0)) {
+      errors.push(`admin-demo: weight-bar-fill rendered with zero width for every client (${JSON.stringify(weightFillWidths)})`);
+    }
+
+    // Teaching events (A/B/C) are gated behind "Start Round 2" — clicking
+    // them beforehand would be a no-op the presenter could easily mistake
+    // for a bug, so the buttons are disabled until this click enables them.
+    for (const id of ["btn-event-giant", "btn-event-rare", "btn-event-suspicious"]) {
+      if (!(await page.isDisabled(`#${id}`))) errors.push(`admin-demo: #${id} should be disabled before Start Round 2`);
+    }
+    await page.click("#btn-round2");
+    await page.waitForTimeout(150);
+    if ((await page.textContent("#phase-pill")) !== "stress") errors.push("admin-demo: phase did not advance to stress");
+    for (const id of ["btn-event-giant", "btn-event-rare", "btn-event-suspicious"]) {
+      if (await page.isDisabled(`#${id}`)) errors.push(`admin-demo: #${id} should be enabled after Start Round 2`);
+    }
+
     await page.click("#btn-event-giant");
     await page.waitForTimeout(300);
     const after = await page.textContent("#weights-headline");
@@ -136,9 +168,6 @@ async function main() {
     await page.waitForTimeout(200);
     await page.click("#btn-event-suspicious");
     await page.waitForTimeout(200);
-    await page.click("#btn-round2");
-    await page.waitForTimeout(150);
-    if ((await page.textContent("#phase-pill")) !== "stress") errors.push("admin-demo: phase did not advance to stress");
 
     await page.click("#btn-show-qr");
     const qrBox = await page.locator("#qr-target svg").boundingBox({ timeout: 5000 }).catch(() => null);
